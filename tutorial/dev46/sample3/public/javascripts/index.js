@@ -16,14 +16,14 @@ socket.on('enterOtherEvent', function (data) {
 // メッセージを入力する
 function sendMessage() {
     const message = prompt('メッセージを入力してください。\n' +
-                    'このメッセージはすべてのクライアントに送信されます。');
+        'このメッセージはすべてのクライアントに送信されます。');
 
     // メッセージ入力イベント（sendMessageEvent）を送信する
-
+    socket.emit("sendMessageEvent", message);
 }
 
 // メッセージ表示イベント（receiveMessageEvent）を受信する
-socket.on('', function (data) {
+socket.on('receiveMessageEvent', function (data) {
     // 画面上にメッセージを表示
-    $('#thread').prepend('<p>' + '</p>');
+    $('#thread').prepend('<p>' + data + '</p>');
 });
