@@ -16,10 +16,11 @@ module.exports = function (server) {
         socket.broadcast.emit('enterOtherEvent', '他のクライアントが接続しました。');
 
         // メッセージ入力イベント（sendMessageEvent）を受信する
-        socket.on('', function (data) {
+        socket.on('sendMessageEvent', function (data) {
             if (!data) {
                 return;
             }
+            io.sockets.emit('receiveMessageEvent', data);
 
             console.log('クライアントの入力値：' + data);
 
