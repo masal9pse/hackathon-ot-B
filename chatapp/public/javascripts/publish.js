@@ -1,27 +1,37 @@
 'use strict';
+// const moment = require('moment');
 
 // 投稿メッセージをサーバに送信する
 function publish() {
     //空白文字の正規表現 先頭から末尾まで空白文字
     const regex = /^\s*$/;
+
     // ユーザ名を取得
     const userName = '';
+
     // 入力されたメッセージを取得
     const message = $('#message').val();
     console.log("textarea input : "  + message);
+
+    //入力日時を取得
+    let now = get_date();
+
     //textareaを空にする
     $('#message').val(" ");
     // 投稿内容を送信
 
-    // socket.emit("sendMessageEvent", message);
-
     if(regex.test(message)){
         alert("文章を入力してください");
     }else{
-        socket.emit("sendMessageEvent", message);
+        socket.json.emit("sendMessageEvent", {"date":now, "msg":message});
     }
-
     return false;
+}
+
+function get_date(){
+//     let now = moment();
+//     return now.format('YYYY-MM-DD HH:mm:ss');
+return 0;
 }
 
 // サーバから受信した投稿メッセージを画面上に表示する
