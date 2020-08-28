@@ -7,6 +7,8 @@ function publish() {
     // 入力されたメッセージを取得
     const message = $('#message').val();
     console.log("textarea input : "  + message);
+    //textareaを空にする
+    $('#message').val(" ")
     // 投稿内容を送信
     socket.emit("sendMessageEvent", message);
 
