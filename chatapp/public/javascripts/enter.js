@@ -8,5 +8,5 @@ socket.emit('entryMyselfEvent', userName);
 
 // サーバから受信した入室メッセージを画面上に表示する
 socket.on('receiveEntryEvent', function (data) {
-    $('#thread').prepend(`<p>${data}さんが入室しました。</p>`);
+    $('#thread').prepend('<p>' + data + 'さんが入室しました。</p>');
 });
