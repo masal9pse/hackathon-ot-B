@@ -6,8 +6,9 @@
         <form method="post" action="/">
             <div class="room-login_user">
                 ログインユーザ：{{ userName }}さん
-                日時: {{ loginTime }}
+                ログイン日時: {{ loginTime }}
                 <input id="userName" type="hidden" value={{ userName }}>
+                <input id="loginTime" type="hidden" value={{ userTime }}>
             </div>
             <div class="room-message">
                 <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"></textarea>
