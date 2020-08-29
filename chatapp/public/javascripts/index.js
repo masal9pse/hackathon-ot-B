@@ -3,9 +3,9 @@
 // チャットルームに入室する
 function enter() {
     // 入力されたユーザ名を取得する
-    // routes側で取得したデータを保存する？
     const userName = $('#userName').val();
-    const loginTime = $('#loginTime').val($.now());
+    // あとでもう少し日本語っぽく修正予定
+    const loginTime = $('#loginTime').val(new Date($.now()));
 
     // ユーザ名が未入力でないかチェックする
     if (userName === "") {

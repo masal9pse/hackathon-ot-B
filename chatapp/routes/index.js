@@ -13,7 +13,11 @@ router.post('/room', function (request, response, next) {
     console.log('ユーザ名：' + request.body.userName);
     console.log('現在日時：' + request.body.loginTime);
     // フロント側には正しく受け渡しできた。
-    response.render('room', { userName: request.body.userName });
+    response.render('room',
+        {
+            userName: request.body.userName,
+            loginTime: request.body.loginTime
+        });
 });
 
 module.exports = router;
