@@ -7,9 +7,9 @@ module.exports = function (socket, io) {
             return;
         }
 
-        console.log("クライアントの入力 :" + data.msg);
+        console.log(data.date + ": クライアントの入力 :" + data.msg);
 
-        io.sockets.emit("BroadcastEvent", data.msg);
+        io.sockets.emit("BroadcastEvent", data);
 
     });
 };

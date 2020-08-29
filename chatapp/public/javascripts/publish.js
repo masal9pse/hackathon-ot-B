@@ -1,5 +1,5 @@
 'use strict';
-// const moment = require('moment');
+// require("date-utils") なぜかできない
 
 // 投稿メッセージをサーバに送信する
 function publish() {
@@ -14,7 +14,8 @@ function publish() {
     console.log("textarea input : "  + message);
 
     //入力日時を取得
-    let now = get_date();
+    let now = new Date($.now());
+    console.log(now);
 
     //textareaを空にする
     $('#message').val(" ");
@@ -28,13 +29,8 @@ function publish() {
     return false;
 }
 
-function get_date(){
-//     let now = moment();
-//     return now.format('YYYY-MM-DD HH:mm:ss');
-return 0;
-}
 
 // サーバから受信した投稿メッセージを画面上に表示する
 socket.on('BroadcastEvent', function (data) {
-    $('#thread').prepend('<p>' + data +'</p>');
+    $('#thread').prepend('<p>' + data.date + " : "+data.msg +'</p>');
 });
