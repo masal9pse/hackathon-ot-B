@@ -7,7 +7,7 @@ module.exports = function (socket, io) {
             return;
         }
 
-        console.log(data.date + ": クライアントの入力 :" + data.msg);
+        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
 
         io.sockets.emit("BroadcastEvent", data);
 
