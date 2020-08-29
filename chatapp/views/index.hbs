@@ -5,8 +5,12 @@
     <div class="row">
         <form method="post" action="/room">
             <div class="index-user_name">
-                ユーザ名
-                <input type="text" id="userName" name="userName" class="index-user_name_text">
+                <div>
+                    ユーザ名
+                    <input type="text" id="userName" name="userName" class="index-user_name_text">
+                </div>
+
+                <input type="text" id="loginTime" name="loginTime" class="index-user_name_text">
             </div>
             <div class="index-enter">
                 <input type="button" value="入室する" class="common-button index-enter_button" onclick="enter();">
