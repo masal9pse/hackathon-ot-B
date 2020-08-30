@@ -3,9 +3,12 @@
 
 
 // 投稿メッセージをサーバに送信する
-function publish() {
+function publish(code) {
     const post = $("#post").val();
 
+    //if(code == 13){
+    //}
+    
     if(post=="投稿"){
         //空白文字の正規表現 先頭から末尾まで空白文字
         const regex = /^\s*$/;
@@ -31,10 +34,11 @@ function publish() {
         }else{
             socket.json.emit("sendMessageEvent", {"date":now, "username": userName, "msg":message});
         }
-        return false;   
     }else{
         alert("連続して投稿することはできません");
     }
+
+    return false;
 }
 
 socket.on('Pause', function(time){

@@ -11,7 +11,7 @@
                 <input id="loginTime" type="hidden" value={{ userTime }}>
             </div>
             <div class="room-message">
-                <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"></textarea>
+                <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください" <!--onkeypress="publish(event.keyCode);"--></textarea>
             </div>
             <div class="room-submit">
                 <input id="post" type="button" value="投稿" class="common-button room-publish_button" onclick="publish();">
