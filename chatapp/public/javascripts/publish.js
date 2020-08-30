@@ -38,7 +38,11 @@ function publish() {
 }
 
 socket.on('Pause', function(time){
-    $("#post").val("Wait time : " + time);   //カウントダウンを投稿ボタンに表示
+    if(time==-1){
+        $("#post").val("Wait other user");       //連続投稿を阻止 
+    }else{
+        $("#post").val("Wait time : " + time);   //カウントダウンを投稿ボタンに表示
+    }
 });
 
 

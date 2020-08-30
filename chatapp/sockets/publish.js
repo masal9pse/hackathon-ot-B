@@ -15,9 +15,8 @@ module.exports = function (socket, io) {
         
         io.sockets.emit("BroadcastEvent", {"username": data.username, "date": data.date, "msg": format(data.msg)});
 
-        wait(wait_time, io);　　　　//60秒間投稿禁止
+        wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
-        io.sockets.emit("Ready");     //Readyイベントを発行
     });
 };
 
@@ -29,7 +28,7 @@ function format(text){
     return formatted_text;
 }
 
-function wait(time, io){
+function wait(time, socket, io){
     let count = time;
 
     var intervalID = setInterval(() => {    //1秒ごとにカウントダウン
@@ -38,6 +37,8 @@ function wait(time, io){
     }, 1000);
 
     setTimeout(() => {
-        clearInterval(intervalID);　
+        clearInterval(intervalID);
+        socket.broadcast.emit("Ready");     //Readyイベントを発行　
+        socket.emit("Pause", -1);
     }, (time+1)*1000);
 }
