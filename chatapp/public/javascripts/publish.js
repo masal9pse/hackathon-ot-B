@@ -41,6 +41,8 @@ function publish(code) {
     return false;
 }
 
+
+//待機イベント
 socket.on('Pause', function(time){
     if(time==-1){
         $("#post").val("Wait other user");       //連続投稿を阻止 
@@ -50,18 +52,30 @@ socket.on('Pause', function(time){
 });
 
 
+//復帰イベント
 socket.on("Ready", function(){
     $("#post").val("投稿");   //投稿ボタンを復活
 });
 
-// サーバから受信した投稿メッセージを画面上に表示する
-socket.on('BroadcastEvent', function (data) {
-    
-    if(data.username != userName){
-        $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ data.msg +'</p>');
-    }else{
-        $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ "<b>" + data.msg+ "</b>"+'</p>');
-    }
+//表示イベント
+socket.on('receiveMessageEvent', function (data) {
+    $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+     " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
 });
 
+
+//削除イベント
+socket.on("removeElementEvent", function (id){
+    $("#" + id).remove();
+});
+
+
+
+
+
+function remove_message(element){
+    const rm_msg = document.getElementById(element.id).parentNode;
+    console.log(rm_msg.id);
+    socket.emit("removeMessageEvent", rm_msg.id);
+}
 
