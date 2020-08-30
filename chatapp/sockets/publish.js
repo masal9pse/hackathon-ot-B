@@ -11,10 +11,9 @@ module.exports = function (socket, io) {
         }
 
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
-
         
         io.sockets.emit("BroadcastEvent", {"username": data.username, "date": data.date, "msg": format(data.msg)});
-
+        socket.emit('Pause-minute', 60);   //60秒間投稿禁止
     });
 };
 
