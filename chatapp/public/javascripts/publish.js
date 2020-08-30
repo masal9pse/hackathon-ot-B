@@ -33,6 +33,15 @@ function publish() {
 
 // サーバから受信した投稿メッセージを画面上に表示する
 socket.on('BroadcastEvent', function (data) {
+    
+    // data.msg.forEach(msg => {
+    //     if(data.username != userName){
+    //             $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ msg +'</p>');
+    //         }else{
+    //             $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ "<b>" + msg+ "</b>"+'</p>');
+    //         }
+    // });
+
     if(data.username != userName){
         $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ data.msg +'</p>');
     }else{
