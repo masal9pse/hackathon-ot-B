@@ -37,32 +37,18 @@ function publish() {
     }
 }
 
-socket.on('Pause-minute', function(time){
+socket.on('Pause', function(time){
+    $("#post").val("Wait time : " + time);   //カウントダウンを投稿ボタンに表示
+});
 
-    let count = time;
 
-    var intervalID = setInterval(() => {    //1秒ごとにカウントダウン
-        $("#post").val("Wait time : " + count--);
-        console.log(count);
-    }, 1000);
-
-    setTimeout(() => {
-        clearInterval(intervalID);　　　　　//time秒経過したらクリアして投稿ボタン復活
-        $("#post").val("投稿");
-    }, (time+1)*1000);
+socket.on("Ready", function(){
+    $("#post").val("投稿");   //投稿ボタンを復活
 });
 
 // サーバから受信した投稿メッセージを画面上に表示する
 socket.on('BroadcastEvent', function (data) {
     
-    // data.msg.forEach(msg => {
-    //     if(data.username != userName){
-    //             $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ msg +'</p>');
-    //         }else{
-    //             $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ "<b>" + msg+ "</b>"+'</p>');
-    //         }
-    // });
-
     if(data.username != userName){
         $('#thread').prepend('<p>' + data.date + " : " + data.username + " : "+ data.msg +'</p>');
     }else{
