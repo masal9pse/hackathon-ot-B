@@ -14,10 +14,13 @@ module.exports = function (socket, io) {
 
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        console.log(io.sockets.clients());
         
-        socket.broadcast.emit("receiveMessageEvent", {"num_message": num_message, "username": data.username, "date": data.date, "msg": format(data.msg), "rm_button": ""});
-        socket.emit("receiveMessageEvent", {"num_message": num_message, "username": data.username, "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
-        "rm_button":"<input id=remove" + data.num_message + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';" });
+        //他のクライアントには普通に送信
+        socket.broadcast.emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
+        //自分自身にはbタグをつけた内容を送信
+        socket.emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
+        "rm_button": generate_remove(num_message)});
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
@@ -27,9 +30,24 @@ module.exports = function (socket, io) {
         console.log("remove" + id);
         io.sockets.emit("removeElementEvent", id);
     });
+
+    socket.on("dirrectMessageEvent", function(data){
+
+    });
 };
 
 
+//取り消しボタン生成
+function generate_remove(num){
+    return "<input id=remove" + num + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';";
+}
+
+//ユーザー名の整形
+function add_a_tag(username, num){
+    return "<a href='#' onclick='OnUsernameClick(this);' id=link" + num + ">" + username + "</a>"
+}
+
+//テキストの整形
 function format(text){
     let pre_text = "<br>&emsp;&emsp;&emsp;&emsp;"  + text //文の初めは改行し、全角スペース4つ分のインデントをとる
 
@@ -38,6 +56,7 @@ function format(text){
     return formatted_text;
 }
 
+//待機する関数
 function wait(time, socket, io){
     let count = time;
 
