@@ -12,11 +12,12 @@ router.get('/', function (request, response, next) {
 router.post('/room', function (request, response, next) {
     console.log('ユーザ名：' + request.body.userName);
     console.log('現在日時：' + request.body.loginTime);
-    // フロント側には正しく受け渡しできた。
+    console.log('ルーム名：' + request.body.room);
     response.render('room',
         {
             userName: request.body.userName,
-            loginTime: request.body.loginTime
+            loginTime: request.body.loginTime,
+            room: request.body.room,
         });
 });
 

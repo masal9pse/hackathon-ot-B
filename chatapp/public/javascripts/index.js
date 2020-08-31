@@ -7,6 +7,11 @@ function enter() {
     // あとでもう少し日本語っぽく修正予定
     const loginTime = $('#loginTime').val(new Date($.now()));
 
+    // セレクトボックスと取得
+    const room = $('#room').val();
+    console.log(room);
+    // return false;
+
     // ユーザ名が未入力でないかチェックする
     // if (userName === "" || event.which === 13 && event.shiftKey == false) {
     if (userName === "") {
