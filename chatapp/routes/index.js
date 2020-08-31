@@ -12,11 +12,10 @@ router.get('/', function (request, response, next) {
 router.post('/room', function (request, response, next) {
     console.log('ユーザ名：' + request.body.userName);
     console.log('ルーム名：' + request.body.room);
-    response.render('room',
-        {
-            userName: request.body.userName,
-            room: request.body.room,
-        });
+    response.render('room', {
+        userName: request.body.userName,
+        room: request.body.room,
+    });
 });
 
 module.exports = router;

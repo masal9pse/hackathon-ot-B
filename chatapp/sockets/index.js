@@ -2,7 +2,9 @@
 
 module.exports = function (server) {
 
-    const socketIo = require('socket.io')(server, { wsEngine: 'ws' });
+    const socketIo = require('socket.io')(server, {
+        wsEngine: 'ws'
+    });
     const io = socketIo.listen(server);
 
     io.sockets.on('connection', function (socket) {

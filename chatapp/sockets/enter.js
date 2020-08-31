@@ -8,4 +8,11 @@ module.exports = function (socket) {
         // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する
         socket.broadcast.emit('receiveEntryEvent', data);
     });
+
+    socket.on('entryRoom', function (data) {
+        console.log('入室クライアントのルーム：' + data);
+
+        // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する
+        socket.broadcast.emit('recieveRoom', data);
+    });
 };
