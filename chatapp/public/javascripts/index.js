@@ -4,9 +4,7 @@
 function enter() {
     // 入力されたユーザ名を取得する
     const userName = $('#userName').val();
-    // あとでもう少し日本語っぽく修正予定
-    const loginTime = $('#loginTime').val(new Date($.now()));
-
+    
     // セレクトボックスと取得
     const room = $('#room').val();
     console.log(room);

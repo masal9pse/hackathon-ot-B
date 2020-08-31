@@ -11,12 +11,10 @@ router.get('/', function (request, response, next) {
 // チャット画面の表示
 router.post('/room', function (request, response, next) {
     console.log('ユーザ名：' + request.body.userName);
-    console.log('現在日時：' + request.body.loginTime);
     console.log('ルーム名：' + request.body.room);
     response.render('room',
         {
             userName: request.body.userName,
-            loginTime: request.body.loginTime,
             room: request.body.room,
         });
 });

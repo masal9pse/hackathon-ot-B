@@ -6,15 +6,16 @@
         <form method="post" action="/">
             <div class="room-login_user">
                 ログインユーザ：{{ userName }}さん
-                ログイン日時: {{ loginTime }}
                 <input id="userName" type="hidden" value={{ userName }}>
-                <input id="loginTime" type="hidden" value={{ loginTime }}>
+                <input id="room" type="hidden" value={{ room }}>
             </div>
             <div class="room-message">
-                <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください" <!--onkeypress="publish(event.keyCode);"--></textarea>
+                <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
+                    <!--onkeypress="publish(event.keyCode);" --></textarea>
             </div>
             <div class="room-submit">
-                <input id="post" type="button" value="投稿" class="common-button room-publish_button" onclick="publish();">
+                <input id="post" type="button" value="投稿" class="common-button room-publish_button"
+                    onclick="publish();">
                 <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
             </div>
             <div class="room-thread">
