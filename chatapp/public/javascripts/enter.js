@@ -9,6 +9,11 @@ socket.emit('entryMyselfEvent', userName);
 socket.emit('entryRoom', room);
 
 // サーバから受信した入室メッセージを画面上に表示する
-socket.on('receiveEntryEvent', function (data) {
-    $('#thread').prepend('<p>' + data + 'さんが入室しました。</p>');
+socket.on('receiveEntryEvent', function (userName) {
+    $('#thread').prepend('<p>' + userName + 'さんが入室しました。</p>');
+});
+
+// サーバから受信した入室メッセージを画面上に表示する
+socket.on('receiveRoom', function (room) {
+    $('#thread').prepend('<p>' + room + '</p>');
 });
