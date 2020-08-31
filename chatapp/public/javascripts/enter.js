@@ -15,5 +15,7 @@ socket.on('receiveEntryEvent', function (userName) {
 
 // サーバから受信した入室メッセージを画面上に表示する
 socket.on('receiveRoom', function (room) {
-    $('#thread').prepend('<p>' + room + '</p>');
+    // $('#thread2').prepend('<p>' + room + '</p>');
+    // $('#roomSelect').prepend('<p>' + room + '</p>');
+    $('#roomSelect').prepend(room);
 });

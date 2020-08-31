@@ -1,8 +1,11 @@
 <div class="container">
     <div class="row">
-        <h1>Node Chat チャットルーム</h1>
+        <h1 id="roomSelect">チャットルーム</h1>
     </div>
     <div class="row">
+        <div class="room-thread">
+            <div id="thread2"></div>
+        </div>
         <form method="post" action="/">
             <div class="room-login_user">
                 ログインユーザ：{{ userName }}さん
@@ -17,7 +20,8 @@
                 <input id="post" type="button" value="投稿" class="common-button room-publish_button"
                     onclick="publish();">
                 <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
-                <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button" onclick="OnReverse();">
+                <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button"
+                    onclick="OnReverse();">
             </div>
             <div class="room-thread">
                 <div id="thread"></div>
