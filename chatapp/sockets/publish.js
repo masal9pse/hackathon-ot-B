@@ -49,6 +49,17 @@ module.exports = function (socket, io, master) {
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
     });
+
+    socket.on("replyMessageEvent", function(data){
+        let to_reply = String(data.reply).replace("@", "").replace("\n", "");
+
+        //他のクライアントには普通に送信
+        socket.broadcast.to(data.room).emit("receiveReplyMessage", {"num_message": num_message, "reply": to_reply, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
+        //自分自身にはbタグをつけた内容を送信
+        socket.emit("receiveReplyMessage", {"num_message": num_message, "reply": to_reply, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
+        "rm_button": generate_remove(num_message)});
+
+    });
 };
 
 

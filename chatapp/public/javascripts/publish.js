@@ -8,6 +8,9 @@ const regex = /^\s*$/;
 //DM用の正規表現　@から始まっていたらDM
 const dm = /@.*\n/;
 
+//リプライ用の正規表現　message+数字ならリプライ
+const reply = /@message\d*|@reply\d*/;
+
 //並び替え用のフラグ
 let reverse = false;    // false→新しいもの順　true→古いもの順
 
@@ -44,6 +47,9 @@ function publish(code) {
         // 投稿内容を送信
         if(regex.test(message)){
             alert("文章を入力してください");
+        }else if(reply.test(message)){
+            console.log("to " + message.match(reply));
+            socket.json.emit("replyMessageEvent", {"date":now, "reply": message.match(reply), "username": userName, "room":room, "msg":message});    //reply
         }else if(dm.test(message)){
             console.log("to " + message.match(dm));
             socket.json.emit("directMessageEvent", {"date":now, "to": message.match(dm), "username": userName, "room":room, "msg":message});    //DM
@@ -78,14 +84,21 @@ socket.on('receiveMessageEvent', function (data) {
     console.log(data.username);
 
     if(reverse){
-        $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        $('#thread').append('<div id=message' + data.num_message + " onclick='OnReplyClick(this)';>" + "<p>"+ data.date + " : " + data.username +
         " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
     }else{
-        $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        $('#thread').prepend('<div id=message' + data.num_message + " onclick='OnReplyClick(this)';>" + "<p>"+ data.date + " : " + data.username +
         " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
     }
 
     console.log(reverse);
+});
+
+//replyイベント
+socket.on("receiveReplyMessage", function(data){
+    const reply = String(data.reply);
+    $("#"+reply).append('<div id=reply' + data.num_message + " onclick='OnReplyClick(this)';>" + "<p>"+ data.date + " : " + data.username +
+    " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
 });
 
 
@@ -111,6 +124,12 @@ function OnUsernameClick(element){
     console.log(to_name);
 
     $('#message').val("@"+to_name);
+}
+
+//reply機能
+function OnReplyClick(element){
+    console.log(element.id);
+    $('#message').val("@"+element.id);
 }
 
 //並び順の変更
