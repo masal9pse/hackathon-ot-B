@@ -6,6 +6,7 @@ const wait_time = 6;
 let num_message = 0;
 
 module.exports = function (socket, io) {
+
     // 投稿メッセージを送信する
     socket.on('sendMessageEvent', function (data) {
         if(!data.msg){
