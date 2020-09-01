@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (socket) {
+module.exports = function (socket, master) {
     // 入室メッセージをクライアントに送信する
     socket.on('entryMyselfEvent', function (user) {
         console.log('入室クライアントのユーザ名：' + user.name);

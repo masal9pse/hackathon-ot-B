@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (socket) {
+module.exports = function (socket, master) {
     // 退室メッセージをクライアントに送信する
     socket.on('exitMyselfEvent', function (user) {
         console.log('退室クライアントのユーザ名：' + user.name);

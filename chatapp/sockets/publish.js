@@ -5,7 +5,7 @@ const large_blank = /　/g;
 const wait_time = 6;
 let num_message = 0;
 
-module.exports = function (socket, io) {
+module.exports = function (socket, io, master) {
 
     // 投稿メッセージを送信する
     socket.on('sendMessageEvent', function (data) {
