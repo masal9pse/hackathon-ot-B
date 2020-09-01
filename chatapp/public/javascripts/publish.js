@@ -30,6 +30,10 @@ function publish(code) {
         const message = $('#message').val();
         console.log("textarea input : "  + message);
 
+        // ルームを取得
+        const room = $('#room').val();
+        console.log("room：" + room);
+
         //入力日時を取得
         let now = new Date($.now());
         console.log(now);
@@ -41,9 +45,9 @@ function publish(code) {
         if(regex.test(message)){
             alert("文章を入力してください");
         }else if(dm.test(message)){
-            socket.json.emit("directMessageEvent", {"date":now, "username": userName, "msg":message});    //DM
+            socket.json.emit("directMessageEvent", {"date":now, "username": userName, "room":room, "msg":message});    //DM
         }else{
-            socket.json.emit("sendMessageEvent", {"date":now, "username": userName, "msg":message});     //投稿
+            socket.json.emit("sendMessageEvent", {"date":now, "username": userName, "room": room, "msg":message});     //投稿
         }
     }else{
         alert("連続して投稿することはできません");

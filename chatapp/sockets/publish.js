@@ -17,7 +17,7 @@ module.exports = function (socket, io) {
         console.log(io.sockets.clients());
         
         //他のクライアントには普通に送信
-        socket.broadcast.emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
+        socket.broadcast.to(data.room).emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
         //自分自身にはbタグをつけた内容を送信
         socket.emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
         "rm_button": generate_remove(num_message)});
