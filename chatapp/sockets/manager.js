@@ -1,8 +1,9 @@
 "use strict";
 
 const name = Symbol();
-const soketid = Symbol();
+const socketid = Symbol();
 const logintime = Symbol();
+const room = Symbol();
 
 class Manager{
 
@@ -41,13 +42,13 @@ class User{
         this[name] = _userName;
     }
 
-    get soketID(){
-        return this[soketid];
+    get socketID(){
+        return this[socketid];
     }
 
-    set soketID(_soketID){
-        console.log("Register soket id: " + _soketID);
-        this[soketid] = _soketID;
+    set socketID(_socketID){
+        console.log("Register socket id: " + _socketID);
+        this[socketid] = _socketID;
     }
 
     get LogInTime(){
@@ -57,6 +58,15 @@ class User{
     set LogInTime(_logInTime){
         console.log("Register Log In Time: " + _logInTime);
         this[logintime] = _logInTime;
+    }
+
+    get room(){
+        return this[room];
+    }
+
+    set room(_room){
+        console.log("Register entry room: " + _room);
+        this[room]  = _room;
     }
 
 }
