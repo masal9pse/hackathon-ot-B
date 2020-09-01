@@ -4,8 +4,13 @@
 function exit() {
     // ユーザ名取得
     const userName = $('#userName').val();
+    const room = $('#room').val();
+    const user = {
+        'name': userName,
+        'room': room,
+    };
     // 退室メッセージイベントを送信する
-    socket.emit('exitMyselfEvent', userName);
+    socket.emit('exitMyselfEvent', user);
 
     // 退室
     location.href = '/';

@@ -5,6 +5,7 @@ module.exports = function (socket) {
     socket.on('entryMyselfEvent', function (user) {
         console.log('入室クライアントのユーザ名：' + user.name);
 
+        // roomへ入室する
         socket.join(user.room);
 
         // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する

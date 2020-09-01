@@ -3,6 +3,7 @@
 // 入室メッセージをサーバに送信する
 // 入力されたユーザ名を取得する
 const userName = $('#userName').val();
+// 選択されたルーム名を取得する
 const room = $('#room').val();
 const user = {
     'name': userName,
