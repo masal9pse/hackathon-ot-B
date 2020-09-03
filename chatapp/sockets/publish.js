@@ -18,10 +18,11 @@ module.exports = function (socket, io, master) {
         // console.log(io.sockets.clients());
         
         //他のクライアントには普通に送信
-        socket.broadcast.to(data.room).emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
+        socket.broadcast.to(data.room).emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, 
+        "msg": format(data.msg), "rp_button" : generate_reply(num_message), "rm_button": ""});
         //自分自身にはbタグをつけた内容を送信
         socket.emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
-        "rm_button": generate_remove(num_message)});
+        "rp_button" : generate_reply(num_message), "rm_button": generate_remove(num_message)});
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
@@ -33,39 +34,56 @@ module.exports = function (socket, io, master) {
     });
 
     socket.on("directMessageEvent", function(data){
-        
+
+        console.log(++num_message);
+        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        // console.log(io.sockets.clients());
+
         let to_user = String(data.to).replace("@", "").replace("\n", "");
 
         console.log(to_user);
 
         //自分自身への送信
         socket.emit("receiveMessageEvent", {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
-        "rm_button": generate_remove(num_message)});
+        "rp_button" : generate_reply(num_message), "rm_button": generate_remove(num_message)});
 
         //特定のユーザに向けての送信
         io.to(master[to_user].socketID).emit("receiveMessageEvent", 
-        {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
+        {"num_message": num_message, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rp_button" : generate_reply(num_message), "rm_button": ""});
 
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
     });
 
     socket.on("replyMessageEvent", function(data){
+
+        console.log(++num_message);
+        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        // console.log(io.sockets.clients());
+        
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
         //他のクライアントには普通に送信
-        socket.broadcast.to(data.room).emit("receiveReplyMessage", {"num_message": num_message, "reply": to_reply, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": format(data.msg), "rm_button": ""});
+        socket.broadcast.to(data.room).emit("receiveReplyMessage", {"num_message": num_message, "reply": to_reply, "username": add_a_tag(data.username, num_message), "date": data.date, 
+        "msg": format(data.msg), "rp_button" : generate_reply(num_message), "rm_button": ""});
         //自分自身にはbタグをつけた内容を送信
         socket.emit("receiveReplyMessage", {"num_message": num_message, "reply": to_reply, "username": add_a_tag(data.username, num_message), "date": data.date, "msg": "<b>"+format(data.msg)+"</b>", 
-        "rm_button": generate_remove(num_message)});
+        "rp_button" : generate_reply(num_message), "rm_button": generate_remove(num_message)});
+
+        wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
     });
 };
 
 
-//取り消しボタン生成
+//replyボタンの生成
+function generate_reply(num){
+    return "<input id=reply" + num + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this)';>";
+}
+
+//取り消しボタンの生成
 function generate_remove(num){
-    return "<input id=remove" + num + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';";
+    return "<input id=remove" + num + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';>";
 }
 
 //ユーザー名の整形

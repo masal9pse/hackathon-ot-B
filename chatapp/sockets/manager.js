@@ -20,10 +20,8 @@ class Manager{
         try{
             delete this[_userName];
             console.log("Delete : " + _userName);
-            return true;
         }catch(err){
             console.log("This user doesn't exist");
-            return false;
         }
     }
 }

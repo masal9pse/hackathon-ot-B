@@ -84,11 +84,11 @@ socket.on('receiveMessageEvent', function (data) {
     console.log(data.username);
 
     if(reverse){
-        $('#thread').append('<div id=message' + data.num_message + " onclick='OnReplyClick(this)';>" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
+        $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }else{
-        $('#thread').prepend('<div id=message' + data.num_message + " onclick='OnReplyClick(this)';>" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
+        $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }
 
     console.log(reverse);
@@ -97,8 +97,8 @@ socket.on('receiveMessageEvent', function (data) {
 //replyイベント
 socket.on("receiveReplyMessage", function(data){
     const reply = String(data.reply);
-    $("#"+reply).append('<div id=reply' + data.num_message + " onclick='OnReplyClick(this)';>" + "<p>"+ data.date + " : " + data.username +
-    " : "+ data.msg +'</p>'+ data.rm_button + "</div>");
+    $("#"+reply).append('<div id=reply' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+    " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
 });
 
 
@@ -128,8 +128,9 @@ function OnUsernameClick(element){
 
 //reply機能
 function OnReplyClick(element){
-    console.log(element.id);
-    $('#message').val("@"+element.id);
+    const to_rp = document.getElementById(element.id).parentNode;
+    console.log(to_rp.id);
+    $('#message').val("@"+to_rp.id);
 }
 
 //並び順の変更
