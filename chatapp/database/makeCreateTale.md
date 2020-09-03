@@ -6,13 +6,13 @@ chatapp ディレクトリの中で下記コマンドを実装する
 ```
 $ npm install
 
-$ node database/chat.js
+$ node database/usersdb.js
 ```
 
 ## カラムの確認のしかた
 
 ```
-$ sqlite3 database/chat.sqlite
+$ sqlite3  database/usersdb.sqlite
 
 .schema
 ```
@@ -22,4 +22,6 @@ $ sqlite3 database/chat.sqlite
 ```
 // 抜け方
 .exit
+// 問題が起きたらときのテーブルの削除のやり方
+drop database users;
 ```
