@@ -4,9 +4,9 @@ database の階層に入らずに、
 chatapp ディレクトリの中で下記コマンドを実装する
 
 ```
-npm install
+$ npm install
 
-node chat.js
+$ node database/chat.js
 ```
 
 ## カラムの確認のしかた
