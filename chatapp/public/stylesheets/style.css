@@ -10,15 +10,14 @@ a {
 }
 
 div {
-    margin: 20px 0px;
 }
 
 .row {
-    margin: 20px;
+    /* margin: 20px; */
 }
 
 form{
-    width: 100vw;
+    /* width: 100vw; */
 }
 
 /*
@@ -36,7 +35,7 @@ form{
 }
 
 .index-user_name_text {
-    width: 200px;
+    /* width: 200px; */
 }
 
 .index-enter {
@@ -47,13 +46,107 @@ form{
 
 }
 
+.contain{
+    display: flex;
+    width: 100vw;
+}
+
+/* 
+    サイドバーの設定
+*/
+
+.sidebar{
+    width:15%;
+    height: 100vh;
+    padding: 5px;
+    border-right: solid #00B7FF;
+}
+
+.room{
+    width: 100%;
+    height: 40%;
+}
+
+.room h5{
+    font-weight: bold;
+    text-align: center;
+}
+
+.member{
+    width: 100%;
+    height: 60%;
+}
+
+.member h5{
+    font-weight: bold;
+    text-align: center;
+}
+
+/*
+    DM部分の設定
+*/
+
+.rightbar{
+    width: 25%;
+    height: 100vh;
+    padding: 5px;
+    border-left: solid #00B7FF;
+}
+
+.rightbar h4{
+    text-align: center;
+    font-weight: bold;
+}
+
 /*
  * チャットルーム画面（room.hbs）に関する設定
 */
 
-#roomSelect {
-    border: medium double #00B7FF;
+.main{
+    width: 60%;
+    height: 100vh;
+    padding: 5px;
+}
+
+.group{
+    height: 15%;
     padding: 15px;
+    display: flex;
+    justify-content: start;
+    border-bottom: solid #00B7FF;
+}
+
+.group-name{
+    font-weight: bold;
+}
+
+.group-member{
+
+}
+
+.group-member_list{
+    list-style: none;
+    display: inline-block;
+    margin: 0px 10px;
+    line-height: 15%;
+}
+
+.chat{
+    display: flex;
+    width: 100%;
+    height: 85%;
+    margin-top: 45px;
+}
+
+.timeline{
+    width: 50%;
+    height: 100%;
+    border-right: solid black;
+}
+
+.groupchat{
+    width: 50%;
+    height: 100%;
 }
 
 .user{
@@ -70,7 +163,7 @@ form{
 }
 
 .room-message_textarea {
-    width: 500px;
+    /* width: 500px; */
 }
 
 .room-submit {
