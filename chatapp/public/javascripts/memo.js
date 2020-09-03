@@ -13,7 +13,7 @@ function memo() {
 
     // メモの内容を表示
     // $('#thread').text(message);
-    $('#thread').prepend('<p>' + now.toLocaleString() + ":" + userName + '</p>' + '<p>' + message + '</p>');
+    $('#thread').prepend(`<div id="chat"> <p id="chat_date"> ${now.toLocaleString()}  :  ${userName} </p> <p id="chat_message"> ${message} </p> </div>`);
 
     return false;
 }

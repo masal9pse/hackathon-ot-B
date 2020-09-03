@@ -17,6 +17,10 @@ div {
     margin: 20px;
 }
 
+form{
+    width: 100vw;
+}
+
 /*
  * ボタンの共通設定
  */
@@ -45,7 +49,18 @@ div {
 
 /*
  * チャットルーム画面（room.hbs）に関する設定
- */
+*/
+
+#roomSelect {
+    border: medium double #00B7FF;
+    padding: 15px;
+}
+
+.user{
+    display: flex;
+    justify-content: flex-start;
+}
+
 .room-login_user {
 
  }
@@ -75,9 +90,26 @@ div {
 }
 
 .room-exit {
-
+    margin-left: 20px;
 }
 
 .room-exit_button {
 
+}
+
+#chat{
+    border: thin groove #DDDDDD;
+    border-radius: 10px;
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+#chat_date{
+    font-size: 10px;
+    margin: 0px;
+}
+
+#chat_message{
+    font-weight: bold;
+    margin: 0px;
 }
