@@ -1,0 +1,2 @@
+Userテーブル
+username,password,socketId
