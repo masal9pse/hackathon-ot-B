@@ -1,5 +1,5 @@
 'use strict';
-// require("date-utils") なぜかできない
+// require("date-utils")? なぜかで?きない
 
 
 //空白文字の正規表現 先頭から末尾まで空白文字
@@ -14,7 +14,7 @@ const reply = /@message\d*|@reply\d*/;
 //並び替え用のフラグ
 let reverse = false;    // false→新しいもの順　true→古いもの順
 
-const notifier = require("node-notifier");
+// const notifier = require("node-notifier");
 
 
 // 投稿メッセージをサーバに送信する
@@ -39,7 +39,7 @@ function publish(code) {
         console.log("room：" + room);
 
         //入力日時を取得
-        let now = new Date($.now());
+        let now = new Date($.now()).toLocaleString();
         console.log(now);
 
         //textareaを空にする
@@ -92,10 +92,10 @@ socket.on('receiveMessageEvent', function (data) {
         " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }
 
-    notifier.notify({
-        'title': '最小限のnode-notifier',
-        'message': 'Hello Notification!!'
-      });
+    // notifier.notify({
+    //     'title': '最小限のnode-notifier',
+    //     'message': 'Hello Notification!!'
+    //   });
       
 });
 

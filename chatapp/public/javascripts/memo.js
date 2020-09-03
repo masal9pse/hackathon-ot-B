@@ -1,7 +1,11 @@
 'use strict';
 
 // メモを画面上に表示する
-function memo() {
+function memo(){
+
+
+    //空白文字の正規表現 先頭から末尾まで空白文字
+    const regex = /^\s*$/;
     // ユーザ名を取得
     const userName = $("#userName").val();
     // 入力されたメッセージを取得
@@ -10,10 +14,18 @@ function memo() {
     let now = new Date($.now());
     //textareaを空にする
     $('#message').val(" ");
-
+    
     // メモの内容を表示
     // $('#thread').text(message);
-    $('#thread').prepend(`<div id="chat"> <p id="chat_date"> ${now.toLocaleString()}  :  ${userName} </p> <p id="chat_message"> ${message} </p> </div>`);
+
+    if(regex.test(message)){
+        alert("文章を入力してください");
+    }else{
+        $('#thread').prepend(`<div id="chat"> <p id="chat_date"> ${now.toLocaleString()}  :  ${userName} </p> <p id="chat_message"> ${message} </p> </div>`);
+    }
+
+    // $('#thread').prepend(`<div id="chat"> <p id="chat_date"> ${now.toLocaleString()}  :  ${userName} </p> <p id="chat_message"> ${message} </p> </div>`);
+
 
     return false;
 }
