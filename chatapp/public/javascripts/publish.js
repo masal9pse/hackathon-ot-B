@@ -14,6 +14,7 @@ const reply = /@message\d*|@reply\d*/;
 //並び替え用のフラグ
 let reverse = false;    // false→新しいもの順　true→古いもの順
 
+const notifier = require("node-notifier");
 
 
 // 投稿メッセージをサーバに送信する
@@ -91,7 +92,11 @@ socket.on('receiveMessageEvent', function (data) {
         " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }
 
-    console.log(reverse);
+    notifier.notify({
+        'title': '最小限のnode-notifier',
+        'message': 'Hello Notification!!'
+      });
+      
 });
 
 //replyイベント
