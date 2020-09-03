@@ -19,3 +19,7 @@ function enter() {
         $('form').submit();
     }
 }
+
+function signUp(){
+    $('form').submit();
+}
