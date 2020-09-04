@@ -9,12 +9,16 @@ $ npm install
 $ node database/usersdb.js
 ```
 
-## カラムの確認のしかた
+## カラム、データ確認のしかた
 
 ```
 $ sqlite3  database/usersdb.sqlite
 
-.schema
+// カラムチェック
+sqlite> .schema
+
+// データチェック
+sqlite> select * from users;
 ```
 
 # その他
@@ -22,6 +26,6 @@ $ sqlite3  database/usersdb.sqlite
 ```
 // 抜け方
 .exit
-// 問題が起きたらときのテーブルの削除のやり方
+// 問題が起きたときのテーブルの削除のやり方
 drop database users;
 ```
