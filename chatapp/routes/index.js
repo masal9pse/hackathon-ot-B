@@ -22,6 +22,9 @@ router.post('/room', function (request, response, next) {
 // sign_upの表示
 router.post('/sign_up', function (request, response, next) {
     response.render('sign_up', {
+        userName: request.body.userName,
+        room: request.body.room,
+        password: request.body.password,
     });
 });
 

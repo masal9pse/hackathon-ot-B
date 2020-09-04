@@ -95,8 +95,8 @@ socket.on('receiveMessageEvent', function (data) {
     // notifier.notify({
     //     'title': '最小限のnode-notifier',
     //     'message': 'Hello Notification!!'
-    //   });
-      
+    //   });    
+
 });
 
 //replyイベント

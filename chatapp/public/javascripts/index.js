@@ -9,6 +9,8 @@ function enter() {
     const room = $('#room').val();
     console.log(room);
     // return false;
+    
+    const password = $('#password').val();
 
     // ユーザ名が未入力でないかチェックする
     // if (userName === "" || event.which === 13 && event.shiftKey == false) {
