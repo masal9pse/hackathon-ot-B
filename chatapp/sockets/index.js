@@ -15,9 +15,6 @@ module.exports = function (server) {
         // ログインモジュールの呼び出し
         require('./log_in')(socket, master);
 
-        // サインアップモジュールの呼び出し
-        require('./sign_up')(socket, master);
-
         // 投稿モジュールの呼出
         require('./publish')(socket, io, master);
 
