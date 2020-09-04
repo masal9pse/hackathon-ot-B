@@ -25,15 +25,3 @@ function enter() {
 function signUp(){
     document.signUp_form.submit();
 }
-
-function first_enter() {
-    const userName = $('#userName').val();
-    const room = $('#room').val();
-    const password = $('#userPassword').val();
-    if (userName === "") {
-        alert('ユーザー名を入力してください');
-        return false;
-    } else {
-        document.logIn_form.submit();
-    }
-}
