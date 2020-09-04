@@ -4,7 +4,6 @@ const name = Symbol();
 const socketid = Symbol();
 const logintime = Symbol();
 const room = Symbol();
-const password = Symbol();
 
 class Manager{
 
@@ -39,15 +38,6 @@ class User{
     set userName(_userName){
         console.log("Modify : " + this[name] + "→" + _userName);
         this[name] = _userName;
-    }
-
-    get password(){
-        return this[password];
-    }
-
-    set password(_password){
-        console.log("Register password: " + _password);
-        this[password] = _password;
     }
 
     get socketID(){

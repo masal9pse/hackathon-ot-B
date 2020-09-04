@@ -3,11 +3,13 @@
         <h1>プログラミング言語について語り合おう</h1>
     </div>
     <div class="row">
-        <form method="post" action="/room">
+        <form id="logIn_form" name="logIn_form" method="post" action="/room">
             <div class="index-user_name">
                 <div>
                     ユーザ名
                     <input type="text" id="userName" name="userName" class="index-user_name_text" required>
+                    パスワード
+                    <input type="text" id="userPassword" name="userPassword" class="index-user_name_text" required>
                 </div>
             </div>
             <div class="form-control">
@@ -25,7 +27,7 @@
                 <input type="button" value="入室する" class="common-button index-enter_button" onclick="enter();">
             </div>
         </form>
-        <form method="post" action="/sign_up">
+        <form id="signUp_form" name="signUp_form" method="post" action="/sign_up">
             <input type="button" value="新規アカウント" class="common-button index-enter_button" onclick="signUp();">
         </form>
     </div>

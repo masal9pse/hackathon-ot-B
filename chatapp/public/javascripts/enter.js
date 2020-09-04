@@ -5,11 +5,9 @@
 const userName = $('#userName').val();
 // 選択されたルーム名を取得する
 const room = $('#room').val();
-const password = $('#password').val();
 const user = {
     'name': userName,
     'room': room,
-    'pass': password,
 };
 // 入室メッセージイベントを送信する
 socket.emit('entryMyselfEvent', user);
