@@ -1,7 +1,7 @@
 'use strict';
 
 // チャットルームに入室する
-function enter() {
+function enter(process) {
     // 入力されたユーザ名を取得する
     const userName = $('#userName').val();
     
@@ -23,9 +23,9 @@ function enter() {
         'pass': password,
     };
     // ログイン承認リクエストを送る
-    socket.emit('logInAuthRequest', data);
+    socket.emit(`${process}AuthRequest`, data);
 
-    socket.on('logInApproval', function (approval) {
+    socket.on(`${process}Approval`, function (approval) {
         if (approval) {
             console.log("ログイン可");
             document.logIn_form.submit();
@@ -37,29 +37,4 @@ function enter() {
 
 function signUp(){
     document.signUp_form.submit();
-}
-
-function first_enter() {
-    const userName = $('#userName').val();
-    const room = $('#room').val();
-    const password = $('#userPassword').val();
-    if (userName === "") {
-        alert('ユーザ名を入力してください');
-        return false;
-    }
-    const data = {
-        'user': userName,
-        'pass': password,
-    };
-    // サインアップ承認リクエストを送る
-    socket.emit('signUpAuthRequest', data);
-
-    socket.on('signUpApproval', function (approval) {
-        if (approval) {
-            console.log("ログイン可");
-            document.logIn_form.submit();
-        } else {
-            alert("ログイン不可");
-        }
-    });
 }
