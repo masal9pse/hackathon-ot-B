@@ -7,9 +7,9 @@
             <div class="index-user_name">
                 <div>
                     ユーザ名
-                    <input type="text" id="userName" name="userName" class="index-user_name_text" required>
+                    <input type="text" id="userName" name="userName" class="form-control" required>
                     パスワード
-                    <input type="text" id="userPassword" name="userPassword" class="index-user_name_text" required>
+                    <input type="text" id="password" name="password" class="form-control" required>
                 </div>
             </div>
             <div class="form-control">
@@ -24,11 +24,11 @@
                 </select>
             </div>
             <div class="index-enter">
-                <input type="button" value="入室する" class="common-button index-enter_button" onclick="enter('logIn');">
+                <input type="button" value="入室する" class="btn btn-success" onclick="enter('logIn');">
             </div>
         </form>
         <form id="signUp_form" name="signUp_form" method="post" action="/sign_up">
-            <input type="button" value="新規アカウント" class="common-button index-enter_button" onclick="signUp();">
+            <input type="button" value="新規アカウント" class="btn btn-warning" onclick="signUp();">
         </form>
     </div>
 </div>

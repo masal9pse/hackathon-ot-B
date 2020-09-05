@@ -4,13 +4,13 @@
 function enter(process) {
     // 入力されたユーザ名を取得する
     const userName = $('#userName').val();
-    
+
     // セレクトボックスと取得
     const room = $('#room').val();
     console.log(room);
     // return false;
 
-    const password = $('#userPassword').val();
+    const password = $('#password').val();
 
     // ユーザ名が未入力でないかチェックする
     // if (userName === "" || event.which === 13 && event.shiftKey == false) {
@@ -35,6 +35,6 @@ function enter(process) {
     });
 }
 
-function signUp(){
+function signUp() {
     document.signUp_form.submit();
 }

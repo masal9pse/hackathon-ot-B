@@ -11,10 +11,10 @@ db.serialize(function () {
     //※　"IF NOT EXISTS"の部分は同名のテーブルが無い場合は、このままテーブルを作成。
     //既に同名テーブルがある時は何も処理せず終了。
     db.run('CREATE TABLE IF NOT EXISTS users(username, password,socketid)');
-    db.run("insert into Users values('Yamada', 1111, '1111222')");
-    db.run("insert into Users values('masato', 2222, '22222222')");
-    db.run("insert into Users values('koji', 3333, '5555555')");
-    db.run("insert into Users values('sasuke', 2222, '777777')");
+    db.run("insert into users values('Yamada', 1111, '1111222')");
+    db.run("insert into users values('masato', 2222, '22222222')");
+    db.run("insert into users values('koji', 3333, '5555555')");
+    db.run("insert into users values('sasuke', 2222, '777777')");
 });
 // DBを閉じる
 db.close();

@@ -7,12 +7,12 @@ module.exports = function (socket, master) {
         db.serialize(function () {
 
             // データベースにユーザ名が登録されているか確認
-            let username_sql = db.prepare("select count(*) from users where username=?");
+            let username_sql = db.prepare("select * from users where username=?");
             let user_db_check = username_sql.run(data.user);
 
             // パスワードが合っているか確認
             if (user_db_check === true) {
-                let password_sql = db.prepare("select count(*) from users where password=?");
+                let password_sql = db.prepare("select * from users where password=?");
                 let password_db_check = password_sql.run(data.pass);
             }
 
