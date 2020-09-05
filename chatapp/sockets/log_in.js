@@ -37,7 +37,7 @@ module.exports = function (socket, master) {
         const db = new sqlite3.Database('./database/usersdb.sqlite');
 
         db.serialize(function () {
-            db.get(`select * from users where username='${data.user}'`,
+            db.get(`select  username, password from users where username='${data.user}'`,
                 function (err, row) {
                     if (row === undefined) { // データベースにユーザ名が登録されていないか
                         const stmt = db.prepare("insert into users values (?, ?, ?)");

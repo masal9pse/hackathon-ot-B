@@ -1,17 +1,21 @@
-<div class="container">
-    <div class="row">
-        <h1>新規アカウント登録画面</h1>
+<div class="join-container">
+    <div class="join-header">
+        <h1>新規アカウント登録</h1>
     </div>
-    <div class="row">
+    <div class="join-main">
         <form id="logIn_form" name="logIn_form" method="post" action="/room">
             <div class="index-user_name">
                 <div>
                     ユーザ名
                     <input type="text" id="userName" name="userName" class="index-user_name_text" required>
+                </div>
+                <br>
+                <div>
                     パスワード
                     <input type="text" id="password" name="password" class="index-user_name_text" required>
                 </div>
             </div>
+            <br>
             <div class="form-control">
                 <label for="room">Room</label>
                 <select name="room" id="room">
@@ -24,7 +28,7 @@
                 </select>
             </div>
             <div class="index-enter">
-                <input type="button" value="登録して入室する" class="common-button index-enter_button"
+                <input type="button" value="登録して入室する" class="common-button index-enter_button btn btn-success"
                     onclick="enter('signUp');">
             </div>
         </form>
