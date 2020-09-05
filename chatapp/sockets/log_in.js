@@ -5,23 +5,20 @@ var db = new sqlite3.Database('./database/usersdb.sqlite'); //データベース
 module.exports = function (socket, master) {
     socket.on("logInAuthRequest", function (data) {
         db.serialize(function () {
-
-            // データベースにユーザ名が登録されているか確認
-            let username_sql = db.prepare("select * from users where username=?");
-            let user_db_check = username_sql.run(data.user);
-
-            // パスワードが合っているか確認
-            if (user_db_check === true) {
-                let password_sql = db.prepare("select * from users where password=?");
-                let password_db_check = password_sql.run(data.pass);
-            }
-
-            // ログイン日時を更新 => あとで
-
+            db.get(`select username, password from users where username='${data.user}'`,
+                function (err, row) {
+                    if (row) { // データベースにユーザ名が登録されているか
+                        if (row.password === data.pass) { // パスワードが合っているか
+                            socket.emit("logInApproval", true);
+                        } else {
+                            socket.emit("logInApproval", false);
+                        }
+                    } else {
+                        socket.emit("logInApproval", false);
+                    }
+                }
+            );
         });
-
-        console.log(data.user + "：" + data.pass);
-        socket.emit("logInApproval", true);
     });
 
     socket.on("signUpAuthRequest", function (data) {
