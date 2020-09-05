@@ -1,52 +1,47 @@
 /*
  * 画面全体に関する設定
  */
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 body {
-    font: 14px "Lucida Grande", Meiryo, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    background: var(--light-color);
 }
 
 a {
     color: #00B7FF;
 }
 
-div {
-}
+div {}
 
 .row {
     /* margin: 20px; */
 }
 
-form{
+form {
     /* width: 100vw; */
 }
 
 /*
  * ボタンの共通設定
  */
-.common-button {
-
-}
+.common-button {}
 
 /*
  * トップ画面（index.hbs）に関する設定
  */
-.index-user_name {
-
-}
+.index-user_name {}
 
 .index-user_name_text {
     /* width: 200px; */
 }
 
-.index-enter {
+.index-enter {}
 
-}
+.index-enter_button {}
 
-.index-enter_button {
-
-}
-
-.contain{
+.contain {
     display: flex;
     width: 100vw;
 }
@@ -55,29 +50,29 @@ form{
     サイドバーの設定
 */
 
-.sidebar{
-    width:15%;
+.sidebar {
+    width: 15%;
     height: 100vh;
     padding: 5px;
     border-right: solid #00B7FF;
 }
 
-.room{
+.room {
     width: 100%;
     height: 40%;
 }
 
-.room h5{
+.room h5 {
     font-weight: bold;
     text-align: center;
 }
 
-.member{
+.member {
     width: 100%;
     height: 60%;
 }
 
-.member h5{
+.member h5 {
     font-weight: bold;
     text-align: center;
 }
@@ -86,14 +81,14 @@ form{
     DM部分の設定
 */
 
-.rightbar{
+.rightbar {
     width: 25%;
     height: 100vh;
     padding: 5px;
     border-left: solid #00B7FF;
 }
 
-.rightbar h4{
+.rightbar h4 {
     text-align: center;
     font-weight: bold;
 }
@@ -102,13 +97,13 @@ form{
  * チャットルーム画面（room.hbs）に関する設定
 */
 
-.main{
+.main {
     width: 60%;
     height: 100vh;
     padding: 5px;
 }
 
-.group{
+.group {
     height: 15%;
     padding: 15px;
     display: flex;
@@ -116,93 +111,77 @@ form{
     border-bottom: solid #00B7FF;
 }
 
-.group-name{
+.group-name {
     font-weight: bold;
 }
 
-.group-member{
+.group-member {}
 
-}
-
-.group-member_list{
+.group-member_list {
     list-style: none;
     display: inline-block;
     margin: 0px 10px;
     line-height: 15%;
 }
 
-.chat{
+.chat {
     display: flex;
     width: 100%;
     height: 85%;
     margin-top: 45px;
 }
 
-.timeline{
+.timeline {
     width: 50%;
     height: 100%;
     border-right: solid black;
 }
 
-.groupchat{
+.groupchat {
     width: 50%;
     height: 100%;
 }
 
-.user{
+.user {
     display: flex;
     justify-content: flex-start;
 }
 
-.room-login_user {
+.room-login_user {}
 
- }
-
-.room-message {
-
-}
+.room-message {}
 
 .room-message_textarea {
     /* width: 500px; */
 }
 
-.room-submit {
+.room-submit {}
 
-}
+.room-publish_button {}
 
-.room-publish_button {
+.room-memo_button {}
 
-}
-
-.room-memo_button {
-
-}
-
-.room-thread {
-
-}
+.room-thread {}
 
 .room-exit {
     margin-left: 20px;
 }
 
-.room-exit_button {
+.room-exit_button {}
 
-}
-
-#chat{
+#chat {
     border: thin groove #DDDDDD;
     border-radius: 10px;
     margin: 5px 0px;
     padding: 5px;
 }
 
-#chat_date{
+#chat_date {
     font-size: 10px;
     margin: 0px;
 }
 
-#chat_message{
+#chat_message {
     font-weight: bold;
     margin: 0px;
 }
