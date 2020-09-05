@@ -25,12 +25,12 @@ function enter(process) {
     // ログイン承認リクエストを送る
     socket.emit(`${process}AuthRequest`, data);
 
-    socket.on(`${process}Approval`, function (approval) {
-        if (approval) {
-            console.log("ログイン可");
+    socket.on(`${process}Approval`, function (response) {
+        if (response.approval) {
+            console.log(response.alert);
             document.logIn_form.submit();
         } else {
-            alert("ログイン不可");
+            alert(response.alert);
         }
     });
 }
