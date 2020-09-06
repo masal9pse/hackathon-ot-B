@@ -12,15 +12,19 @@ function enter(process) {
 
     const password = $('#password').val();
 
+    let now = new Date($.now()).toLocaleString();
+
     // ユーザ名が未入力でないかチェックする
     // if (userName === "" || event.which === 13 && event.shiftKey == false) {
     if (userName === "") {
         alert('ユーザー名を入力してください');
         return false;
     }
+    
     const data = {
         'user': userName,
         'pass': password,
+        'date': now,
     };
     // ログイン承認リクエストを送る
     socket.emit(`${process}AuthRequest`, data);

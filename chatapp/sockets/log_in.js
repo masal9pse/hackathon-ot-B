@@ -11,6 +11,8 @@ module.exports = function (socket, master) {
                 function (err, row) {
                     if (row) { // データベースにユーザ名が登録されているか
                         if (row.password === data.pass) { // パスワードが合っているか
+                            const stmt = db.prepare("update users set logintime=? where username=?");
+                            stmt.run(data.date, data.user);
                             socket.emit("logInApproval", {
                                 approval: true,
                                 alert: "ログインできます"
@@ -37,12 +39,11 @@ module.exports = function (socket, master) {
         const db = new sqlite3.Database('./database/usersdb.sqlite');
 
         db.serialize(function () {
-            db.get(`select  username, password from users where username='${data.user}'`,
+            db.get(`select username, password from users where username='${data.user}'`,
                 function (err, row) {
                     if (row === undefined) { // データベースにユーザ名が登録されていないか
                         const stmt = db.prepare("insert into users values (?, ?, ?)");
-                        stmt.run(data.user, data.pass, socket.id);
-                        // stmt.finalize();
+                        stmt.run(data.user, data.pass, data.date);
                         socket.emit("signUpApproval", {
                             approval: true,
                             alert: "登録可能です"

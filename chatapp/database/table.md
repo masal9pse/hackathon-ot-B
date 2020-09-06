@@ -1,2 +1,2 @@
 Userテーブル
-username,password,socketId
+username, password, logintime

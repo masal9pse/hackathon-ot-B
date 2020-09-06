@@ -10,11 +10,11 @@ db.serialize(function () {
     // テーブル作成
     //※　"IF NOT EXISTS"の部分は同名のテーブルが無い場合は、このままテーブルを作成。
     //既に同名テーブルがある時は何も処理せず終了。
-    db.run('CREATE TABLE IF NOT EXISTS users(username, password, socketid)');
-    db.run("insert into users values('Yamada', '1111', '1111222')");
-    db.run("insert into users values('masato', '2222', '22222222')");
-    db.run("insert into users values('koji', '3333', '5555555')");
-    db.run("insert into users values('sasuke', '2222', '777777')");
+    db.run('CREATE TABLE IF NOT EXISTS users(username, password, logintime)');
+    db.run("insert into users values('Yamada', '1111', '2020/9/6 22:40:24')");
+    db.run("insert into users values('masato', '2222', '2020/9/6 22:40:24')");
+    db.run("insert into users values('koji', '3333', '2020/9/6 22:40:24')");
+    db.run("insert into users values('sasuke', '2222', '2020/9/6 22:40:24')");
 });
 // DBを閉じる
 db.close();
