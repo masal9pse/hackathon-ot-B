@@ -14,11 +14,9 @@ socket.emit('entryMyselfEvent', user);
 
 // サーバから受信した入室メッセージを画面上に表示する
 socket.on('receiveEntryEvent', function (userName) {
-    $('#thread').prepend(`<p>${user.name}さんが入室しました</p>`);
-
-    // user.name;
-    console.log(user.name);
+    $('#thread').prepend(`<p>${userName}さんが入室しました</p>`);
 });
+
 socket.on('receiveEntryUserList', function (userName) {
     $('#member-list').prepend(`<li>${userName}</li>`);
 });
