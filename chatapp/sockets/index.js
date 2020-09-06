@@ -19,7 +19,7 @@ module.exports = function (server) {
         require('./publish')(socket, io, master);
 
         // 入室モジュールの呼出
-        require('./enter')(socket, master);
+        require('./enter')(socket, io, master);
 
         // 退室モジュールの呼出
         require('./exit')(socket, master);
