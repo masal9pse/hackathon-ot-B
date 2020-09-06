@@ -2,7 +2,6 @@
 
 const name = Symbol();
 const socketid = Symbol();
-const logintime = Symbol();
 const room = Symbol();
 
 class Manager{
@@ -29,6 +28,7 @@ class Manager{
 class User{
     constructor(_userName){
         this[name] = _userName;
+        this[socketid] = [];
     }
 
     get userName(){
@@ -46,16 +46,7 @@ class User{
 
     set socketID(_socketID){
         console.log("Register socket id: " + _socketID);
-        this[socketid] = _socketID;
-    }
-
-    get LogInTime(){
-        return this[logintime];
-    }
-
-    set LogInTime(_logInTime){
-        console.log("Register Log In Time: " + _logInTime);
-        this[logintime] = _logInTime;
+        this[socketid].push(_socketID);
     }
 
     get room(){

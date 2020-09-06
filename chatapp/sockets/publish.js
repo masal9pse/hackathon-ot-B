@@ -66,13 +66,15 @@ module.exports = function (socket, io, master) {
         });
 
         //特定のユーザに向けての送信
-        io.to(master[to_user].socketID).emit("receiveMessageEvent", {
-            "num_message": num_message,
-            "username": add_a_tag(data.username, num_message),
-            "date": data.date,
-            "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
-            "rm_button": ""
+        master[to_user].socketID.forEach((id) => {
+            io.to(id).emit("receiveMessageEvent", {
+                "num_message": num_message,
+                "username": add_a_tag(data.username, num_message),
+                "date": data.date,
+                "msg": format(data.msg),
+                "rp_button" : generate_reply(num_message),
+                "rm_button": ""
+            });
         });
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止

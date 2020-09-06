@@ -12,8 +12,12 @@ module.exports = function (socket, master) {
         socket.to(user.room).emit('receiveEntryEvent', user.name);
 
         //ユーザーの登録
-        master.user = user.name;
+        if (master[user.name] === undefined) {
+            master.user = user.name;
+        }
         master[user.name].room = user.room;
         master[user.name].socketID = socket.id;
+
+        console.log(master);
     });
 };

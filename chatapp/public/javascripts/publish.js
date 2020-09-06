@@ -50,12 +50,28 @@ function publish(code) {
             alert("文章を入力してください");
         }else if(reply.test(message)){
             console.log("to " + message.match(reply));
-            socket.json.emit("replyMessageEvent", {"date":now, "reply": message.match(reply), "username": userName, "room":room, "msg":message});    //reply
+            socket.json.emit("replyMessageEvent", {
+                "date":now,
+                "reply": message.match(reply),
+                "username": userName,
+                "room":room,"msg":message
+            });    //reply
         }else if(dm.test(message)){
             console.log("to " + message.match(dm));
-            socket.json.emit("directMessageEvent", {"date":now, "to": message.match(dm), "username": userName, "room":room, "msg":message});    //DM
+            socket.json.emit("directMessageEvent", {
+                "date":now,
+                "to": message.match(dm),
+                "username": userName,
+                "room":room,
+                "msg":message
+            });    //DM
         }else{
-            socket.json.emit("sendMessageEvent", {"date":now, "username": userName, "room": room, "msg":message});     //投稿
+            socket.json.emit("sendMessageEvent", {
+                "date":now,
+                "username": userName,
+                "room": room,
+                "msg":message
+            });     //投稿
         }
     }else{
         alert("連続して投稿することはできません");
