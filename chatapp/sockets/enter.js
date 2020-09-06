@@ -10,6 +10,7 @@ module.exports = function (socket, io, master) {
 
         // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する
         socket.to(user.room).emit('receiveEntryEvent', user.name);
+        // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
         io.sockets.to(user.room).emit('receiveEntryUserList', user.name);
 
         //ユーザーの登録
