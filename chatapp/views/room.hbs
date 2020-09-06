@@ -1,97 +1,97 @@
 <div class="contain">
-  <div class="sidebar">
-    <div class="room">
-      <h5>Chat Room</h5>
-      <ul class="room-list">
-        {{#each user.name}}
-        {{!-- <li>{{this}}</li> --}}
-        <li>{{this}}</li>
-        {{/each}}
-        <li>1</li>
-        <li>2</li>
-      </ul>
+    <div class="sidebar">
+        <div class="room">
+            <h5>Chat Room</h5>
+            <ul class="room-list">
+                <li>1</li>
+                <li>2</li>
+            </ul>
+        </div>
+        <div class="member">
+            <h5>Direct Message</h5>
+            <ul id="member-list">
+                <li>A</li>
+                {{!-- <li>B</li> --}}
+            </ul>
+        </div>
     </div>
-    <div class="member">
-      <h5>Direct Message</h5>
-      <ul class="member-list">
-        <li>A</li>
-        <li>B</li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="main">
-    <div class="group">
-      <h2 class="group-name"> {{ room }} : </h2>
-      <ul class="group-member">
-        <li class="group-member_list">
-          <h2>A</h2>
-        </li>
-        <li class="group-member_list">
-          <h2>B</h2>
-        </li>
-      </ul>
-    </div>
-    <div class="chat">
-      <div class="timeline">
-        <form method="post" action="/">
-          <div class="user">
-            <div class="room-login_user">
-              ログインユーザ：{{ userName }}さん
-              <input id="userName" type="hidden" value={{ userName }}>
-              <input id="room" type="hidden" value={{ room }}>
+    <div class="main">
+        <div class="group">
+            <h2 class="group-name"> {{ room }} : </h2>
+            <ul class="group-member">
+                <li class="group-member_list">
+                    <h2>A</h2>
+                </li>
+                <li class="group-member_list">
+                    <h2>B</h2>
+                </li>
+            </ul>
+        </div>
+        <div class="chat">
+            <div class="timeline">
+                <form method="post" action="/">
+                    <div class="user">
+                        <div class="room-login_user">
+                            ログインユーザ：{{ userName }}さん
+                            <input id="userName" type="hidden" value={{ userName }}>
+                            <input id="room" type="hidden" value={{ room }}>
+                        </div>
+                        <div class="room-exit">
+                            <input type="button" value="退室する" class="common-button room-exit_button" onclick="exit();">
+                        </div>
+                    </div>
+                    <div class="room-message">
+                        <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
+                            <!--onkeypress="publish(event.keyCode);" --></textarea>
+                    </div>
+                    <div class="room-submit">
+                        <input id="post" type="button" value="投稿" class="common-button room-publish_button"
+                            onclick="publish();">
+                        <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
+                        <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button"
+                            onclick="OnReverse();">
+                    </div>
+                    <div class="room-thread">
+                        <div id="thread"></div>
+                    </div>
+                </form>
             </div>
-            <div class="room-exit">
-              <input type="button" value="退室する" class="common-button room-exit_button" onclick="exit();">
-            </div>
-          </div>
-          <div class="room-message">
-            <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
-              <!--onkeypress="publish(event.keyCode);" --></textarea>
-          </div>
-          <div class="room-submit">
-            <input id="post" type="button" value="投稿" class="common-button room-publish_button" onclick="publish();">
-            <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
-            <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button" onclick="OnReverse();">
-          </div>
-          <div class="room-thread">
-            <div id="thread"></div>
-          </div>
-        </form>
-      </div>
 
-      <div class="groupchat">
-        <form method="post" action="/">
-          <div class="user">
-            <div class="room-login_user">
-              ログインユーザ：{{ userName }}さん
-              <input id="userName" type="hidden" value={{ userName }}>
-              <input id="room" type="hidden" value={{ room }}>
+            <div class="groupchat">
+                <form method="post" action="/">
+                    <div class="user">
+                        <div class="room-login_user">
+                            ログインユーザ：{{ userName }}さん
+                            <input id="userName" type="hidden" value={{ userName }}>
+                            <input id="room" type="hidden" value={{ room }}>
+                        </div>
+                        <div class="room-exit">
+                            <input type="button" value="退室する" class="common-button room-exit_button" onclick="exit();">
+                        </div>
+                    </div>
+                    <div class="room-message">
+                        <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
+                            <!--onkeypress="publish(event.keyCode);" --></textarea>
+                    </div>
+                    <div class="room-submit">
+                        <input id="post" type="button" value="投稿" class="common-button room-publish_button"
+                            onclick="publish();">
+                        <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
+                        <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button"
+                            onclick="OnReverse();">
+                    </div>
+                    <div class="room-thread">
+                        <div id="thread"></div>
+                    </div>
+                </form>
             </div>
-            <div class="room-exit">
-              <input type="button" value="退室する" class="common-button room-exit_button" onclick="exit();">
-            </div>
-          </div>
-          <div class="room-message">
-            <textarea id="message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
-              <!--onkeypress="publish(event.keyCode);" --></textarea>
-          </div>
-          <div class="room-submit">
-            <input id="post" type="button" value="投稿" class="common-button room-publish_button" onclick="publish();">
-            <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
-            <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button" onclick="OnReverse();">
-          </div>
-          <div class="room-thread">
-            <div id="thread"></div>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 
-  <div class="rightbar">
-    <h4 class="dmroom">Direct Message to ~</h4>
-  </div>
+    <div class="rightbar">
+        <h4 class="dmroom">Direct Message to ~</h4>
+    </div>
 </div>
 
 

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (socket, master) {
+module.exports = function (socket, io, master) {
     // 入室メッセージをクライアントに送信する
     socket.on('entryMyselfEvent', function (user) {
         console.log(`入室クライアントのユーザ名：${user.name}`);
@@ -9,6 +9,8 @@ module.exports = function (socket, master) {
         socket.join(user.room);
 
         // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する
+        socket.to(user.room).emit('receiveEntryEvent', user.name);
+        io.sockets.to(user.room).emit('receiveEntryEvent2', user.name);
 
         //ユーザーの登録
         master.user = user.name;
