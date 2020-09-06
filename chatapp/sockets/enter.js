@@ -9,11 +9,12 @@ module.exports = function (socket, master) {
         socket.join(user.room);
 
         // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する
-        socket.to(user.room).emit('receiveEntryEvent', user.name);
 
         //ユーザーの登録
         master.user = user.name;
+        console.log(master.user);
         master[user.name].room = user.room;
         master[user.name].socketID = socket.id;
+        socket.to(user.room).emit('receiveEntryEvent', user.name);
     });
 };
