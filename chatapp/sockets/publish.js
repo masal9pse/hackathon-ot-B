@@ -17,7 +17,8 @@ module.exports = function (socket, io, master) {
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
         
-        // 他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
+        // 他のクライアントには普通に送信
+        // 未実装：チャットルーム内の自分のアカウントには送信しない
         socket.broadcast.to(data.room).emit("receiveMessageEvent", {
             "num_message": num_message,
             "username": add_a_tag(data.username, num_message),
@@ -97,7 +98,8 @@ module.exports = function (socket, io, master) {
         
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
-        // 他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
+        // 他のクライアントには普通に送信
+        // 未実装：チャットルーム内の自分のアカウントには送信しない
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
             "num_message": num_message,
             "reply": to_reply,
