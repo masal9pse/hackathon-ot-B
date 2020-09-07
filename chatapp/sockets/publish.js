@@ -29,9 +29,9 @@ module.exports = function (socket, io, master) {
                     "msg": "<b>"+format(data.msg)+"</b>", 
                     "rp_button" : generate_reply(num_message),
                     "rm_button": generate_remove(num_message)
+                });
             });
-        });
-        
+
         // 他のクライアントには普通に送信
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
@@ -112,8 +112,8 @@ module.exports = function (socket, io, master) {
                     "msg": "<b>"+format(data.msg)+"</b>", 
                     "rp_button" : generate_reply(num_message),
                     "rm_button": generate_remove(num_message)
+                });
             });
-        });
 
         // 他のクライアントには普通に送信
         // 未実装：チャットルーム内の自分のアカウントには送信しない
@@ -131,8 +131,18 @@ module.exports = function (socket, io, master) {
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
     });
-};
 
+    // メモイベントを送信する
+    socket.on("sendMemoEvent", function(data) {
+        Object.keys(master[data.user].socketID).forEach((id) => {
+            io.to(id).emit("receiveMemoEvent", {
+                user: data.user,
+                msg:  data.msg,
+                date: data.date,
+            });
+        });
+    });
+};
 
 //replyボタンの生成
 function generate_reply(num) {

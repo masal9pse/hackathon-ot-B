@@ -36,5 +36,7 @@ module.exports = function (socket, io, master) {
 
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
+
+        console.log(master);
     });
 };

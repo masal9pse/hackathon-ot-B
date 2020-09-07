@@ -6,13 +6,13 @@ function exit() {
     const userName = $('#userName').val();
     const room = $('#room').val();
     let now = new Date($.now()).toLocaleString();
-    const user = {
+    
+    // 退室メッセージイベントを送信する
+    socket.emit('exitMyselfEvent', {
         'name': userName,
         'room': room,
         'date': now,
-    };
-    // 退室メッセージイベントを送信する
-    socket.emit('exitMyselfEvent', user);
+    });
 
     // 退室
     location.href = '/';

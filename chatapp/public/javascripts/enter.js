@@ -5,12 +5,12 @@
 const userName = $('#userName').val();
 // 選択されたルーム名を取得する
 const room = $('#room').val();
-const user = {
+
+// 入室メッセージイベントを送信する
+socket.emit('entryMyselfEvent', {
     'name': userName,
     'room': room,
-};
-// 入室メッセージイベントを送信する
-socket.emit('entryMyselfEvent', user);
+});
 
 // サーバから受信した入室メッセージを画面上に表示する
 socket.on('receiveEntryEvent', function(data) {
@@ -20,7 +20,9 @@ socket.on('receiveEntryEvent', function(data) {
 });
 
 socket.on('receiveWelcomeEvent', function(data) {
-    $('#thread').prepend(`<p>ようこそ${data.name}さん！あなたが最後にログインしていたのは${data.date}です。</p>`);
+    $('#thread').prepend(
+        `<p>ようこそ${data.name}さん！` +
+        `あなたが最後にログインしていたのは${data.date}です。</p>`);
 });
 
 socket.on('receiveEntryUserList', function(userList) {
