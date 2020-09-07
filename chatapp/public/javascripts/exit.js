@@ -5,9 +5,11 @@ function exit() {
     // ユーザ名取得
     const userName = $('#userName').val();
     const room = $('#room').val();
+    let now = new Date($.now()).toLocaleString();
     const user = {
         'name': userName,
         'room': room,
+        'date': now,
     };
     // 退室メッセージイベントを送信する
     socket.emit('exitMyselfEvent', user);

@@ -17,6 +17,10 @@ socket.on('receiveEntryEvent', function (userName) {
     $('#thread').prepend(`<p>${userName}さんが入室しました</p>`);
 });
 
+socket.on('receiveWelcomeEvent', function(data) {
+    $('#thread').prepend(`<p>ようこそ${data.name}さん！あなたが最後にログインしていたのは${data.date}です。</p>`);
+});
+
 socket.on('receiveEntryUserList', function (userName) {
     $('#member-list').prepend(`<li>${userName}</li>`);
 });
