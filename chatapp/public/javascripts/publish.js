@@ -16,6 +16,8 @@ let reverse = false;    // false→新しいもの順　true→古いもの順
 
 // const notifier = require("node-notifier");
 
+// メッセージ番号 -> 同じメッセージ番号のものを表示しない
+let latest_msg_num = -1;
 
 // 投稿メッセージをサーバに送信する
 function publish(code) {
@@ -100,13 +102,17 @@ socket.on("Ready", function(){
 socket.on('receiveMessageEvent', function (data) {
     console.log(data.username);
 
-    if(reverse){
-        $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
-    }else{
-        $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+    if (data.num_message !== latest_msg_num) {
+        if(reverse){
+            $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+            " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+        }else{
+            $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+            " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+        }
     }
+
+    latest_msg_num = data.num_message;
 
     // notifier.notify({
     //     'title': '最小限のnode-notifier',
@@ -117,9 +123,13 @@ socket.on('receiveMessageEvent', function (data) {
 
 //replyイベント
 socket.on("receiveReplyMessage", function(data){
-    const reply = String(data.reply);
-    $("#"+reply).append('<div id=reply' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-    " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+    if (data.num_message !== latest_msg_num) {
+        const reply = String(data.reply);
+        $("#"+reply).append('<div id=reply' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+    }
+
+    latest_msg_num = data.num_message;
 });
 
 

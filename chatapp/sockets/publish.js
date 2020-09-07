@@ -16,17 +16,6 @@ module.exports = function (socket, io, master) {
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
-        
-        // 他のクライアントには普通に送信
-        // 未実装：チャットルーム内の自分のアカウントには送信しない
-        socket.broadcast.to(data.room).emit("receiveMessageEvent", {
-            "num_message": num_message,
-            "username": add_a_tag(data.username, num_message),
-            "date": data.date, 
-            "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
-            "rm_button": ""
-        });
 
         // 自分自身にはbタグをつけた内容を送信
         // 同じチャットルームにいる自分のアカウントにのみメッセージを送る
@@ -41,6 +30,18 @@ module.exports = function (socket, io, master) {
                     "rp_button" : generate_reply(num_message),
                     "rm_button": generate_remove(num_message)
             });
+        });
+        
+        // 他のクライアントには普通に送信
+        // 未実装：チャットルーム内の自分のアカウントには送信しない
+        // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
+        socket.broadcast.to(data.room).emit("receiveMessageEvent", {
+            "num_message": num_message,
+            "username": add_a_tag(data.username, num_message),
+            "date": data.date, 
+            "msg": format(data.msg),
+            "rp_button" : generate_reply(num_message),
+            "rm_button": ""
         });
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
@@ -98,18 +99,6 @@ module.exports = function (socket, io, master) {
         
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
-        // 他のクライアントには普通に送信
-        // 未実装：チャットルーム内の自分のアカウントには送信しない
-        socket.broadcast.to(data.room).emit("receiveReplyMessage", {
-            "num_message": num_message,
-            "reply": to_reply,
-            "username": add_a_tag(data.username, num_message),
-            "date": data.date, 
-            "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
-            "rm_button": ""
-        });
-
         // 自分自身にはbタグをつけた内容を送信
         // 同じチャットルームにいる自分のアカウントにのみメッセージを送る
         Object.keys(master[data.username].socketID)
@@ -124,6 +113,19 @@ module.exports = function (socket, io, master) {
                     "rp_button" : generate_reply(num_message),
                     "rm_button": generate_remove(num_message)
             });
+        });
+
+        // 他のクライアントには普通に送信
+        // 未実装：チャットルーム内の自分のアカウントには送信しない
+        // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
+        socket.broadcast.to(data.room).emit("receiveReplyMessage", {
+            "num_message": num_message,
+            "reply": to_reply,
+            "username": add_a_tag(data.username, num_message),
+            "date": data.date, 
+            "msg": format(data.msg),
+            "rp_button" : generate_reply(num_message),
+            "rm_button": ""
         });
 
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
