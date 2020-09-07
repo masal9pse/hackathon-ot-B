@@ -9,26 +9,31 @@ module.exports = function (socket, io, master) {
         // roomへ入室する
         socket.join(user.room);
 
-        // 他クライアントが受信する入室表示イベント（receiveEntryEvent）を送信する
+        // 他クライアントが受信する入室表示イベントを送信する
         socket.to(user.room).emit('receiveEntryEvent', user.name);
 
+        // データベースを新規に開く
         const db = new sqlite3.Database('./database/usersdb.sqlite');
         db.serialize(function() {
+            // データベースからユーザーのログインタイムを取得
             db.get(`select logintime from users where username='${user.name}'`,
                 function(err, row) {
+                    // 自クライアントが受信する入室表示イベントを送信する
                     socket.emit('receiveWelcomeEvent', {
                         name: user.name,
                         date: row.logintime,
                     });
+                    // データベースを閉じる
                     db.close();
                 }
             );
         });
 
-        //ユーザーの登録
-        if (master[user.name] === undefined) {
+        // ユーザーを Manager に登録
+        if (master[user.name] === undefined) { // まだ登録されていないか
             master.user = user.name;
         }
+        // Manager にSocketIDとルーム名を登録
         master[user.name].socketID = {
             id: socket.id,
             room: user.room,

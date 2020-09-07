@@ -23,10 +23,7 @@ let latest_msg_num = -1;
 function publish(code) {
     const post = $("#post").val();
 
-    //if(code == 13){
-    //}
-    
-    if(post=="投稿"){
+    if (post=="投稿") {
 
         // ユーザ名を取得
         const userName = $("#userName").val();
@@ -48,9 +45,9 @@ function publish(code) {
         $('#message').val(" ");
 
         // 投稿内容を送信
-        if(regex.test(message)){
+        if (regex.test(message)) {
             alert("文章を入力してください");
-        }else if(reply.test(message)){
+        } else if (reply.test(message)) {
             console.log("to " + message.match(reply));
             socket.json.emit("replyMessageEvent", {
                 "date":now,
@@ -58,7 +55,7 @@ function publish(code) {
                 "username": userName,
                 "room":room,"msg":message
             });    //reply
-        }else if(dm.test(message)){
+        } else if (dm.test(message)) {
             console.log("to " + message.match(dm));
             socket.json.emit("directMessageEvent", {
                 "date":now,
@@ -67,7 +64,7 @@ function publish(code) {
                 "room":room,
                 "msg":message
             });    //DM
-        }else{
+        } else {
             socket.json.emit("sendMessageEvent", {
                 "date":now,
                 "username": userName,
@@ -75,7 +72,7 @@ function publish(code) {
                 "msg":message
             });     //投稿
         }
-    }else{
+    } else {
         alert("連続して投稿することはできません");
     }
 
@@ -84,17 +81,17 @@ function publish(code) {
 
 
 //待機イベント
-socket.on('Pause', function(time){
-    if(time==-1){
+socket.on('Pause', function (time) {
+    if (time === -1) {
         $("#post").val("Wait other user");       //連続投稿を阻止 
-    }else{
+    } else {
         $("#post").val("Wait time : " + time);   //カウントダウンを投稿ボタンに表示
     }
 });
 
 
 //復帰イベント
-socket.on("Ready", function(){
+socket.on("Ready", function () {
     $("#post").val("投稿");   //投稿ボタンを復活
 });
 
@@ -102,7 +99,7 @@ socket.on("Ready", function(){
 socket.on('receiveMessageEvent', function (data) {
     console.log(data.username);
 
-    if (data.num_message !== latest_msg_num) {
+    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         if(reverse){
             $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
@@ -112,6 +109,7 @@ socket.on('receiveMessageEvent', function (data) {
         }
     }
 
+    // メッセージ番号を更新
     latest_msg_num = data.num_message;
 
     // notifier.notify({
@@ -122,26 +120,27 @@ socket.on('receiveMessageEvent', function (data) {
 });
 
 //replyイベント
-socket.on("receiveReplyMessage", function(data){
-    if (data.num_message !== latest_msg_num) {
+socket.on("receiveReplyMessage", function (data) {
+    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         const reply = String(data.reply);
         $("#"+reply).append('<div id=reply' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
         " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }
 
+    // メッセージ番号を更新
     latest_msg_num = data.num_message;
 });
 
 
 //削除イベント
-socket.on("removeElementEvent", function (id){
+socket.on("removeElementEvent", function (id) {
     $("#" + id).remove();
 });
 
 
 
 //取り消し機能
-function remove_message(element){
+function remove_message(element) {
     const rm_msg = document.getElementById(element.id).parentNode;
     console.log(rm_msg.id);
     socket.emit("removeMessageEvent", rm_msg.id);
@@ -149,7 +148,7 @@ function remove_message(element){
 
 
 //DM機能
-function OnUsernameClick(element){
+function OnUsernameClick(element) {
     console.log(element.id)
     const to_name = $("#" + element.id).text();
     console.log(to_name);
@@ -158,26 +157,26 @@ function OnUsernameClick(element){
 }
 
 //reply機能
-function OnReplyClick(element){
+function OnReplyClick(element) {
     const to_rp = document.getElementById(element.id).parentNode;
     console.log(to_rp.id);
     $('#message').val("@"+to_rp.id);
 }
 
 //並び順の変更
-function OnReverse(){
+function OnReverse() {
     const thread = document.getElementById("thread");
     const children = thread.children;             //threadの子ノードを取得
     const fragment = document.createDocumentFragment();   // 空のDocumentFragmentノードを作成
-    const sort  = $("#sort").val();
+    const sort = $("#sort").val();
 
-    for(let i=children.length-1; i >= 0; i--){
+    for (let i=children.length-1; i >= 0; i--) {
         fragment.insertBefore(children[i], fragment[0]);
     }
 
     thread.appendChild(fragment);
 
-    switch(sort){
+    switch (sort) {
         case "新しいもの順":
             $("#sort").val("古いもの順");
             reverse = true;

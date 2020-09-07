@@ -6,10 +6,9 @@ const wait_time = 6;
 let num_message = 0;
 
 module.exports = function (socket, io, master) {
-
     // 投稿メッセージを送信する
     socket.on('sendMessageEvent', function (data) {
-        if(!data.msg){
+        if (!data.msg) {
             return;
         }
 
@@ -49,13 +48,13 @@ module.exports = function (socket, io, master) {
     });
 
     // メッセージ削除イベントを送信する
-    socket.on("removeMessageEvent", function(id){
+    socket.on("removeMessageEvent", function (id) {
         console.log("remove" + id);
         io.sockets.emit("removeElementEvent", id);
     });
 
     // DMイベントを送信する
-    socket.on("directMessageEvent", function(data){
+    socket.on("directMessageEvent", function (data) {
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
@@ -92,7 +91,7 @@ module.exports = function (socket, io, master) {
     });
 
     // リプライイベントを送信する
-    socket.on("replyMessageEvent", function(data){
+    socket.on("replyMessageEvent", function (data) {
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
@@ -133,7 +132,7 @@ module.exports = function (socket, io, master) {
     });
 
     // メモイベントを送信する
-    socket.on("sendMemoEvent", function(data) {
+    socket.on("sendMemoEvent", function (data) {
         Object.keys(master[data.user].socketID).forEach((id) => {
             io.to(id).emit("receiveMemoEvent", {
                 user: data.user,
@@ -162,7 +161,7 @@ function add_a_tag(username, num) {
 }
 
 //テキストの整形
-function format(text){
+function format(text) {
     // 文の初めは改行し、全角スペース4つ分のインデントをとる
     let pre_text = "<br>&emsp;&emsp;&emsp;&emsp;" + text;
 
@@ -176,7 +175,7 @@ function format(text){
 }
 
 //待機する関数
-function wait(time, socket, io){
+function wait(time, socket, io) {
     let count = time;
 
     var intervalID = setInterval(() => {    //1秒ごとにカウントダウン
