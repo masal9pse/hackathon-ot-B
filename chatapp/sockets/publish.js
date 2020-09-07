@@ -17,7 +17,7 @@ module.exports = function (socket, io, master) {
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
         
-        //他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
+        // 他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
         socket.broadcast.to(data.room).emit("receiveMessageEvent", {
             "num_message": num_message,
             "username": add_a_tag(data.username, num_message),
@@ -27,15 +27,18 @@ module.exports = function (socket, io, master) {
             "rm_button": ""
         });
 
-        //自分自身にはbタグをつけた内容を送信
-        Object.keys(master[data.username].socketID).forEach((id) => {
-            io.to(id).emit("receiveMessageEvent", {
-                "num_message": num_message,
-                "username": add_a_tag(data.username, num_message),
-                "date": data.date,
-                "msg": "<b>"+format(data.msg)+"</b>", 
-                "rp_button" : generate_reply(num_message),
-                "rm_button": generate_remove(num_message)
+        // 自分自身にはbタグをつけた内容を送信
+        // 同じチャットルームにいる自分のアカウントにのみメッセージを送る
+        Object.keys(master[data.username].socketID)
+            .filter((id) => master[data.username].socketID[id] === data.room)
+            .forEach((id) => {
+                io.to(id).emit("receiveMessageEvent", {
+                    "num_message": num_message,
+                    "username": add_a_tag(data.username, num_message),
+                    "date": data.date,
+                    "msg": "<b>"+format(data.msg)+"</b>", 
+                    "rp_button" : generate_reply(num_message),
+                    "rm_button": generate_remove(num_message)
             });
         });
 
@@ -59,7 +62,7 @@ module.exports = function (socket, io, master) {
 
         console.log(to_user);
 
-        //自分自身への送信
+        // 自分自身への送信
         Object.keys(master[data.username].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
                 "num_message": num_message,
@@ -71,7 +74,7 @@ module.exports = function (socket, io, master) {
             });
         });
 
-        //特定のユーザに向けての送信
+        // 特定のユーザに向けての送信
         Object.keys(master[to_user].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
                 "num_message": num_message,
@@ -94,7 +97,7 @@ module.exports = function (socket, io, master) {
         
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
-        //他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
+        // 他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
             "num_message": num_message,
             "reply": to_reply,
@@ -105,16 +108,19 @@ module.exports = function (socket, io, master) {
             "rm_button": ""
         });
 
-        //自分自身にはbタグをつけた内容を送信
-        Object.keys(master[data.username].socketID).forEach((id) => {
-            socket.emit("receiveReplyMessage", {
-                "num_message": num_message,
-                "reply": to_reply,
-                "username": add_a_tag(data.username, num_message),
-                "date": data.date,
-                "msg": "<b>"+format(data.msg)+"</b>", 
-                "rp_button" : generate_reply(num_message),
-                "rm_button": generate_remove(num_message)
+        // 自分自身にはbタグをつけた内容を送信
+        // 同じチャットルームにいる自分のアカウントにのみメッセージを送る
+        Object.keys(master[data.username].socketID)
+            .filter((id) => master[data.username].socketID[id] === data.room)
+            .forEach((id) => {
+                socket.to(id).emit("receiveReplyMessage", {
+                    "num_message": num_message,
+                    "reply": to_reply,
+                    "username": add_a_tag(data.username, num_message),
+                    "date": data.date,
+                    "msg": "<b>"+format(data.msg)+"</b>", 
+                    "rp_button" : generate_reply(num_message),
+                    "rm_button": generate_remove(num_message)
             });
         });
 
