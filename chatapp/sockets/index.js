@@ -13,7 +13,7 @@ module.exports = function (server) {
 
     io.sockets.on('connection', function (socket) {
         // ログインモジュールの呼び出し
-        require('./log_in')(socket, master);
+        require('./log_in')(socket);
 
         // 投稿モジュールの呼出
         require('./publish')(socket, io, master);

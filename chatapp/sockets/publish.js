@@ -26,8 +26,9 @@ module.exports = function (socket, io, master) {
             "rp_button" : generate_reply(num_message),
             "rm_button": ""
         });
+
         //自分自身にはbタグをつけた内容を送信
-        master[data.username].socketID.forEach((id) => {
+        Object.keys(master[data.username].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
@@ -58,7 +59,7 @@ module.exports = function (socket, io, master) {
         console.log(to_user);
 
         //自分自身への送信
-        master[data.username].socketID.forEach((id) => {
+        Object.keys(master[data.username].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
@@ -70,7 +71,7 @@ module.exports = function (socket, io, master) {
         });
 
         //特定のユーザに向けての送信
-        master[to_user].socketID.forEach((id) => {
+        Object.keys(master[to_user].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
@@ -102,8 +103,9 @@ module.exports = function (socket, io, master) {
             "rp_button" : generate_reply(num_message),
             "rm_button": ""
         });
+
         //自分自身にはbタグをつけた内容を送信
-        master[data.username].socketID.forEach((id) => {
+        Object.keys(master[data.username].socketID).forEach((id) => {
             socket.emit("receiveReplyMessage", {
                 "num_message": num_message,
                 "reply": to_reply,

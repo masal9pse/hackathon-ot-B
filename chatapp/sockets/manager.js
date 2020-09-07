@@ -28,7 +28,7 @@ class Manager {
 class User {
     constructor(_userName) {
         this[name] = _userName;
-        this[socketid] = [];
+        this[socketid] = {};
     }
 
     get userName() {
@@ -36,7 +36,7 @@ class User {
     }
 
     set userName(_userName) {
-        console.log("Modify : " + this[name] + "→" + _userName);
+        console.log(`Modify : ${this[name]}→${_userName}`);
         this[name] = _userName;
     }
 
@@ -44,20 +44,10 @@ class User {
         return this[socketid];
     }
 
-    set socketID(_socketID) {
-        console.log("Register socket id: " + _socketID);
-        this[socketid].push(_socketID);
+    set socketID(_data) {
+        console.log(`Register socket id + room: ${_data.id} + ${_data.room}`);
+        this[socketid][_data.id] = _data.room;
     }
-
-    get room() {
-        return this[room];
-    }
-
-    set room(_room) {
-        console.log("Register entry room: " + _room);
-        this[room] = _room;
-    }
-
 }
 
 module.exports = Manager;

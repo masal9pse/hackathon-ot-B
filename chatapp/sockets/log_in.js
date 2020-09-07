@@ -1,7 +1,7 @@
 "use strict";
 const sqlite3 = require('sqlite3').verbose();
 
-module.exports = function(socket, master) {
+module.exports = function(socket) {
     socket.on("logInAuthRequest", function(data) {
         // データベースを新規に開く
         const db = new sqlite3.Database('./database/usersdb.sqlite');

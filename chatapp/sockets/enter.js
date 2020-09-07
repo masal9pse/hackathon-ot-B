@@ -16,7 +16,6 @@ module.exports = function (socket, io, master) {
         db.serialize(function() {
             db.get(`select logintime from users where username='${user.name}'`,
                 function(err, row) {
-                    console.log(row);
                     socket.emit('receiveWelcomeEvent', {
                         name: user.name,
                         date: row.logintime,
@@ -33,8 +32,10 @@ module.exports = function (socket, io, master) {
         if (master[user.name] === undefined) {
             master.user = user.name;
         }
-        master[user.name].room = user.room;
-        master[user.name].socketID = socket.id;
+        master[user.name].socketID = {
+            id: socket.id,
+            room: user.room,
+        };
 
         console.log(master);
     });

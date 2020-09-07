@@ -6,6 +6,12 @@ module.exports = function (socket, master) {
     socket.on('exitMyselfEvent', function (user) {
         console.log(`退室クライアントのユーザ名：${user.name}`);
 
+        // Managerで管理しているユーザーのSocketIDを削除
+        delete master[user.name].socketID[socket.id];
+        if (Object.keys(master[user.name].socketID).length === 0) {
+            delete master[user.name];
+        }
+
         const db = new sqlite3.Database('./database/usersdb.sqlite');
         // データベースに退室時間を記録
         db.serialize(function () {
