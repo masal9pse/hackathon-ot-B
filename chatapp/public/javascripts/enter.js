@@ -13,7 +13,7 @@ const user = {
 socket.emit('entryMyselfEvent', user);
 
 // サーバから受信した入室メッセージを画面上に表示する
-socket.on('receiveEntryEvent', function (userName) {
+socket.on('receiveEntryEvent', function(userName) {
     $('#thread').prepend(`<p>${userName}さんが入室しました</p>`);
 });
 
@@ -21,6 +21,10 @@ socket.on('receiveWelcomeEvent', function(data) {
     $('#thread').prepend(`<p>ようこそ${data.name}さん！あなたが最後にログインしていたのは${data.date}です。</p>`);
 });
 
-socket.on('receiveEntryUserList', function (userName) {
-    $('#member-list').prepend(`<li>${userName}</li>`);
+socket.on('receiveEntryUserList', function(userList) {
+    // $('#member-list').prepend(`<li>${userName}</li>`);
+    $('#member-list').empty();
+    userList.forEach(member => {
+        $('#member-list').prepend(`<li>${member}</li>`);
+    });
 });

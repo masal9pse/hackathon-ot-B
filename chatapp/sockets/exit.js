@@ -1,7 +1,7 @@
 'use strict';
 const sqlite3 = require('sqlite3').verbose();
 
-module.exports = function (socket, master) {
+module.exports = function (socket, io, master) {
     // 退室メッセージをクライアントに送信する
     socket.on('exitMyselfEvent', function (user) {
         console.log(`退室クライアントのユーザ名：${user.name}`);
@@ -22,5 +22,10 @@ module.exports = function (socket, master) {
 
         // 他クライアントが受信する退室表示イベント（receiveExitEvent）を送信する
         socket.to(user.room).emit('receiveExitEvent', user.name);
+
+        // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
+        io.sockets.emit('receiveEntryUserList', Object.keys(master));
+
+        console.log(master);
     });
 };

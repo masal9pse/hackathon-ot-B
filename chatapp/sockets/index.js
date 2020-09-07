@@ -22,6 +22,6 @@ module.exports = function (server) {
         require('./enter')(socket, io, master);
 
         // 退室モジュールの呼出
-        require('./exit')(socket, master);
+        require('./exit')(socket, io, master);
     });
 };

@@ -17,7 +17,7 @@ module.exports = function (socket, io, master) {
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
         
-        //他のクライアントには普通に送信
+        //他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
         socket.broadcast.to(data.room).emit("receiveMessageEvent", {
             "num_message": num_message,
             "username": add_a_tag(data.username, num_message),
@@ -43,13 +43,14 @@ module.exports = function (socket, io, master) {
 
     });
 
+    // メッセージ削除イベントを送信する
     socket.on("removeMessageEvent", function(id){
         console.log("remove" + id);
         io.sockets.emit("removeElementEvent", id);
     });
 
+    // DMイベントを送信する
     socket.on("directMessageEvent", function(data){
-
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
@@ -85,15 +86,15 @@ module.exports = function (socket, io, master) {
         wait(wait_time, socket, io);　　　　//60秒間投稿禁止
     });
 
+    // リプライイベントを送信する
     socket.on("replyMessageEvent", function(data){
-
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
         
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
-        //他のクライアントには普通に送信
+        //他のクライアントには普通に送信 -> 未実装：チャットルーム内の自分のアカウントには送信したくない
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
             "num_message": num_message,
             "reply": to_reply,
@@ -124,25 +125,32 @@ module.exports = function (socket, io, master) {
 
 
 //replyボタンの生成
-function generate_reply(num){
-    return "<input id=reply" + num + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this)';>";
+function generate_reply(num) {
+    return "<input id=reply" + num
+        + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this)';>";
 }
 
 //取り消しボタンの生成
-function generate_remove(num){
-    return "<input id=remove" + num + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';>";
+function generate_remove(num) {
+    return "<input id=remove" + num
+        + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';>";
 }
 
 //ユーザー名の整形
-function add_a_tag(username, num){
-    return "<a href='#' onclick='OnUsernameClick(this);' id=link" + num + ">" + username + "</a>"
+function add_a_tag(username, num) {
+    return "<a href='#' onclick='OnUsernameClick(this);' id=link" + num + ">" + username + "</a>";
 }
 
 //テキストの整形
 function format(text){
-    let pre_text = "<br>&emsp;&emsp;&emsp;&emsp;"  + text //文の初めは改行し、全角スペース4つ分のインデントをとる
+    // 文の初めは改行し、全角スペース4つ分のインデントをとる
+    let pre_text = "<br>&emsp;&emsp;&emsp;&emsp;" + text;
 
-    let formatted_text = pre_text.replace(indention, "<br>&emsp;&emsp;&emsp;&emsp;").replace(blank, "&nbsp;").replace(large_blank, "&emsp;"); //　改行→改行＋インデント　半角空白→＆nbsp 全角空白→&emsp
+    // 改行→改行＋インデント　半角空白→＆nbsp 全角空白→&emsp
+    let formatted_text = pre_text
+        .replace(indention, "<br>&emsp;&emsp;&emsp;&emsp;")
+        .replace(blank, "&nbsp;")
+        .replace(large_blank, "&emsp;");
 
     return formatted_text;
 }

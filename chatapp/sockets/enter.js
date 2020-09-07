@@ -25,9 +25,6 @@ module.exports = function (socket, io, master) {
             );
         });
 
-        // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        io.sockets.to(user.room).emit('receiveEntryUserList', user.name);
-
         //ユーザーの登録
         if (master[user.name] === undefined) {
             master.user = user.name;
@@ -36,6 +33,9 @@ module.exports = function (socket, io, master) {
             id: socket.id,
             room: user.room,
         };
+
+        // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
+        io.sockets.emit('receiveEntryUserList', Object.keys(master));
 
         console.log(master);
     });
