@@ -38,7 +38,7 @@ socket.on('receiveMemoEvent', function(data) {
     $('#thread').prepend(
         '<div id="chat">' +
             '<p id="chat_date">' +
-                `${data.now}  :  ${data.user}` +
+                `${data.date}  :  ${data.user}` +
             '</p>' +
             '<p id="chat_message">' +
                 `${data.msg}` +
