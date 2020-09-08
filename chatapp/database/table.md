@@ -1,2 +1,2 @@
-Userテーブル
+usersテーブル
 username, password, logintime
