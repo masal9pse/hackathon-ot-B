@@ -19,6 +19,9 @@ let reverse = false;    // false→新しいもの順　true→古いもの順
 // メッセージ番号 -> 同じメッセージ番号のものを表示しない
 let latest_msg_num = -1;
 
+//どこの投稿かを判別する正規表現
+const reg_area = /\w*_\w*_/;
+
 // 投稿メッセージをサーバに送信する
 function publish(element) {
     // const post = $("#post").val();
@@ -27,7 +30,7 @@ function publish(element) {
     if (post=="投稿") {
 
         //どこのチャットかを取得
-        const area = String(element).replace("post", "");
+        const area = String(element).match(reg_area)[0];
         console.log(area);
 
         // ユーザ名を取得
@@ -107,23 +110,14 @@ socket.on("Ready", function () {
 socket.on('receiveMessageEvent', function (data) {
     console.log(data.username);
 
-<<<<<<< Updated upstream
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         if(reverse){
-            $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+            $('#'+data.area+'thread').append('<div id=' + data.area+ 'message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
         }else{
-            $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+            $('#'+data.area+'thread').prepend('<div id=' + data.area+ 'message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
         }
-=======
-    if(reverse){
-        $('#'+data.area+'thread').append('<div id='+data.area+'message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
-    }else{
-        $('#'+data.area+'thread').prepend('<div id='+data.area+'message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
->>>>>>> Stashed changes
     }
 
     // メッセージ番号を更新
@@ -166,11 +160,14 @@ function remove_message(element) {
 
 //DM機能
 function OnUsernameClick(element) {
-    console.log(element.id)
-    const to_name = $("#" + element.id).text();
-    console.log(to_name);
 
-    $('#message').val("@"+to_name);
+
+    const to_name = $("#" + element.id).text();
+    const area = String(document.getElementById(element.id).closest("div").id).match(reg_area);
+
+    console.log(to_name);
+    console.log(area);
+    $('#'+area+'message').val("@"+to_name);
 }
 
 //reply機能

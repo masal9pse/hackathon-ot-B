@@ -2,9 +2,9 @@
 
 // 入室メッセージをサーバに送信する
 // 入力されたユーザ名を取得する
-const userName = $('#userName').val();
+const userName = $('#tluserName').val();
 // 選択されたルーム名を取得する
-const room = $('#room').val();
+const room = $('#tlroom').val();
 
 // 入室メッセージイベントを送信する
 socket.emit('entryMyselfEvent', {
@@ -15,13 +15,13 @@ socket.emit('entryMyselfEvent', {
 // サーバから受信した入室メッセージを画面上に表示する
 socket.on('receiveEntryEvent', function (data) {
     if (data !== userName) { // 入室したのが自分のアカウントだった場合は表示しない
-        $('#thread').prepend(`<p>${data}さんが入室しました</p>`);
+        $('#tlthread').prepend(`<p>${data}さんが入室しました</p>`);
     }
 });
 
 // 入室した時に前回退室した日時を表示する
 socket.on('receiveWelcomeEvent', function (data) {
-    $('#thread').prepend(
+    $('#tlthread').prepend(
         `<p>ようこそ${data.name}さん！` +
         `あなたが最後にログインしていたのは${data.date}です。</p>`);
 });

@@ -32,26 +32,26 @@
                     <div class="user">
                         <div class="room-login_user">
                             ログインユーザ：{{ userName }}さん
-                            <input id="userName" type="hidden" value={{ userName }}>
-                            <input id="room" type="hidden" value={{ room }}>
+                            <input id="tluserName" type="hidden" value={{ userName }}>
+                            <input id="tlroom" type="hidden" value={{ room }}>
                         </div>
                         <div class="room-exit">
                             <input type="button" value="退室する" class="common-button room-exit_button" onclick="exit();">
                         </div>
                     </div>
                     <div class="room-message">
-                        <textarea id="time_line_message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
+                        <textarea id="tlmessage" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
                             <!--onkeypress="publish(event.keyCode);" --></textarea>
                     </div>
                     <div class="room-submit">
-                        <input id="time_line_post" type="button" value="投稿" class="common-button room-publish_button"
-                            onclick="publish(this.id);">
+                        <input id="tlpost" type="button" value="投稿" class="common-button room-publish_button"
+                            onclick="timelinePublish();">
                         <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
-                        <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button"
-                            onclick="OnReverse();">
+                        <input id="tlsort" type="button" value="新しいもの順" class="common-button room-memo_button"
+                            onclick="OnReverse('tl');">
                     </div>
                     <div class="room-thread">
-                        <div id="time_line_thread"></div>
+                        <div id="tlthread"></div>
                     </div>
                 </form>
             </div>
@@ -61,26 +61,26 @@
                     <div class="user">
                         <div class="room-login_user">
                             ログインユーザ：{{ userName }}さん
-                            <input id="userName" type="hidden" value={{ userName }}>
-                            <input id="room" type="hidden" value={{ room }}>
+                            <input id="gruserName" type="hidden" value={{ userName }}>
+                            <input id="grroom" type="hidden" value={{ room }}>
                         </div>
                         <div class="room-exit">
                             <input type="button" value="退室する" class="common-button room-exit_button" onclick="exit();">
                         </div>
                     </div>
                     <div class="room-message">
-                        <textarea id="group_chat_message" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
+                        <textarea id="grmessage" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"
                             <!--onkeypress="publish(event.keyCode);" --></textarea>
                     </div>
                     <div class="room-submit">
-                        <input id="group_chat_post" type="button" value="投稿" class="common-button room-publish_button"
-                            onclick="publish(this.id);">
+                        <input id="grpost" type="button" value="投稿" class="common-button room-publish_button"
+                            onclick="groupchatPublish();">
                         <input type="button" value="メモ" class="common-button room-memo_button" onclick="memo();">
-                        <input id="sort" type="button" value="新しいもの順" class="common-button room-memo_button"
-                            onclick="OnReverse();">
+                        <input id="grsort" type="button" value="新しいもの順" class="common-button room-memo_button"
+                            onclick="OnReverse('gr');">
                     </div>
                     <div class="room-thread">
-                        <div id="group_chat_thread"></div>
+                        <div id="grthread"></div>
                     </div>
                 </form>
             </div>
@@ -96,6 +96,9 @@
 
 <script src="/javascripts/socket.js"></script>
 <script src="/javascripts/enter.js"></script>
-<script src="/javascripts/publish.js"></script>
+{{!-- <script src="/javascripts/publish.js"></script> --}}
 <script src="/javascripts/memo.js"></script>
 <script src="/javascripts/exit.js"></script>
+<script src="/javascripts/timeline.js"></script>
+<script src="/javascripts/groupchat.js"></script>
+<script src="/javascripts/helper.js"></script>

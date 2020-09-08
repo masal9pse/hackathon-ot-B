@@ -23,5 +23,11 @@ module.exports = function (server) {
 
         // 退室モジュールの呼出
         require('./exit')(socket, io, master);
+
+        //timelineモジュール
+        require('./timeline')(socket, io, master);
+
+        //groupchatモジュール
+        require('./groupchat')(socket, io, master);
     });
 };

@@ -21,7 +21,7 @@ module.exports = function (socket, io, master) {
                     // 自クライアントが受信する入室表示イベントを送信する
                     socket.emit('receiveWelcomeEvent', {
                         name: user.name,
-                        date: row.logintime,
+                        date: row.logintime
                     });
                     // データベースを閉じる
                     db.close();

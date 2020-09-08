@@ -7,7 +7,7 @@ let num_message = 0;
 
 module.exports = function (socket, io, master) {
     // 投稿メッセージを送信する
-    socket.on('sendMessageEvent', function (data) {
+    socket.on('grsendMessageEvent', function (data) {
         if (!data.msg) {
             return;
         }
@@ -21,8 +21,7 @@ module.exports = function (socket, io, master) {
         Object.keys(master[data.username].socketID)
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
-                io.to(id).emit("receiveMessageEvent", {
-                    "area": data.area,
+                io.to(id).emit("grreceiveMessageEvent", {
                     "num_message": num_message,
                     "username": add_a_tag(data.username, num_message),
                     "date": data.date,
@@ -35,8 +34,7 @@ module.exports = function (socket, io, master) {
         // 他のクライアントには普通に送信
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
-        socket.broadcast.to(data.room).emit("receiveMessageEvent", {
-            "area" : data.area,
+        socket.broadcast.to(data.room).emit("grreceiveMessageEvent", {
             "num_message": num_message,
             "username": add_a_tag(data.username, num_message),
             "date": data.date, 
@@ -45,57 +43,11 @@ module.exports = function (socket, io, master) {
             "rm_button": ""
         });
 
-        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
-
     });
 
-    // メッセージ削除イベントを送信する
-    socket.on("removeMessageEvent", function (id) {
-        console.log("remove" + id);
-        io.sockets.emit("removeElementEvent", id);
-    });
-
-    // DMイベントを送信する
-    socket.on("directMessageEvent", function (data) {
-        console.log(++num_message);
-        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
-        // console.log(io.sockets.clients());
-
-        let to_user = String(data.to).replace("@", "").replace("\n", "");
-
-        console.log(to_user);
-
-        // 自分自身への送信
-        Object.keys(master[data.username].socketID).forEach((id) => {
-            io.to(id).emit("receiveMessageEvent", {
-                "area" : data.area,
-                "num_message": num_message,
-                "username": add_a_tag(data.username, num_message),
-                "date": data.date,
-                "msg": "<b>"+format(data.msg)+"</b>", 
-                "rp_button" : generate_reply(num_message),
-                "rm_button": generate_remove(num_message)
-            });
-        });
-
-        // 特定のユーザに向けての送信
-        Object.keys(master[to_user].socketID).forEach((id) => {
-            io.to(id).emit("receiveMessageEvent", {
-                "area" : data.area,
-                "num_message": num_message,
-                "username": add_a_tag(data.username, num_message),
-                "date": data.date,
-                "msg": format(data.msg),
-                "rp_button" : generate_reply(num_message),
-                "rm_button": ""
-            });
-        });
-
-        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
-    });
 
     // リプライイベントを送信する
-    socket.on("replyMessageEvent", function (data) {
+    socket.on("grreplyMessageEvent", function (data) {
         console.log(++num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
@@ -190,20 +142,4 @@ function format(text) {
         .replace(large_blank, "&emsp;");
 
     return formatted_text;
-}
-
-//待機する関数
-function wait(time, socket, io) {
-    let count = time;
-
-    var intervalID = setInterval(() => {    //1秒ごとにカウントダウン
-        io.sockets.emit('Pause', count--);   
-        console.log(count);
-    }, 1000);
-
-    setTimeout(() => {
-        clearInterval(intervalID);
-        socket.broadcast.emit("Ready");     //Readyイベントを発行　
-        socket.emit("Pause", -1);
-    }, (time+1)*1000);
 }
