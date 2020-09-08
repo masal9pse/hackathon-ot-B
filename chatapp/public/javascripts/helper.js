@@ -76,3 +76,14 @@ function OnReplyClick(element, area) {
     console.log(to_rp.id);
     $('#'+area+'message').val("@"+to_rp.id);
 }
+
+function remove_message(element) {
+    const rm_msg = document.getElementById(element.id).parentNode;
+    console.log(rm_msg.id);
+    socket.emit("removeMessageEvent", rm_msg.id);
+}
+
+//削除イベント
+socket.on("removeElementEvent", function (id) {
+    $("#" + id).remove();
+});

@@ -1,6 +1,7 @@
 'use strict';
 
 const Manager = require('./manager');
+const healper = require('./helper');
 
 module.exports = function (server) {
 
@@ -16,7 +17,7 @@ module.exports = function (server) {
         require('./log_in')(socket);
 
         // 投稿モジュールの呼出
-        require('./publish')(socket, io, master);
+        require('./publish')(socket, io, master, healper);
 
         // 入室モジュールの呼出
         require('./enter')(socket, io, master);
@@ -25,9 +26,10 @@ module.exports = function (server) {
         require('./exit')(socket, io, master);
 
         //timelineモジュール
-        require('./timeline')(socket, io, master);
+        require('./timeline')(socket, io, master, healper);
 
         //groupchatモジュール
-        require('./groupchat')(socket, io, master);
+        require('./groupchat')(socket, io, master, healper);
+
     });
 };

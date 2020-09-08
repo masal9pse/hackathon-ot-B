@@ -1,18 +1,13 @@
 'use strict';
-const indention = /\n/g;
-const blank = /\s/g;
-const large_blank = /　/g;
-const wait_time = 6;
-let num_message = 0;
 
-module.exports = function (socket, io, master) {
+module.exports = function (socket, io, master, helper) {
     // 投稿メッセージを送信する
     socket.on('grsendMessageEvent', function (data) {
         if (!data.msg) {
             return;
         }
 
-        console.log(++num_message);
+        console.log(++helper.num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
 
@@ -22,12 +17,12 @@ module.exports = function (socket, io, master) {
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
                 io.to(id).emit("grreceiveMessageEvent", {
-                    "num_message": num_message,
-                    "username": add_a_tag(data.username, num_message),
+                    "num_message": helper.num_message,
+                    "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                     "date": data.date,
-                    "msg": "<b>"+format(data.msg)+"</b>", 
-                    "rp_button" : generate_reply(num_message),
-                    "rm_button": generate_remove(num_message)
+                    "msg": "<b>"+helper.format(data.msg)+"</b>", 
+                    "rp_button" : helper.generate_reply(helper.num_message, "gr"),
+                    "rm_button": helper.generate_remove(helper.num_message)
                 });
             });
 
@@ -35,11 +30,11 @@ module.exports = function (socket, io, master) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("grreceiveMessageEvent", {
-            "num_message": num_message,
-            "username": add_a_tag(data.username, num_message),
+            "num_message": helper.num_message,
+            "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
             "date": data.date, 
-            "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
+            "msg": helper.format(data.msg),
+            "rp_button" : helper.generate_reply(helper.num_message,"gr"),
             "rm_button": ""
         });
 
@@ -48,7 +43,7 @@ module.exports = function (socket, io, master) {
 
     // リプライイベントを送信する
     socket.on("grreplyMessageEvent", function (data) {
-        console.log(++num_message);
+        console.log(++helper.num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
         
@@ -60,13 +55,13 @@ module.exports = function (socket, io, master) {
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
                 socket.to(id).emit("receiveReplyMessage", {
-                    "num_message": num_message,
+                    "num_message": helper.num_message,
                     "reply": to_reply,
-                    "username": add_a_tag(data.username, num_message),
+                    "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                     "date": data.date,
-                    "msg": "<b>"+format(data.msg)+"</b>", 
-                    "rp_button" : generate_reply(num_message),
-                    "rm_button": generate_remove(num_message)
+                    "msg": "<b>"+helper.format(data.msg)+"</b>", 
+                    "rp_button" : helper.generate_reply(helper.num_message, "gr"),
+                    "rm_button": helper.generate_remove(helper.num_message)
                 });
             });
 
@@ -75,32 +70,35 @@ module.exports = function (socket, io, master) {
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
             "area" : data.area,
-            "num_message": num_message,
+            "num_message": helper.num_message,
             "reply": to_reply,
-            "username": add_a_tag(data.username, num_message),
+            "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
             "date": data.date, 
-            "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
+            "msg": helper.format(data.msg),
+            "rp_button" : helper.generate_reply(helper.num_message, "gr"),
             "rm_button": ""
         });
         //自分自身にはbタグをつけた内容を送信
         master[data.username].socketID.forEach((id) => {
             socket.emit("receiveReplyMessage", {
                 "area" : data.area,
-                "num_message": num_message,
+                "num_message": helper.num_message,
                 "reply": to_reply,
-                "username": add_a_tag(data.username, num_message),
+                "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                 "date": data.date,
-                "msg": "<b>"+format(data.msg)+"</b>", 
-                "rp_button" : generate_reply(num_message),
-                "rm_button": generate_remove(num_message)
+                "msg": "<b>"+helper.format(data.msg)+"</b>", 
+                "rp_button" : helper.generate_reply(helper.num_message, "gr"),
+                "rm_button": helper.generate_remove(helper.num_message)
             });
         });
-
-        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
-
     });
 
+    // メッセージ削除イベントを送信する
+    socket.on("removeMessageEvent", function (id) {
+        console.log("remove" + id);
+        io.sockets.emit("removeElementEvent", id);
+    });
+    
     // メモイベントを送信する
     socket.on("sendMemoEvent", function (data) {
         Object.keys(master[data.user].socketID).forEach((id) => {
@@ -112,34 +110,3 @@ module.exports = function (socket, io, master) {
         });
     });
 };
-
-//replyボタンの生成
-function generate_reply(num) {
-    return "<input id=reply" + num
-        + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this)';>";
-}
-
-//取り消しボタンの生成
-function generate_remove(num) {
-    return "<input id=remove" + num
-        + " type='button' value='取り消し' class='common-button room-publish_button' onclick='remove_message(this)';>";
-}
-
-//ユーザー名の整形
-function add_a_tag(username, num) {
-    return "<a href='#' onclick='OnUsernameClick(this);' id=link" + num + ">" + username + "</a>";
-}
-
-//テキストの整形
-function format(text) {
-    // 文の初めは改行し、全角スペース4つ分のインデントをとる
-    let pre_text = "<br>&emsp;&emsp;&emsp;&emsp;" + text;
-
-    // 改行→改行＋インデント　半角空白→＆nbsp 全角空白→&emsp
-    let formatted_text = pre_text
-        .replace(indention, "<br>&emsp;&emsp;&emsp;&emsp;")
-        .replace(blank, "&nbsp;")
-        .replace(large_blank, "&emsp;");
-
-    return formatted_text;
-}
