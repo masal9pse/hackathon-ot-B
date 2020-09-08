@@ -13,7 +13,7 @@ module.exports = function (socket, io, master) {
         }
 
         console.log(++num_message);
-        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        console.log(data.date + ":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
 
         // 自分自身にはbタグをつけた内容を送信
@@ -26,8 +26,8 @@ module.exports = function (socket, io, master) {
                     "num_message": num_message,
                     "username": add_a_tag(data.username, num_message),
                     "date": data.date,
-                    "msg": "<b>"+format(data.msg)+"</b>", 
-                    "rp_button" : generate_reply(num_message),
+                    "msg": "<b>" + format(data.msg) + "</b>",
+                    "rp_button": generate_reply(num_message),
                     "rm_button": generate_remove(num_message)
                 });
             });
@@ -36,12 +36,12 @@ module.exports = function (socket, io, master) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("receiveMessageEvent", {
-            "area" : data.area,
+            "area": data.area,
             "num_message": num_message,
             "username": add_a_tag(data.username, num_message),
-            "date": data.date, 
+            "date": data.date,
             "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
+            "rp_button": generate_reply(num_message),
             "rm_button": ""
         });
 
@@ -58,7 +58,7 @@ module.exports = function (socket, io, master) {
     // DMイベントを送信する
     socket.on("directMessageEvent", function (data) {
         console.log(++num_message);
-        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        console.log(data.date + ":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
 
         let to_user = String(data.to).replace("@", "").replace("\n", "");
@@ -68,12 +68,12 @@ module.exports = function (socket, io, master) {
         // 自分自身への送信
         Object.keys(master[data.username].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
-                "area" : data.area,
+                "area": data.area,
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
                 "date": data.date,
-                "msg": "<b>"+format(data.msg)+"</b>", 
-                "rp_button" : generate_reply(num_message),
+                "msg": "<b>" + format(data.msg) + "</b>",
+                "rp_button": generate_reply(num_message),
                 "rm_button": generate_remove(num_message)
             });
         });
@@ -81,12 +81,12 @@ module.exports = function (socket, io, master) {
         // 特定のユーザに向けての送信
         Object.keys(master[to_user].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
-                "area" : data.area,
+                "area": data.area,
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
                 "date": data.date,
                 "msg": format(data.msg),
-                "rp_button" : generate_reply(num_message),
+                "rp_button": generate_reply(num_message),
                 "rm_button": ""
             });
         });
@@ -97,9 +97,9 @@ module.exports = function (socket, io, master) {
     // リプライイベントを送信する
     socket.on("replyMessageEvent", function (data) {
         console.log(++num_message);
-        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        console.log(data.date + ":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
-        
+
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
         // 自分自身にはbタグをつけた内容を送信
@@ -112,8 +112,8 @@ module.exports = function (socket, io, master) {
                     "reply": to_reply,
                     "username": add_a_tag(data.username, num_message),
                     "date": data.date,
-                    "msg": "<b>"+format(data.msg)+"</b>", 
-                    "rp_button" : generate_reply(num_message),
+                    "msg": "<b>" + format(data.msg) + "</b>",
+                    "rp_button": generate_reply(num_message),
                     "rm_button": generate_remove(num_message)
                 });
             });
@@ -122,25 +122,25 @@ module.exports = function (socket, io, master) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
-            "area" : data.area,
+            "area": data.area,
             "num_message": num_message,
             "reply": to_reply,
             "username": add_a_tag(data.username, num_message),
-            "date": data.date, 
+            "date": data.date,
             "msg": format(data.msg),
-            "rp_button" : generate_reply(num_message),
+            "rp_button": generate_reply(num_message),
             "rm_button": ""
         });
         //自分自身にはbタグをつけた内容を送信
         master[data.username].socketID.forEach((id) => {
             socket.emit("receiveReplyMessage", {
-                "area" : data.area,
+                "area": data.area,
                 "num_message": num_message,
                 "reply": to_reply,
                 "username": add_a_tag(data.username, num_message),
                 "date": data.date,
-                "msg": "<b>"+format(data.msg)+"</b>", 
-                "rp_button" : generate_reply(num_message),
+                "msg": "<b>" + format(data.msg) + "</b>",
+                "rp_button": generate_reply(num_message),
                 "rm_button": generate_remove(num_message)
             });
         });
@@ -154,7 +154,7 @@ module.exports = function (socket, io, master) {
         Object.keys(master[data.user].socketID).forEach((id) => {
             io.to(id).emit("receiveMemoEvent", {
                 user: data.user,
-                msg:  data.msg,
+                msg: data.msg,
                 date: data.date,
             });
         });
@@ -197,7 +197,7 @@ function wait(time, socket, io) {
     let count = time;
 
     var intervalID = setInterval(() => {    //1秒ごとにカウントダウン
-        io.sockets.emit('Pause', count--);   
+        io.sockets.emit('Pause', count--);
         console.log(count);
     }, 1000);
 
@@ -205,5 +205,5 @@ function wait(time, socket, io) {
         clearInterval(intervalID);
         socket.broadcast.emit("Ready");     //Readyイベントを発行　
         socket.emit("Pause", -1);
-    }, (time+1)*1000);
+    }, (time + 1) * 1000);
 }
