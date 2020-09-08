@@ -30,6 +30,6 @@ socket.on('receiveWelcomeEvent', function (data) {
 socket.on('receiveEntryUserList', function (userList) {
     $('#member-list').empty();
     userList.forEach(member => {
-        $('#member-list').prepend(`<li>${member}</li>`);
+        $('#member-list').prepend(`<li><a href='#' onclick='OnUsernameClick(this, "tl");' id=${member}>${member}</a></li>`);
     });
 });
