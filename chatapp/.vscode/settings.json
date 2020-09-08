@@ -6,7 +6,9 @@
     "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
     "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
     "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "javascript.format.insertSpaceAfterCommaDelimiter": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
     "javascript.format.placeOpenBraceOnNewLineForFunctions": false,
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false, // if,elseの後ろにスペースを入れる
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
+    "javascript.format.insertSpaceAfterCommaDelimiter": true,
 }
