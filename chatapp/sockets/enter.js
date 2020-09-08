@@ -1,9 +1,9 @@
 'use strict';
 const sqlite3 = require('sqlite3').verbose();
 
-module.exports = function (socket, io, master) {
+module.exports = function(socket, io, master) {
     // 入室メッセージをクライアントに送信する
-    socket.on('entryMyselfEvent', function (user) {
+    socket.on('entryMyselfEvent', function(user) {
         console.log(`入室クライアントのユーザ名：${user.name}`);
 
         // roomへ入室する
@@ -30,7 +30,7 @@ module.exports = function (socket, io, master) {
         });
 
         // ユーザーを Manager に登録
-        if (master[user.name] === undefined) { // まだ登録されていないか
+        if(master[user.name] === undefined) { // まだ登録されていないか
             master.user = user.name;
         }
         // Manager にSocketIDとルーム名を登録

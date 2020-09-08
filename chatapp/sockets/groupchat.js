@@ -1,14 +1,14 @@
 'use strict';
 
-module.exports = function (socket, io, master, helper) {
+module.exports = function(socket, io, master, helper) {
     // 投稿メッセージを送信する
-    socket.on('grsendMessageEvent', function (data) {
+    socket.on('grsendMessageEvent', function(data) {
         if (!data.msg) {
             return;
         }
 
         console.log(++helper.num_message);
-        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        console.log(data.date + ":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
 
         // 自分自身にはbタグをつけた内容を送信
@@ -20,8 +20,8 @@ module.exports = function (socket, io, master, helper) {
                     "num_message": helper.num_message,
                     "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                     "date": data.date,
-                    "msg": "<b>"+helper.format(data.msg)+"</b>", 
-                    "rp_button" : helper.generate_reply(helper.num_message, "gr"),
+                    "msg": "<b>" + helper.format(data.msg) + "</b>",
+                    "rp_button": helper.generate_reply(helper.num_message, "gr"),
                     "rm_button": helper.generate_remove(helper.num_message)
                 });
             });
@@ -32,9 +32,9 @@ module.exports = function (socket, io, master, helper) {
         socket.broadcast.to(data.room).emit("grreceiveMessageEvent", {
             "num_message": helper.num_message,
             "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
-            "date": data.date, 
+            "date": data.date,
             "msg": helper.format(data.msg),
-            "rp_button" : helper.generate_reply(helper.num_message,"gr"),
+            "rp_button": helper.generate_reply(helper.num_message, "gr"),
             "rm_button": ""
         });
 
@@ -42,11 +42,11 @@ module.exports = function (socket, io, master, helper) {
 
 
     // リプライイベントを送信する
-    socket.on("grreplyMessageEvent", function (data) {
+    socket.on("grreplyMessageEvent", function(data) {
         console.log(++helper.num_message);
-        console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+        console.log(data.date + ":" + data.username + "の入力 :" + data.msg);
         // console.log(io.sockets.clients());
-        
+
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
         // 自分自身にはbタグをつけた内容を送信
@@ -59,8 +59,8 @@ module.exports = function (socket, io, master, helper) {
                     "reply": to_reply,
                     "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                     "date": data.date,
-                    "msg": "<b>"+helper.format(data.msg)+"</b>", 
-                    "rp_button" : helper.generate_reply(helper.num_message, "gr"),
+                    "msg": "<b>" + helper.format(data.msg) + "</b>",
+                    "rp_button": helper.generate_reply(helper.num_message, "gr"),
                     "rm_button": helper.generate_remove(helper.num_message)
                 });
             });
@@ -69,29 +69,29 @@ module.exports = function (socket, io, master, helper) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
-            "area" : data.area,
+            "area": data.area,
             "num_message": helper.num_message,
             "reply": to_reply,
             "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
-            "date": data.date, 
+            "date": data.date,
             "msg": helper.format(data.msg),
-            "rp_button" : helper.generate_reply(helper.num_message, "gr"),
+            "rp_button": helper.generate_reply(helper.num_message, "gr"),
             "rm_button": ""
         });
     });
 
     // メッセージ削除イベントを送信する
-    socket.on("removeMessageEvent", function (id) {
+    socket.on("removeMessageEvent", function(id) {
         console.log("remove" + id);
         io.sockets.emit("removeElementEvent", id);
     });
-    
+
     // メモイベントを送信する
-    socket.on("sendgrMemoEvent", function (data) {
+    socket.on("sendgrMemoEvent", function(data) {
         Object.keys(master[data.user].socketID).forEach((id) => {
             io.to(id).emit("receivegrMemoEvent", {
                 user: data.user,
-                msg:  data.msg,
+                msg: data.msg,
                 date: data.date,
             });
         });

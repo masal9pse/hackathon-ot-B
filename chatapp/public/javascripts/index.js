@@ -34,7 +34,7 @@ function enter(process) {
     });
 
     // サーバーからのログイン承認イベントを受け取る
-    socket.on(`${process}Approval`, function (response) {
+    socket.on(`${process}Approval`, function(response) {
         if (response.approval) {
             console.log(response.alert);
             document.logIn_form.submit();

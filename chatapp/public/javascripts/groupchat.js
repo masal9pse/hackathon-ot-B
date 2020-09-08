@@ -1,6 +1,6 @@
 'use strict';
 
-function groupchatPublish(){
+function groupchatPublish() {
     const {userName, message, room, now} = textarea("gr");
 
     // 投稿内容を送信
@@ -9,41 +9,41 @@ function groupchatPublish(){
     } else if (reply.test(message)) {
         console.log("to " + message.match(reply));
         socket.json.emit("grreplyMessageEvent", {
-            "date":now,
+            "date": now,
             "reply": message.match(reply),
             "username": userName,
-            "room":room,"msg":message
+            "room": room, "msg": message
         });    //reply
     } else if (dm.test(message)) {   //DMを押したらDMのトークルームに遷移を後々する
         console.log("to " + message.match(dm));
         socket.json.emit("directMessageEvent", {
-            "date":now,
+            "date": now,
             "to": message.match(dm),
             "username": userName,
-            "room":room,
-            "msg":message
+            "room": room,
+            "msg": message
         });    //DM
     } else {
         socket.json.emit("grsendMessageEvent", {
-            "date":now,
+            "date": now,
             "username": userName,
             "room": room,
-            "msg":message
+            "msg": message
         });     //投稿
     }
 }
 
 //表示イベント
-socket.on('grreceiveMessageEvent', function (data) {
+socket.on('grreceiveMessageEvent', function(data) {
     console.log(data.username);
 
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
-        if(reverse){
-            $('#grthread').append('<div id=grmessage' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-            " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
-        }else{
-            $('#grthread').prepend('<div id=grmessage' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-            " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+        if (reverse) {
+            $('#grthread').append('<div id=grmessage' + data.num_message + ">" + "<p>" + data.date + " : " + data.username +
+                " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
+        } else {
+            $('#grthread').prepend('<div id=grmessage' + data.num_message + ">" + "<p>" + data.date + " : " + data.username +
+                " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
         }
     }
 
@@ -53,11 +53,11 @@ socket.on('grreceiveMessageEvent', function (data) {
 })
 
 //replyイベント
-socket.on("grreceiveReplyMessage", function (data) {
+socket.on("grreceiveReplyMessage", function(data) {
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         const reply = String(data.reply);
-        $("#"+reply).append('<div id=reply' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
-        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+        $("#" + reply).append('<div id=reply' + data.num_message + ">" + "<p>" + data.date + " : " + data.username +
+            " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
     }
 
     // メッセージ番号を更新
