@@ -10,15 +10,11 @@ module.exports = function(socket, io, master) {
         socket.leave(user.room);
         console.log(socket.id);
         // Managerで管理しているユーザーのSocketIDを削除
-        // console.log(master[user.name].socketID[socket.id]);
-        // Cannot read property 'プロパティ名' of undefined
-        // Cannot read property 'socketID' of undefined
-        // delete master[user.name].socketID[socket.id];
+        delete master[user.name].socketID[socket.id];
         // もしSocketIDが一つも登録されていなければ，ユーザー自体を削除
-        // if (Object.keys(master[user.name].socketID[socket.id]).length === 0) {
-        // if (Object.keys(master[user.name]).length === 0) {
-        delete master[user.name];
-        // }
+        if (Object.keys(master[user.name].socketID).length === 0) {
+            delete master[user.name];
+        }
 
         // データベースを新規に開く
         const db = new sqlite3.Database('./database/usersdb.sqlite');

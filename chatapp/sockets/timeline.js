@@ -86,19 +86,6 @@ module.exports = function (socket, io, master, helper) {
             "rp_button" : helper.generate_reply(helper.num_message, "tl"),
             "rm_button": ""
         });
-        //自分自身にはbタグをつけた内容を送信
-        master[data.username].socketID.forEach((id) => {
-            socket.emit("receiveReplyMessage", {
-                "area" : data.area,
-                "num_message": helper.num_message,
-                "reply": to_reply,
-                "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
-                "date": data.date,
-                "msg": "<b>"+helper.format(data.msg)+"</b>", 
-                "rp_button" : helper.generate_reply(helper.num_message, "tl"),
-                "rm_button": helper.generate_remove(helper.num_message)
-            });
-        });
 
         // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 

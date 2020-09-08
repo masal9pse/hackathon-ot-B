@@ -3,9 +3,9 @@
 // 退室メッセージをサーバに送信する
 function exit() {
     // ユーザ名を取得
-    const userName = $('#userName').val();
+    const userName = $('#tluserName').val();
     // ルーム名を取得
-    const room = $('#room').val();
+    const room = $('#tlroom').val();
 
     // 現在の日時を取得
     let now = new Date($.now()).toLocaleString();
