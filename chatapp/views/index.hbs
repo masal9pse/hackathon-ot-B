@@ -9,12 +9,13 @@
         </form>
     </header>
     <div class="join-main">
+        {{!-- <form id="logIn_form" name="logIn_form" method="post" action="/room"> --}}
         <form id="logIn_form" name="logIn_form" method="post" action="/room">
             <div class="index-user_name">
                 <div>
-                    ユーザ名
+                    <label for="userName">ユーザ名</label>
                     <input type="text" id="userName" name="userName" placeholder="ユーザー名" class="form-control" required>
-                    パスワード
+                    <label for="password">パスワード</label>
                     <input type="text" id="password" name="password" placeholder="パスワード" class="form-control" required>
                 </div>
             </div>
@@ -30,7 +31,7 @@
                 </select>
             </div>
             <div class="index-enter">
-                <input type="button" value="入室する" class="btn btn-success" onclick="enter('logIn');">
+                <button type="submit" class="btn btn-success" onclick="enter('logIn');">入室する</button>
             </div>
         </form>
     </div>
