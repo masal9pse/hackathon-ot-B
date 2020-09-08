@@ -1,9 +1,9 @@
 'use strict';
 const sqlite3 = require('sqlite3').verbose();
 
-module.exports = function (socket, io, master) {
+module.exports = function(socket, io, master) {
     // 退室メッセージをクライアントに送信する
-    socket.on('exitMyselfEvent', function (user) {
+    socket.on('exitMyselfEvent', function(user) {
         console.log(`退室クライアントのユーザ名：${user.name}`);
 
         // roomから退室する
@@ -22,7 +22,7 @@ module.exports = function (socket, io, master) {
 
         // データベースを新規に開く
         const db = new sqlite3.Database('./database/usersdb.sqlite');
-        db.serialize(function () {
+        db.serialize(function() {
             // データベースに退室時間を記録
             const stmt = db.prepare("update users set logintime=? where username=?");
             stmt.run(user.date, user.name);

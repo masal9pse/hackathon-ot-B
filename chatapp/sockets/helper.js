@@ -10,13 +10,13 @@ exports.wait_time = wait_time;
 
 //replyボタンの生成
 exports.generate_reply = function(num, area) {
-    if(area=="tl"){
+    if (area == "tl") {
         return "<input id=reply" + num
-        + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' +")';>";
+            + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' + ")';>";
 
-    }else if(area=="gr"){
+    } else if (area == "gr") {
         return "<input id=reply" + num
-        + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"gr"' +")';>";
+            + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
     }
 }
 
@@ -28,10 +28,10 @@ exports.generate_remove = function(num) {
 
 //ユーザー名の整形
 exports.add_a_tag = function(username, num, area) {
-    if(area=="tl"){
-        return "<a href='#' onclick='OnUsernameClick(this, "+'"tl"'+ ");' id=link" + num + ">" + username + "</a>";
-    }else if(area=="gr"){
-        return "<a href='#' onclick='OnUsernameClick(this, "+'"gr"'+");' id=link" + num + ">" + username + "</a>";
+    if (area == "tl") {
+        return "<a href='#' onclick='OnUsernameClick(this, " + '"tl"' + ");' id=link" + num + ">" + username + "</a>";
+    } else if (area == "gr") {
+        return "<a href='#' onclick='OnUsernameClick(this, " + '"gr"' + ");' id=link" + num + ">" + username + "</a>";
     }
 }
 
