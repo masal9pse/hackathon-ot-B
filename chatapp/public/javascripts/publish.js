@@ -20,17 +20,22 @@ let reverse = false;    // false→新しいもの順　true→古いもの順
 let latest_msg_num = -1;
 
 // 投稿メッセージをサーバに送信する
-function publish(code) {
-    const post = $("#post").val();
+function publish(element) {
+    // const post = $("#post").val();
+    const post = "投稿";
 
     if (post=="投稿") {
+
+        //どこのチャットかを取得
+        const area = String(element).replace("post", "");
+        console.log(area);
 
         // ユーザ名を取得
         const userName = $("#userName").val();
         console.log(userName);
 
         // 入力されたメッセージを取得
-        const message = $('#message').val();
+        const message = $('#'+area+'message').val();
         console.log("textarea input : "  + message);
 
         // ルームを取得
@@ -42,7 +47,7 @@ function publish(code) {
         console.log(now);
 
         //textareaを空にする
-        $('#message').val(" ");
+        $('#'+area+'message').val(" ");
 
         // 投稿内容を送信
         if (regex.test(message)) {
@@ -50,6 +55,7 @@ function publish(code) {
         } else if (reply.test(message)) {
             console.log("to " + message.match(reply));
             socket.json.emit("replyMessageEvent", {
+                "area" : area,
                 "date":now,
                 "reply": message.match(reply),
                 "username": userName,
@@ -58,6 +64,7 @@ function publish(code) {
         } else if (dm.test(message)) {
             console.log("to " + message.match(dm));
             socket.json.emit("directMessageEvent", {
+                "area" : area,
                 "date":now,
                 "to": message.match(dm),
                 "username": userName,
@@ -66,6 +73,7 @@ function publish(code) {
             });    //DM
         } else {
             socket.json.emit("sendMessageEvent", {
+                "area" : area,
                 "date":now,
                 "username": userName,
                 "room": room,
@@ -99,6 +107,7 @@ socket.on("Ready", function () {
 socket.on('receiveMessageEvent', function (data) {
     console.log(data.username);
 
+<<<<<<< Updated upstream
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         if(reverse){
             $('#thread').append('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
@@ -107,6 +116,14 @@ socket.on('receiveMessageEvent', function (data) {
             $('#thread').prepend('<div id=message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
         }
+=======
+    if(reverse){
+        $('#'+data.area+'thread').append('<div id='+data.area+'message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+    }else{
+        $('#'+data.area+'thread').prepend('<div id='+data.area+'message' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
+>>>>>>> Stashed changes
     }
 
     // メッセージ番号を更新

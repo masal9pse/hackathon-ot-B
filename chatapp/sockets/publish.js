@@ -35,6 +35,7 @@ module.exports = function (socket, io, master) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("receiveMessageEvent", {
+            "area" : data.area,
             "num_message": num_message,
             "username": add_a_tag(data.username, num_message),
             "date": data.date, 
@@ -42,8 +43,23 @@ module.exports = function (socket, io, master) {
             "rp_button" : generate_reply(num_message),
             "rm_button": ""
         });
+<<<<<<< Updated upstream
+=======
+        //自分自身にはbタグをつけた内容を送信
+        master[data.username].socketID.forEach((id) => {
+            io.to(id).emit("receiveMessageEvent", {
+                "area" : data.area,
+                "num_message": num_message,
+                "username": add_a_tag(data.username, num_message),
+                "date": data.date,
+                "msg": "<b>"+format(data.msg)+"</b>", 
+                "rp_button" : generate_reply(num_message),
+                "rm_button": generate_remove(num_message)
+            });
+        });
+>>>>>>> Stashed changes
 
-        wait(wait_time, socket, io);　　　　//60秒間投稿禁止
+        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
     });
 
@@ -66,6 +82,7 @@ module.exports = function (socket, io, master) {
         // 自分自身への送信
         Object.keys(master[data.username].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
+                "area" : data.area,
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
                 "date": data.date,
@@ -78,6 +95,7 @@ module.exports = function (socket, io, master) {
         // 特定のユーザに向けての送信
         Object.keys(master[to_user].socketID).forEach((id) => {
             io.to(id).emit("receiveMessageEvent", {
+                "area" : data.area,
                 "num_message": num_message,
                 "username": add_a_tag(data.username, num_message),
                 "date": data.date,
@@ -87,7 +105,7 @@ module.exports = function (socket, io, master) {
             });
         });
 
-        wait(wait_time, socket, io);　　　　//60秒間投稿禁止
+        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
     });
 
     // リプライイベントを送信する
@@ -118,6 +136,7 @@ module.exports = function (socket, io, master) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("receiveReplyMessage", {
+            "area" : data.area,
             "num_message": num_message,
             "reply": to_reply,
             "username": add_a_tag(data.username, num_message),
@@ -126,8 +145,24 @@ module.exports = function (socket, io, master) {
             "rp_button" : generate_reply(num_message),
             "rm_button": ""
         });
+<<<<<<< Updated upstream
+=======
+        //自分自身にはbタグをつけた内容を送信
+        master[data.username].socketID.forEach((id) => {
+            socket.emit("receiveReplyMessage", {
+                "area" : data.area,
+                "num_message": num_message,
+                "reply": to_reply,
+                "username": add_a_tag(data.username, num_message),
+                "date": data.date,
+                "msg": "<b>"+format(data.msg)+"</b>", 
+                "rp_button" : generate_reply(num_message),
+                "rm_button": generate_remove(num_message)
+            });
+        });
+>>>>>>> Stashed changes
 
-        wait(wait_time, socket, io);　　　　//60秒間投稿禁止
+        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
     });
 
