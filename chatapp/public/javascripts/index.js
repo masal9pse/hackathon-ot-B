@@ -40,6 +40,7 @@ function enter(process) {
             document.logIn_form.submit();
         } else {
             alert(response.alert);
+            stop();
         }
     });
 }

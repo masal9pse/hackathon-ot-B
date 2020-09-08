@@ -9,7 +9,7 @@ module.exports = function (socket) {
         db.serialize(function () {
             // データベースからユーザー名と対応するパスワードを取得
             db.get(`select password from users where username='${data.user}'`,
-                function(err, row) {
+                function (err, row) {
                     if (row !== undefined) { // データベースにユーザ名が登録されているか
                         if (row.password === data.pass) { // パスワードが合っているか
                             socket.emit("logInApproval", {
@@ -21,7 +21,7 @@ module.exports = function (socket) {
                         } else {
                             socket.emit("logInApproval", {
                                 approval: false,
-                                alert: "パスワードが間違っています"
+                                alert: "パスワードが間違っています",
                             });
 
                             db.close();
@@ -43,10 +43,10 @@ module.exports = function (socket) {
         // データベースを新規に開く
         const db = new sqlite3.Database('./database/usersdb.sqlite');
 
-        db.serialize(function() {
+        db.serialize(function () {
             // データベースからユーザ名と対応するパスワードを取得
             db.get(`select password from users where username='${data.user}'`,
-                function(err, row) {
+                function (err, row) {
                     if (row === undefined) { // データベースにユーザ名が登録されていないか
                         // データベースにユーザー名，パスワード，サインアップ日時を登録
                         const stmt = db.prepare("insert into users values (?, ?, ?)");
