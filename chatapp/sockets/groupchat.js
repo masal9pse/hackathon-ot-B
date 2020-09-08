@@ -87,9 +87,9 @@ module.exports = function (socket, io, master, helper) {
     });
     
     // メモイベントを送信する
-    socket.on("sendMemoEvent", function (data) {
+    socket.on("sendgrMemoEvent", function (data) {
         Object.keys(master[data.user].socketID).forEach((id) => {
-            io.to(id).emit("receiveMemoEvent", {
+            io.to(id).emit("receivegrMemoEvent", {
                 user: data.user,
                 msg:  data.msg,
                 date: data.date,

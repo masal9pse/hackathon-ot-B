@@ -92,9 +92,9 @@ module.exports = function (socket, io, master, helper) {
     });
 
     // メモイベントを送信する
-    socket.on("sendTlMemoEvent", function (data) {
+    socket.on("sendtlMemoEvent", function (data) {
         Object.keys(master[data.user].socketID).forEach((id) => {
-            io.to(id).emit("receiveTlMemoEvent", {
+            io.to(id).emit("receivetlMemoEvent", {
                 user: data.user,
                 msg:  data.msg,
                 date: data.date,
