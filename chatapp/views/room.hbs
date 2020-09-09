@@ -4,12 +4,12 @@
         <div class="room">
             <h5>Chat Room</h5>
             <ul class="room-list">
-                  <option value="JavaScript">JavaScript</option>
-                    <option value="Python">Python</option>
-                    <option value="PHP">PHP</option>
-                    <option value="C#">C#</option>
-                    <option value="Ruby">Ruby</option>
-                    <option value="Java">Java</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="PHP">PHP</option>
+                <option value="C#">C#</option>
+                <option value="Ruby">Ruby</option>
+                <option value="Java">Java</option>
             </ul>
         </div>
         <div class="member">
@@ -27,7 +27,7 @@
                 </ul>
             </div>
             <div class="room-exit">
-                <input type="button" value="退室する" class="common-button room-exit_button btn" onclick="exit();">
+                <input type="button" value="退室する" class="common-button room-exit_button room-btn" onclick="exit();">
             </div>
         </div>
 
@@ -35,7 +35,8 @@
             <div class="timeline">
                 <div class="chat-title">
                     <h4>TimeLine</h4>
-                    <input id="tlsort" type="button" value="新しいもの順" class="common-button room-memo_button butn" onclick="OnReverse('tl');">
+                    <input id="tlsort" type="button" value="新しいもの順" class="common-button room-memo_button butn"
+                        onclick="OnReverse('tl');">
                 </div>
                 <div class="chat-message">
                     <div id="tlthread"></div>
@@ -43,7 +44,7 @@
 
                 <div class="chat-text">
                     <form method="post" action="/" id="room">
-                        
+
                         <div class="user">
                             <div class="room-login_user">
                                 <input id="tluserName" type="hidden" value={{ userName }}>
@@ -52,12 +53,13 @@
                         </div>
 
                         <div class="room-message">
-                            <textarea  id="tlmessage" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"></textarea>
-                                <!--onkeypress="publish(event.keyCode);" -->
+                            <textarea id="tlmessage" rows="4" class="room-message_textarea"
+                                placeholder="投稿文を入力してください"></textarea>
+                            <!--onkeypress="publish(event.keyCode);" -->
                         </div>
                         <div class="room-submit">
-                            <input id="tlpost" type="button" value="投稿" class="common-button room-publish_button btn"
-                                onclick="timelinePublish();">
+                            <input id="tlpost" type="button" value="投稿"
+                                class="common-button room-publish_button room-btn" onclick="timelinePublish();">
                         </div>
 
                     </form>
@@ -68,7 +70,8 @@
             <div class="groupchat">
                 <div class="chat-title">
                     <h4>GroupChat</h4>
-                    <input id="grsort" type="button" value="新しいもの順" class="common-button room-memo_button butn" onclick="OnReverse('gr');">
+                    <input id="grsort" type="button" value="新しいもの順" class="common-button room-memo_button butn"
+                        onclick="OnReverse('gr');">
                 </div>
 
                 <div class="chat-message">
@@ -84,13 +87,15 @@
                             </div>
                         </div>
                         <div class="room-message">
-                            <textarea id="grmessage" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"></textarea>
+                            <textarea id="grmessage" rows="4" class="room-message_textarea"
+                                placeholder="投稿文を入力してください"></textarea>
                             <!--onkeypress="publish(event.keyCode);" -->
                         </div>
                         <div class="room-submit">
-                            <input id="grpost" type="button" value="投稿" class="common-button room-publish_button btn"
-                            onclick="groupchatPublish();">
-                            <input type="button" value="メモ" class="common-button room-memo_button btn" onclick="memo('gr');">
+                            <input id="grpost" type="button" value="投稿"
+                                class="common-button room-publish_button room-btn" onclick="groupchatPublish();">
+                            <input type="button" value="メモ" class="common-button room-memo_button room-btn"
+                                onclick="memo('gr');">
                         </div>
                     </form>
                 </div>
@@ -114,11 +119,13 @@
                     </div>
                 </div>
                 <div class="room-message">
-                    <textarea id="grmessage" rows="4" class="room-message_textarea" placeholder="投稿文を入力してください"></textarea>
-                            <!--onkeypress="publish(event.keyCode);" -->
+                    <textarea id="grmessage" rows="4" class="room-message_textarea"
+                        placeholder="投稿文を入力してください"></textarea>
+                    <!--onkeypress="publish(event.keyCode);" -->
                 </div>
                 <div class="room-submit">
-                    <input id="grpost" type="button" value="投稿" class="common-button room-publish_button btn" onclick="groupchatPublish();">
+                    <input id="grpost" type="button" value="投稿" class="common-button room-publish_button room-btn"
+                        onclick="groupchatPublish();">
                 </div>
             </form>
         </div>

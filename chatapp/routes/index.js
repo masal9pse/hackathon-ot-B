@@ -4,12 +4,12 @@ const express = require('express');
 const router = express.Router();
 
 // ログイン画面の表示
-router.get('/', function (request, response, next) {
+router.get('/', function(request, response, next) {
     response.render('index');
 });
 
 // チャット画面の表示
-router.post('/room', function (request, response, next) {
+router.post('/room', function(request, response, next) {
     console.log('ユーザ名：' + request.body.userName);
     console.log('ルーム名：' + request.body.room);
     response.render('room', {
@@ -20,7 +20,7 @@ router.post('/room', function (request, response, next) {
 
 
 // sign_upの表示
-router.post('/sign_up', function (request, response, next) {
+router.post('/sign_up', function(request, response, next) {
     response.render('sign_up', {
         userName: request.body.userName,
         room: request.body.room,
