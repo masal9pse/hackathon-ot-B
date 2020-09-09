@@ -48,10 +48,10 @@ socket.on('tlreceiveMessageEvent', function (data) {
 
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         if(reverse){
-            $('#tlthread').append('<div id=tlmessage' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+            $('#tlthread').append('<div id=' + data.messageid + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
         }else{
-            $('#tlthread').prepend('<div id=tlmessage' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+            $('#tlthread').prepend('<div id=' + data.messageid + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
         }
     }
@@ -80,7 +80,7 @@ socket.on("Ready", function () {
 socket.on("tlreceiveReplyMessage", function (data) {
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         const reply = String(data.reply);
-        $("#"+reply).append('<div id=reply' + data.num_message + ">" + "<p>"+ data.date + " : " + data.username +
+        $("#"+reply).append('<div id=' + data.messageid + ">" + "<p>"+ data.date + " : " + data.username +
         " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }
 

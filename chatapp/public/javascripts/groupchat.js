@@ -39,10 +39,10 @@ socket.on('grreceiveMessageEvent', function(data) {
 
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         if (reverse) {
-            $('#grthread').append('<div id=grmessage' + data.num_message + ">" + "<p>" + data.date + " : " + data.username +
+            $('#grthread').append('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
                 " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
         } else {
-            $('#grthread').prepend('<div id=grmessage' + data.num_message + ">" + "<p>" + data.date + " : " + data.username +
+            $('#grthread').prepend('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
                 " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
         }
     }
@@ -56,7 +56,7 @@ socket.on('grreceiveMessageEvent', function(data) {
 socket.on("grreceiveReplyMessage", function(data) {
     if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
         const reply = String(data.reply);
-        $("#" + reply).append('<div id=reply' + data.num_message + ">" + "<p>" + data.date + " : " + data.username +
+        $("#" + reply).append('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
             " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
     }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(socket, io, master, helper) {
+module.exports = function(socket, io, master, helper, history) {
     // 投稿メッセージを送信する
     socket.on('grsendMessageEvent', function(data) {
         if (!data.msg) {
@@ -18,6 +18,7 @@ module.exports = function(socket, io, master, helper) {
             .forEach((id) => {
                 io.to(id).emit("grreceiveMessageEvent", {
                     "num_message": helper.num_message,
+                    "messageid":"grmessage" + helper.num_message,
                     "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                     "date": data.date,
                     "msg": "<b>" + helper.format(data.msg) + "</b>",
@@ -31,12 +32,24 @@ module.exports = function(socket, io, master, helper) {
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("grreceiveMessageEvent", {
             "num_message": helper.num_message,
+            "messageid":"grmessage" + helper.num_message,
             "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
             "date": data.date,
             "msg": helper.format(data.msg),
             "rp_button": helper.generate_reply(helper.num_message, "gr"),
             "rm_button": ""
         });
+
+        console.log(master[data.username].socketID[socket.id]);
+
+        history.writeHistory(
+            "grmessage" + helper.num_message,
+            data.date,
+            master[data.username].socketID[socket.id],
+            data.username,
+            data.msg,
+            '0'
+            );
 
     });
 
@@ -56,6 +69,7 @@ module.exports = function(socket, io, master, helper) {
             .forEach((id) => {
                 socket.to(id).emit("grreceiveReplyMessage", {
                     "num_message": helper.num_message,
+                    "messageid":"reply" + helper.num_message,
                     "reply": to_reply,
                     "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
                     "date": data.date,
@@ -69,8 +83,8 @@ module.exports = function(socket, io, master, helper) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("grreceiveReplyMessage", {
-            "area": data.area,
             "num_message": helper.num_message,
+            "messageid":"reply" + helper.num_message,
             "reply": to_reply,
             "username": helper.add_a_tag(data.username, helper.num_message, "gr"),
             "date": data.date,

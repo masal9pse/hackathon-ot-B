@@ -6,7 +6,7 @@ const wait_time = 6;
 let num_message = 0;
 require('./helper');
 
-module.exports = function (socket, io, master, helper) {
+module.exports = function (socket, io, master, helper, history) {
     // 投稿メッセージを送信する
     socket.on('tlsendMessageEvent', function (data) {
         if (!data.msg) {
@@ -24,6 +24,7 @@ module.exports = function (socket, io, master, helper) {
             .forEach((id) => {
                 io.to(id).emit("tlreceiveMessageEvent", {
                     "num_message": helper.num_message,
+                    "messageid":"tlmessage" + helper.num_message,
                     "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
                     "date": data.date,
                     "msg": "<b>"+helper.format(data.msg)+"</b>", 
@@ -37,6 +38,7 @@ module.exports = function (socket, io, master, helper) {
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("tlreceiveMessageEvent", {
             "num_message": helper.num_message,
+            "messageid":"tlmessage" + helper.num_message,
             "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
             "date": data.date, 
             "msg": helper.format(data.msg),
@@ -64,6 +66,7 @@ module.exports = function (socket, io, master, helper) {
             .forEach((id) => {
                 socket.to(id).emit("tlreceiveReplyMessage", {
                     "num_message": helper.num_message,
+                    "messageid":"reply" + helper.num_message,
                     "reply": to_reply,
                     "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
                     "date": data.date,
@@ -77,8 +80,8 @@ module.exports = function (socket, io, master, helper) {
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
         socket.broadcast.to(data.room).emit("tlreceiveReplyMessage", {
-            "area" : data.area,
             "num_message": helper.num_message,
+            "messageid":"reply" + helper.num_message,
             "reply": to_reply,
             "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
             "date": data.date, 

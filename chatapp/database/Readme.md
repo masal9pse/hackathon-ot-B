@@ -29,5 +29,5 @@ sqlite> select * from users;
 // 抜け方
 sqlite> .exit
 // 問題が起きたときのテーブルの削除のやり方
-sqlite> drop database users;
+sqlite> drop table users;
 ```

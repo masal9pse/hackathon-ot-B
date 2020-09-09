@@ -2,6 +2,7 @@
 
 const Manager = require('./manager');
 const healper = require('./helper');
+const History = require('./chatdb');
 
 module.exports = function (server) {
 
@@ -11,6 +12,7 @@ module.exports = function (server) {
     const io = socketIo.listen(server);
 
     const master = new Manager();
+    const history = new History(healper);
 
     io.sockets.on('connection', function (socket) {
         // ログインモジュールの呼び出し
@@ -26,10 +28,10 @@ module.exports = function (server) {
         require('./exit')(socket, io, master);
 
         //timelineモジュール
-        require('./timeline')(socket, io, master, healper);
+        require('./timeline')(socket, io, master, healper, history);
 
         //groupchatモジュール
-        require('./groupchat')(socket, io, master, healper);
+        require('./groupchat')(socket, io, master, healper, history);
 
     });
 };
