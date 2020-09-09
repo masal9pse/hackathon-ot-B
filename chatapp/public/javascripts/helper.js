@@ -6,7 +6,7 @@ const regex = /^\s*$/;
 const dm = /@.*\n/;
 
 //リプライ用の正規表現　message+数字ならリプライ
-const reply = /@message\d*|@reply\d*/;
+const reply = /@tlmessage\d*|@reply\d*|@grmessage\d*/;
 
 //並び替え用のフラグ
 let reverse = false;    // false→新しいもの順　true→古いもの順

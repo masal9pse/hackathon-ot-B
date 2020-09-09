@@ -11,7 +11,7 @@ function timelinePublish(){
         if (regex.test(message)) {
             alert("文章を入力してください");
         } else if (reply.test(message)) {
-            console.log("to " + message.match(reply));
+            console.log("to RP" + message.match(reply));
             socket.json.emit("tlreplyMessageEvent", {
                 "date":now,
                 "reply": message.match(reply),
@@ -19,7 +19,7 @@ function timelinePublish(){
                 "room":room,"msg":message
             });    //reply
         } else if (dm.test(message)) {   //DMを押したらDMのトークルームに遷移を後々する
-            console.log("to " + message.match(dm));
+            console.log("to DM" + message.match(dm));
             socket.json.emit("directMessageEvent", {
                 "date":now,
                 "to": message.match(dm),

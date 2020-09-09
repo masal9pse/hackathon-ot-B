@@ -17,7 +17,7 @@ module.exports = function (server) {
         require('./log_in')(socket);
 
         // 投稿モジュールの呼出
-        require('./publish')(socket, io, master, healper);
+        // require('./publish')(socket, io, master, healper);
 
         // 入室モジュールの呼出
         require('./enter')(socket, io, master);

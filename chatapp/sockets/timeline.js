@@ -62,7 +62,7 @@ module.exports = function (socket, io, master, helper) {
         Object.keys(master[data.username].socketID)
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
-                socket.to(id).emit("receiveReplyMessage", {
+                socket.to(id).emit("tlreceiveReplyMessage", {
                     "num_message": helper.num_message,
                     "reply": to_reply,
                     "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
@@ -76,7 +76,7 @@ module.exports = function (socket, io, master, helper) {
         // 他のクライアントには普通に送信
         // 未実装：チャットルーム内の自分のアカウントには送信しない
         // -> 特定のクライアントに送信しない方法が分からなかったので，クライアント側で対処
-        socket.broadcast.to(data.room).emit("receiveReplyMessage", {
+        socket.broadcast.to(data.room).emit("tlreceiveReplyMessage", {
             "area" : data.area,
             "num_message": helper.num_message,
             "reply": to_reply,
