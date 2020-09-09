@@ -11,11 +11,11 @@ exports.wait_time = wait_time;
 //replyボタンの生成
 exports.generate_reply = function(num, area) {
     if (area == "tl") {
-        return "<input id=reply" + num
+        return "<input id=tlrp" + num
             + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' + ")';>";
 
     } else if (area == "gr") {
-        return "<input id=reply" + num
+        return "<input id=grrp" + num
             + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
     }
 }
