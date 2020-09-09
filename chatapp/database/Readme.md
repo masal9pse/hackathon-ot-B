@@ -8,6 +8,9 @@ chatapp ディレクトリの中で下記コマンドを実装する
 $ npm install
 
 $ node database/usersdb.js
+
+// 同時にusersテーブルとchatテーブルを作りたい場合
+$ npm run db-create
 ```
 
 ## カラム、データ確認するやりかた
@@ -28,6 +31,10 @@ sqlite> select * from users;
 ```
 // 抜け方
 sqlite> .exit
+
 // 問題が起きたときのテーブルの削除のやり方
 sqlite> drop table users;
+
+// テーブルではなくdbごと削除してしまいたい場合はusersdb.sqliteを削除するかこのコマンドを実行
+$ npm run db-delete
 ```
