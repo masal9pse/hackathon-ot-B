@@ -22,8 +22,10 @@ socket.on('receiveEntryEvent', function (data) {
 // 入室した時に前回退室した日時を表示する
 socket.on('receiveWelcomeEvent', function (data) {
     $('#tlthread').prepend(
+        '<div id="chat">' +
         `<p>ようこそ${data.name}さん！` +
-        `あなたが最後にログインしていたのは${data.date}です。</p>`);
+        `あなたが最後にログインしていたのは${data.date}です。</p>`+
+        '</div>' );
 });
 
 // 現在入室している全ユーザー名を表示する
