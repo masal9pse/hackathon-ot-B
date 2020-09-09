@@ -15,5 +15,7 @@
     "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
     "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
     "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-    "javascript.format.insertSpaceAfterSemicolonInForStatements": false
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "editor.defaultFormatter": "vscode.configuration-editing",
+    "editor.formatOnType": true
 }
