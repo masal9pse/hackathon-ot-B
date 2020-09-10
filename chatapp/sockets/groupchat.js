@@ -43,7 +43,8 @@ module.exports = function(socket, io, master, helper, history) {
         console.log(master[data.username].socketID[socket.id]);
 
         history.writeHistory(
-            "@grmessage" + helper.num_message,
+            helper.num_message,
+            "grmessage",
             data.date,
             master[data.username].socketID[socket.id],
             data.username,
@@ -67,7 +68,7 @@ module.exports = function(socket, io, master, helper, history) {
         Object.keys(master[data.username].socketID)
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
-                socket.to(id).emit("grreceiveReplyMessage", {
+                io.to(id).emit("grreceiveReplyMessage", {
                     "num_message": helper.num_message,
                     "messageid":"reply" + helper.num_message,
                     "reply": to_reply,
