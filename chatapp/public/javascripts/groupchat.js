@@ -33,8 +33,8 @@ function groupchatPublish(e) {
     }
 }
 
-$("#chat-room").keypress(function(e) {
-    if (e.which == 13) {
+$("#room-chat").keypress(function(e) {
+    if (e.which === 13) {
         const {userName, message, room, now} = textarea("gr");
         if (regex.test(message)) {
             alert("文章を入力してください");

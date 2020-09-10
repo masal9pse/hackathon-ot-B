@@ -40,6 +40,13 @@ form#room{
     justify-content: start;
 }
 
+#room-chat{
+    /* width: 100vw; */
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
 /*
  * ボタンの共通設定
  */
@@ -65,7 +72,7 @@ form#room{
     width: 100vw;
 }
 
-/* 
+/*
     サイドバーの設定
 */
 
