@@ -14,11 +14,11 @@ module.exports = function(socket, io, master, helper, history) {
         // 遷移先のroomに入室する
         socket.join(data.next_room);
 
-        // Managerで管理しているユーザのSocketIdに対応するルーム名を更新
-        master[data.user_name].socketID[socket.id] = data.next_room;
-
         // 他クライアントが受信する入室表示イベントを送信する
         socket.to(data.next_room).emit('receiveEntryEvent', data.user_name);
+
+        // Managerで管理しているユーザのSocketIdに対応するルーム名を更新
+        master[data.user_name].socketID[socket.id] = data.next_room;
 
         // 遷移先ルームのスレッドを取得し送信
         history.initializeThred(data.user_name, data.next_room, io, socket.id, helper);
