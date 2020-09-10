@@ -170,9 +170,10 @@ class History{
                             "num_message": Number(row.id),
                             "messageid":"dmmessage" + Number(row.id),
                             "username": helper.add_a_tag(row.speaker, Number(row.id),),
+                            "to_name": to_name,
+                            "my_name": my_name,
                             "date": row.date,
                             "msg": "<b>"+helper.format(row.message)+"</b>", 
-                            "rp_button" : helper.generate_reply(Number(row.id), "dm"),
                             "rm_button": helper.generate_remove(Number(row.id))
                         });
     
@@ -181,9 +182,10 @@ class History{
                             "num_message": Number(row.id),
                             "messageid":"dmmessage" + Number(row.id),
                             "username": helper.add_a_tag(row.speaker, Number(row.id),),
+                            "to_name": to_name,
+                            "my_name": my_name,
                             "date": row.date,
                             "msg": helper.format(row.message), 
-                            "rp_button" : helper.generate_reply(Number(row.id), "dm"),
                             "rm_button": helper.generate_remove(Number(row.id))
                         });
                     });

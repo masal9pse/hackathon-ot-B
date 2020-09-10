@@ -3,7 +3,7 @@ const indention = /\n/g;
 const blank = /\s/g;
 const large_blank = /　/g;
 const wait_time = 6;
-let num_message = 5;
+let num_message = 7;
 
 exports.num_message = num_message;
 exports.wait_time = wait_time;

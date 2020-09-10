@@ -14,6 +14,7 @@ let reverse = false;    // false→新しいもの順　true→古いもの順
 // メッセージ番号 -> 同じメッセージ番号のものを表示しない
 let latest_msg_num = -1;
 
+
 function textarea(area){
     // ユーザ名を取得
     const userName = $("#"+area+"userName").val();
@@ -85,7 +86,25 @@ function remove_message(element) {
     socket.emit("removeMessageEvent", rm_msg.id);
 }
 
+//同じ要素があるかをチェック
+function idChecker(children, id){
+    // console.log(id);
+    if(children.length != 0){
+        for(let i = 0; i < children.length; i++){
+            if(children[i].id == id){
+                console.log(children[i].id);
+                console.log(id);
+                console.log("表示しない");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 //削除イベント
 socket.on("removeElementEvent", function (id) {
     $("#" + id).remove();
 });
+
+

@@ -35,9 +35,9 @@ function timelinePublish(){
 
 //表示イベント
 socket.on('tlreceiveMessageEvent', function (data) {
-    console.log(data.username);
-
-    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
+    // console.log(data.username);
+    const thread = document.getElementById("tlthread").children;
+    if (idChecker(thread, data.messageid)){ // 同じメッセージ番号のものを表示しない
         if(reverse){
             $('#tlthread').append('<div id=' + data.messageid + ">" + "<p>"+ data.date + " : " + data.username +
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
@@ -46,9 +46,6 @@ socket.on('tlreceiveMessageEvent', function (data) {
             " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
         }
     }
-
-    // メッセージ番号を更新
-    latest_msg_num = data.num_message;
 
 });
 
@@ -69,8 +66,9 @@ socket.on("Ready", function () {
 
 //replyイベント
 socket.on("tlreceiveReplyMessage", function (data) {
-    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
-        const reply = String(data.reply);
+    const reply = String(data.reply);
+    const thread = document.getElementById(reply).children;
+    if (idChecker(thread, data.messageid)) { // 同じメッセージ番号のものを表示しない
         $("#"+reply).append('<div id=' + data.messageid + ">" + "<p>"+ data.date + " : " + data.username +
         " : "+ data.msg +'</p>'+ data.rp_button + data.rm_button + "</div>");
     }

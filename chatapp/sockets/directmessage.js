@@ -25,9 +25,10 @@ module.exports = function (socket, io, master, helper, history) {
                     "num_message": helper.num_message,
                     "messageid":"dmmessage" + helper.num_message,
                     "username": helper.add_a_tag(data.username, helper.num_message),
+                    "to_name": data.to_name,
+                    "my_name": data.username,
                     "date": data.date,
                     "msg": "<b>"+helper.format(data.msg)+"</b>", 
-                    "rp_button" : helper.generate_reply(helper.num_message, "dm"),
                     "rm_button": helper.generate_remove(helper.num_message)
                 });
             });
@@ -38,9 +39,10 @@ module.exports = function (socket, io, master, helper, history) {
             "num_message": helper.num_message,
             "messageid":"dmmessage" + helper.num_message,
             "username": helper.add_a_tag(data.username, helper.num_message),
+            "to_name": data.to_name,
+            "my_name": data.username,
             "date": data.date, 
             "msg": helper.format(data.msg),
-            "rp_button" : helper.generate_reply(helper.num_message, "dm"),
             "rm_button": ""
         });
 

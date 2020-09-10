@@ -14,19 +14,20 @@ $("#direct-message-form").keypress(function(e) {
 //表示イベント
 socket.on('dmreceiveMessageEvent', function(data) {
     console.log(data.username);
-
-    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
-        if (reverse) {
-            $('#dmthread').append('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
-                " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
-        } else {
-            $('#dmthread').prepend('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
-                " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
+    const thread = document.getElementById("dmthread").children;
+    if( (data.my_name == $("#tluserName").val()) || (data.my_name == String($("#dmname").text()).replace(dm, ""))){
+        if (idChecker(thread, data.messageid)) { // 同じメッセージ番号のものを表示しない
+            if (reverse) {
+                $('#dmthread').append('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
+                    " : " + data.msg + '</p>' + data.rm_button + "</div>");
+            } else {
+                $('#dmthread').prepend('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
+                    " : " + data.msg + '</p>' + data.rm_button + "</div>");
+            }
         }
+        // メッセージ番号を更新
+        latest_msg_num = data.num_message;
     }
-
-    // メッセージ番号を更新
-    latest_msg_num = data.num_message;
 
 })
 

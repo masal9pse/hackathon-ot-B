@@ -13,8 +13,8 @@ $("#group-chat-form").keypress(function(e) {
 //表示イベント
 socket.on('grreceiveMessageEvent', function(data) {
     console.log(data.username);
-
-    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
+    const thread = document.getElementById("grthread").children;
+    if (idChecker(thread, data.messageid)) { // 同じメッセージ番号のものを表示しない
         if (reverse) {
             $('#grthread').append('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
                 " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
@@ -23,22 +23,16 @@ socket.on('grreceiveMessageEvent', function(data) {
                 " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
         }
     }
-
-    // メッセージ番号を更新
-    latest_msg_num = data.num_message;
-
 })
 
 //replyイベント
 socket.on("grreceiveReplyMessage", function(data) {
-    if (data.num_message !== latest_msg_num) { // 同じメッセージ番号のものを表示しない
-        const reply = String(data.reply);
+    const reply = String(data.reply);
+    const thread = document.getElementById(reply).children;
+    if (idChecker(thread, data.messageid)) { // 同じメッセージ番号のものを表示しない
         $("#" + reply).append('<div id=' + data.messageid + ">" + "<p>" + data.date + " : " + data.username +
             " : " + data.msg + '</p>' + data.rp_button + data.rm_button + "</div>");
     }
-
-    // メッセージ番号を更新
-    latest_msg_num = data.num_message;
 });
 
 function GroupChatPost() {
