@@ -37,5 +37,8 @@ module.exports = function (server) {
         //groupchatモジュール
         require('./groupchat')(socket, io, master, helper, history);
 
+        //changeRoomモジュール
+        require('./changeRoom')(socket, io, master, helper, history);
+
     });
 };
