@@ -1,6 +1,6 @@
 'use strict';
 
-function groupchatPublish() {
+function groupchatPublish(e) {
     const {userName, message, room, now} = textarea("gr");
 
     // 投稿内容を送信
@@ -32,6 +32,41 @@ function groupchatPublish() {
         });     //投稿
     }
 }
+
+$("#chat-room").keypress(function(e) {
+    const {userName, message, room, now} = textarea("gr");
+    if (e.which == 13) {
+        if (e.shiftKey) {
+            $.noop();
+        } else if (regex.test(message)) {
+            alert("文章を入力してください");
+        } else if (reply.test(message)) {
+            console.log("to " + message.match(reply));
+            socket.json.emit("grreplyMessageEvent", {
+                "date": now,
+                "reply": message.match(reply),
+                "username": userName,
+                "room": room, "msg": message
+            });    //reply
+        } else if (dm.test(message)) {   //DMを押したらDMのトークルームに遷移を後々する
+            console.log("to " + message.match(dm));
+            socket.json.emit("directMessageEvent", {
+                "date": now,
+                "to": message.match(dm),
+                "username": userName,
+                "room": room,
+                "msg": message
+            });    //DM
+        } else {
+            socket.json.emit("grsendMessageEvent", {
+                "date": now,
+                "username": userName,
+                "room": room,
+                "msg": message
+            });     //投稿
+        }
+    }
+});
 
 //表示イベント
 socket.on('grreceiveMessageEvent', function(data) {
