@@ -34,7 +34,7 @@ function groupchatPublish(e) {
 }
 
 $("#group-chat-form").keypress(function(e) {
-    if (e.which === 13) {
+    if (e.which === 13 && !e.shiftKey) {
         const {userName, message, room, now} = textarea("gr");
         if (regex.test(message)) {
             alert("文章を入力してください");
