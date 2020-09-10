@@ -40,7 +40,7 @@ form#room{
     justify-content: start;
 }
 
-#room-chat{
+#group-chat-form{
     /* width: 100vw; */
     width: 100%;
     display: flex;

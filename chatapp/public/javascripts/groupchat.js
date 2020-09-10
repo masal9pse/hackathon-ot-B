@@ -33,7 +33,7 @@ function groupchatPublish(e) {
     }
 }
 
-$("#room-chat").keypress(function(e) {
+$("#group-chat-form").keypress(function(e) {
     if (e.which === 13) {
         const {userName, message, room, now} = textarea("gr");
         if (regex.test(message)) {
