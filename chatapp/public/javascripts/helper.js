@@ -65,9 +65,11 @@ function OnReverse(area) {
 
 //DM機能
 function OnUsernameClick(element) {
+    const userName = $("#tluserName").val();
     const to_name = $("#" + element.id).text();
     console.log(to_name);
     $("#dmname").text(dm+to_name); 
+    socket.emit("initDM", {"my_name":userName, "to_name":to_name});
 }
 
 //reply機能

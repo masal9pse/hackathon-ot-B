@@ -23,7 +23,7 @@ module.exports = function (socket, io, master, helper, history) {
             .forEach((id) => {
                 io.to(id).emit("dmreceiveMessageEvent", {
                     "num_message": helper.num_message,
-                    "messageid":"tlmessage" + helper.num_message,
+                    "messageid":"dmmessage" + helper.num_message,
                     "username": helper.add_a_tag(data.username, helper.num_message),
                     "date": data.date,
                     "msg": "<b>"+helper.format(data.msg)+"</b>", 
@@ -36,13 +36,23 @@ module.exports = function (socket, io, master, helper, history) {
         // DMの相手に送信
         io.to(Object.keys(master[data.to_name].socketID)).emit("dmreceiveMessageEvent", {
             "num_message": helper.num_message,
-            "messageid":"tlmessage" + helper.num_message,
+            "messageid":"dmmessage" + helper.num_message,
             "username": helper.add_a_tag(data.username, helper.num_message),
             "date": data.date, 
             "msg": helper.format(data.msg),
             "rp_button" : helper.generate_reply(helper.num_message, "dm"),
             "rm_button": ""
         });
+
+        history.writeHistory(
+            helper.num_message,
+            "dmmessage",
+            data.date,
+            "DM",
+            data.username,
+            data.msg,
+            data.to_name
+            );
 
     });
 
@@ -64,5 +74,15 @@ module.exports = function (socket, io, master, helper, history) {
     socket.on("removeMessageEvent", function (id) {
         console.log("remove" + id);
         io.sockets.emit("removeElementEvent", id);
+    });
+
+    socket.on("initDM" , function(data){
+        history.initializeDirectMessage(
+            data.my_name,
+            data.to_name,
+            Object.keys(master[data.to_name].socketID), 
+            socket.id, 
+            io, 
+            helper);
     });
 };

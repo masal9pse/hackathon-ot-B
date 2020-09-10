@@ -5,6 +5,7 @@ const socket = Symbol();
 
 const tl_reg = /^tl/;
 const gr_reg = /^gr/; 
+const dm_reg = /^dm/;
 const rp_reg = /^reply/;
 
 
@@ -44,7 +45,7 @@ class History{
     initializeThred(name, room, io, id, helper){
         const db = new this.spl3.Database('./database/usersdb.sqlite');
         db.serialize(function(){
-            db.all(`select id, type, date, room, speaker, message, reply from chat where room = '${room}'`,
+            db.all(`select id, type, date, room, speaker, message, res from chat where room = '${room}'`,
                 function(err, rows){
                     if(rows==undefined){
                         console.log("none");
@@ -97,12 +98,13 @@ class History{
                                     }
 
                             }else if(rp_reg.test(row.type)){
-                                if(tl_reg.test(row.reply)){
+                                console.log("rp");
+                                if(tl_reg.test(row.res)){
                                     if(name == row.speaker){      //発言者と一致しているかチェック、していたら<b>をつける
                                         io.to(id).emit("tlreceiveReplyMessage", {
                                             "num_message": Number(row.id),
                                             "messageid":"reply" + Number(row.id),
-                                            "reply": row.reply,
+                                            "reply": row.res,
                                             "username": helper.add_a_tag(row.speaker, Number(row.id)),
                                             "date": row.date,
                                             "msg": "<b>"+helper.format(row.message)+"</b>", 
@@ -113,7 +115,7 @@ class History{
                                         io.to(id).emit("tlreceiveReplyMessage", {
                                             "num_message": Number(row.id),
                                             "messageid":"tlmessage" + Number(row.id),
-                                            "reply": row.reply,
+                                            "reply": row.res,
                                             "username": helper.add_a_tag(row.speaker, Number(row.id)),
                                             "date": row.date,
                                             "msg": helper.format(row.message), 
@@ -121,13 +123,13 @@ class History{
                                             "rm_button": ""
                                         });
                                     }
-                                }else if(gr_reg.test(row.reply)){
-                                    if(tl_reg.test(row.reply)){
+                                }else if(gr_reg.test(row.res)){
+                                    if(tl_reg.test(row.res)){
                                         if(name == row.speaker){      //発言者と一致しているかチェック、していたら<b>をつける
                                             io.to(id).emit("grreceiveReplyMessage", {
                                                 "num_message": Number(row.id),
                                                 "messageid":"reply" + Number(row.id),
-                                                "reply": row.reply,
+                                                "reply": row.res,
                                                 "username": helper.add_a_tag(row.speaker, Number(row.id)),
                                                 "date": row.date,
                                                 "msg": "<b>"+helper.format(row.message)+"</b>", 
@@ -135,10 +137,10 @@ class History{
                                                 "rm_button": helper.generate_remove(Number(row.id))
                                             });
                                         }else{
-                                            io.to(id).emit("tlreceiveReplyMessage", {
+                                            io.to(id).emit("grreceiveReplyMessage", {
                                                 "num_message": Number(row.id),
                                                 "messageid":"tlmessage" + Number(row.id),
-                                                "reply": row.reply,
+                                                "reply": row.res,
                                                 "username": helper.add_a_tag(row.speaker, Number(row.id)),
                                                 "date": row.date,
                                                 "msg": helper.format(row.message), 
@@ -153,6 +155,38 @@ class History{
                             }
                         });
                     }
+                }
+            );
+        });
+    }
+
+    initializeDirectMessage(my_name, to_name, to_id, my_id, io, helper){
+        const db = new this.spl3.Database('./database/usersdb.sqlite');
+        db.serialize(function () {
+            db.all(`select id, type, date, room, speaker, message, res from chat where res = '${to_name}' or res = '${my_name}'`,
+                function (err, rows) {
+                    rows.forEach(function(row){
+                        io.to(my_id).emit("dmreceiveMessageEvent", {
+                            "num_message": Number(row.id),
+                            "messageid":"dmmessage" + Number(row.id),
+                            "username": helper.add_a_tag(row.speaker, Number(row.id),),
+                            "date": row.date,
+                            "msg": "<b>"+helper.format(row.message)+"</b>", 
+                            "rp_button" : helper.generate_reply(Number(row.id), "dm"),
+                            "rm_button": helper.generate_remove(Number(row.id))
+                        });
+    
+                        // DMの相手に送信
+                        io.to(to_id).emit("dmreceiveMessageEvent", {
+                            "num_message": Number(row.id),
+                            "messageid":"dmmessage" + Number(row.id),
+                            "username": helper.add_a_tag(row.speaker, Number(row.id),),
+                            "date": row.date,
+                            "msg": helper.format(row.message), 
+                            "rp_button" : helper.generate_reply(Number(row.id), "dm"),
+                            "rm_button": helper.generate_remove(Number(row.id))
+                        });
+                    });
                 }
             );
         });
