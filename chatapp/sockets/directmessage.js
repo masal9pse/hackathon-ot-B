@@ -34,7 +34,7 @@ module.exports = function (socket, io, master, helper, history) {
 
 
         // DMの相手に送信
-        socket.to(Object.keys(master[data.to_name].socketID)).emit("dmreceiveMessageEvent", {
+        io.to(Object.keys(master[data.to_name].socketID)).emit("dmreceiveMessageEvent", {
             "num_message": helper.num_message,
             "messageid":"tlmessage" + helper.num_message,
             "username": helper.add_a_tag(data.username, helper.num_message),
@@ -43,7 +43,6 @@ module.exports = function (socket, io, master, helper, history) {
             "rp_button" : helper.generate_reply(helper.num_message, "dm"),
             "rm_button": ""
         });
-
 
     });
 

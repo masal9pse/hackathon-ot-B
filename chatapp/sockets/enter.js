@@ -1,7 +1,7 @@
 'use strict';
 const sqlite3 = require('sqlite3').verbose();
 
-module.exports = function (socket, io, master) {
+module.exports = function (socket, io, master, history, helper) {
     // 入室メッセージをクライアントに送信する
     socket.on('entryMyselfEvent', function (user) {
         console.log(`入室クライアントのユーザ名：${user.name}`);
@@ -43,5 +43,7 @@ module.exports = function (socket, io, master) {
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
 
         console.log(master);
+
+        history.initializeThred(user.name, user.room, io, socket.id, helper);
     });
 };

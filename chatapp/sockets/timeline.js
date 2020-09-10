@@ -45,6 +45,15 @@ module.exports = function (socket, io, master, helper, history) {
             "rm_button": ""
         });
 
+        history.writeHistory(
+            "@tlmessage" + helper.num_message,
+            data.date,
+            master[data.username].socketID[socket.id],
+            data.username,
+            data.msg,
+            '0'
+            );
+
         wait(helper.wait_time, socket, io);　　　　//60秒間投稿禁止
 
     });

@@ -43,7 +43,7 @@ module.exports = function(socket, io, master, helper, history) {
         console.log(master[data.username].socketID[socket.id]);
 
         history.writeHistory(
-            "grmessage" + helper.num_message,
+            "@grmessage" + helper.num_message,
             data.date,
             master[data.username].socketID[socket.id],
             data.username,
