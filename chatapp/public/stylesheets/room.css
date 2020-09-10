@@ -46,7 +46,9 @@ form#room{
     display: flex;
     justify-content: start;
 }
-
+#room-member-list{
+    display: flex;
+}
 /*
  * ボタンの共通設定
  */
