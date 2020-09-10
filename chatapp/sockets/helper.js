@@ -16,7 +16,11 @@ exports.generate_reply = function(num, area) {
 
     } else if (area == "gr") {
         return "<input id=grrp" + num
-            + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
+        + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
+    
+    } else if (area == "dm") {
+        return "<input id=dmrp" + num
+            + " type='button' value='Reply' class='common-button room-publish_button' onclick='OnReplyClick(this, " + '"dm"' + ")';>";
     }
 }
 
@@ -29,12 +33,8 @@ exports.generate_remove = function(num) {
 }
 
 //ユーザー名の整形
-exports.add_a_tag = function(username, num, area) {
-    if (area == "tl") {
-        return "<a href='#' onclick='OnUsernameClick(this, " + '"tl"' + ");' id=link" + num + ">" + username + "</a>";
-    } else if (area == "gr") {
-        return "<a href='#' onclick='OnUsernameClick(this, " + '"gr"' + ");' id=link" + num + ">" + username + "</a>";
-    }
+exports.add_a_tag = function(username, num) {
+    return "<a href='#' onclick='OnUsernameClick(this);' id=link" + num + ">" + username + "</a>";
 }
 
 //テキストの整形

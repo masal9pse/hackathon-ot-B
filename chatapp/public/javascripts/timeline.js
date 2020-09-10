@@ -18,15 +18,6 @@ function timelinePublish(){
                 "username": userName,
                 "room":room,"msg":message
             });    //reply
-        } else if (dm.test(message)) {   //DMを押したらDMのトークルームに遷移を後々する
-            console.log("to DM" + message.match(dm));
-            socket.json.emit("directMessageEvent", {
-                "date":now,
-                "to": message.match(dm),
-                "username": userName,
-                "room":room,
-                "msg":message
-            });    //DM
         } else {
             socket.json.emit("tlsendMessageEvent", {
                 "date":now,

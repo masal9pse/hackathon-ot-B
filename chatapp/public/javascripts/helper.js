@@ -2,8 +2,8 @@
 //空白文字の正規表現 先頭から末尾まで空白文字
 const regex = /^\s*$/;
 
-//DM用の正規表現　@から始まっていたらDM
-const dm = /@.*\n/;
+//DM用のセリフ
+const dm = "Direct Message to ";
 
 //リプライ用の正規表現　message+数字ならリプライ
 const reply = /@tlmessage\d*|@reply\d*|@grmessage\d*/;
@@ -64,10 +64,10 @@ function OnReverse(area) {
 }
 
 //DM機能
-function OnUsernameClick(element, area) {
+function OnUsernameClick(element) {
     const to_name = $("#" + element.id).text();
     console.log(to_name);
-    $('#'+area+'message').val("@"+to_name);
+    $("#dmname").text(dm+to_name); 
 }
 
 //reply機能

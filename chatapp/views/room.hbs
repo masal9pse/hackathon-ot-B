@@ -105,27 +105,27 @@
     </div>
 
     <div class="rightbar">
-        <h4 class="dmroom">Direct Message to ~</h4>
+        <h4 class="dmroom" id = "dmname">Who do you want to talk with?</h4>
         <div class="dm-message">
             <div id="dmthread"></div>
         </div>
 
         <div class="dmt-text">
-            <form method="post" action="/" id="room">
+            <form method="post" action="/" id="direct-message-form">
                 <div class="user">
                     <div class="room-login_user">
-                        <input id="gruserName" type="hidden" value={{ userName }}>
-                        <input id="grroom" type="hidden" value={{ room }}>
+                        <input id="dmuserName" type="hidden" value={{ userName }}>
+                        <input id="dmroom" type="hidden" value={{ room }}>
                     </div>
                 </div>
                 <div class="room-message">
-                    <textarea id="grmessage" rows="4" class="room-message_textarea"
+                    <textarea id="dmmessage" rows="4" class="room-message_textarea"
                         placeholder="投稿文を入力してください"></textarea>
                     <!--onkeypress="publish(event.keyCode);" -->
                 </div>
                 <div class="room-submit">
-                    <input id="grpost" type="button" value="投稿" class="common-button room-publish_button room-btn"
-                        onclick="groupchatPublish();">
+                    <input id="dmpost" type="button" value="投稿" class="common-button room-publish_button room-btn"
+                        onclick="directMassagePublish();">
                 </div>
             </form>
         </div>
@@ -142,4 +142,5 @@
 <script src="/javascripts/exit.js"></script>
 <script src="/javascripts/timeline.js"></script>
 <script src="/javascripts/groupchat.js"></script>
+<script src="/javascripts/directMessage.js"></script>
 <script src="/javascripts/helper.js"></script>

@@ -30,6 +30,9 @@ module.exports = function (server) {
         //timelineモジュール
         require('./timeline')(socket, io, master, healper, history);
 
+        //DMモジュール
+        require('./directmessage')(socket, io, master, healper, history);
+
         //groupchatモジュール
         require('./groupchat')(socket, io, master, healper, history);
 

@@ -17,26 +17,26 @@ class History{
         db.close();
     }
 
-    initializeThred(room){
-        const db = new this.spl3.Database('./database/usersdb.sqlite');
-        let his = [];
-        db.serialize(function(){
-            db.all("select id, date, speaker, message, reply from chat where room = '${room}';",
-                function(err, rows){
-                    if(row==undefined){
-                        return false;
-                    }else{
-                        rows.forEach(function(row){
-                            his.push();
-                        });
-                    }
+    // initializeThred(room){
+    //     const db = new this.spl3.Database('./database/usersdb.sqlite');
+    //     let his = [];
+    //     db.serialize(function(){
+    //         db.all("select id, date, speaker, message, reply from chat where room = '${room}';",
+    //             function(err, rows){
+    //                 if(row==undefined){
+    //                     return false;
+    //                 }else{
+    //                     rows.forEach(function(row){
+    //                         his.push();
+    //                     });
+    //                 }
 
-                }
-            );
+    //             }
+    //         );
 
 
-        });
-    }
+    //     });
+    // }
 }
 
 module.exports = History

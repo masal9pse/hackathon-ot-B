@@ -4,7 +4,6 @@ const blank = /\s/g;
 const large_blank = /　/g;
 const wait_time = 6;
 let num_message = 0;
-require('./helper');
 
 module.exports = function (socket, io, master, helper, history) {
     // 投稿メッセージを送信する
@@ -25,7 +24,7 @@ module.exports = function (socket, io, master, helper, history) {
                 io.to(id).emit("tlreceiveMessageEvent", {
                     "num_message": helper.num_message,
                     "messageid":"tlmessage" + helper.num_message,
-                    "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
+                    "username": helper.add_a_tag(data.username, helper.num_message),
                     "date": data.date,
                     "msg": "<b>"+helper.format(data.msg)+"</b>", 
                     "rp_button" : helper.generate_reply(helper.num_message, "tl"),
@@ -39,7 +38,7 @@ module.exports = function (socket, io, master, helper, history) {
         socket.broadcast.to(data.room).emit("tlreceiveMessageEvent", {
             "num_message": helper.num_message,
             "messageid":"tlmessage" + helper.num_message,
-            "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
+            "username": helper.add_a_tag(data.username, helper.num_message),
             "date": data.date, 
             "msg": helper.format(data.msg),
             "rp_button" : helper.generate_reply(helper.num_message, "tl"),
@@ -60,7 +59,7 @@ module.exports = function (socket, io, master, helper, history) {
         let to_reply = String(data.reply).replace("@", "").replace("\n", "");
 
         // 自分自身にはbタグをつけた内容を送信
-        // 同じチャットルームにいる自分のアカウントにのみメッセージを送る
+        // 同じチャットルームにいる自分のアカウントにのみメッセージを送る  寺西：うまく表示できない？
         Object.keys(master[data.username].socketID)
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
@@ -68,7 +67,7 @@ module.exports = function (socket, io, master, helper, history) {
                     "num_message": helper.num_message,
                     "messageid":"reply" + helper.num_message,
                     "reply": to_reply,
-                    "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
+                    "username": helper.add_a_tag(data.username, helper.num_message),
                     "date": data.date,
                     "msg": "<b>"+helper.format(data.msg)+"</b>", 
                     "rp_button" : helper.generate_reply(helper.num_message, "tl"),
@@ -83,7 +82,7 @@ module.exports = function (socket, io, master, helper, history) {
             "num_message": helper.num_message,
             "messageid":"reply" + helper.num_message,
             "reply": to_reply,
-            "username": helper.add_a_tag(data.username, helper.num_message, "tl"),
+            "username": helper.add_a_tag(data.username, helper.num_message),
             "date": data.date, 
             "msg": helper.format(data.msg),
             "rp_button" : helper.generate_reply(helper.num_message, "tl"),
