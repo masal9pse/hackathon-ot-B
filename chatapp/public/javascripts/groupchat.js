@@ -34,11 +34,9 @@ function groupchatPublish(e) {
 }
 
 $("#chat-room").keypress(function(e) {
-    const {userName, message, room, now} = textarea("gr");
     if (e.which == 13) {
-        if (e.shiftKey) {
-            $.noop();
-        } else if (regex.test(message)) {
+        const {userName, message, room, now} = textarea("gr");
+        if (regex.test(message)) {
             alert("文章を入力してください");
         } else if (reply.test(message)) {
             console.log("to " + message.match(reply));
