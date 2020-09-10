@@ -46,7 +46,8 @@ module.exports = function (socket, io, master, helper, history) {
         });
 
         history.writeHistory(
-            "@tlmessage" + helper.num_message,
+            helper.num_message,
+            "tlmessage",
             data.date,
             master[data.username].socketID[socket.id],
             data.username,

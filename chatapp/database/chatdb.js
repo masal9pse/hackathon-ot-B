@@ -10,11 +10,11 @@ db.serialize(function () {
     // テーブル作成
     //※　"IF NOT EXISTS"の部分は同名のテーブルが無い場合は、このままテーブルを作成。
     //既に同名テーブルがある時は何も処理せず終了。
-    db.run('CREATE TABLE IF NOT EXISTS chat(id, date, room, speaker, message, reply)');
-    db.run("insert into chat values('@tlmessage0', '2020/09', 'JavaScript', 'Yamada', 'こんにちは、javascript', '0')");
-    db.run("insert into chat values('@tlmessage1', '2020/09', 'JavaScript', 'masato', 'やあ、javascript', '0')");
-    db.run("insert into chat values('@grmessage2', '2020/09', 'Python', 'Yamada', 'こんにちは、Python', '0')");
-    db.run("insert into chat values('@grmessage3', '2020/09', 'Python', 'masato', 'やあ、Python', '0')");
+    db.run('CREATE TABLE IF NOT EXISTS chat(id integer, type, date, room, speaker, message, reply)');
+    db.run("insert into chat values('0', 'tlmessage', '2020/09', 'JavaScript', 'Yamada', 'こんにちは、javascript', '0')");
+    db.run("insert into chat values('1', 'tlmessage', '2020/09', 'JavaScript', 'masato', 'やあ、javascript', '0')");
+    db.run("insert into chat values('2', 'grmessage', '2020/09', 'Python', 'Yamada', 'こんにちは、Python', '0')");
+    db.run("insert into chat values('3', 'grmessage', '2020/09', 'Python', 'masato', 'やあ、Python', '0')");
 });
 // DBを閉じる
 db.close();
