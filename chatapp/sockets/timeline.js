@@ -73,7 +73,7 @@ module.exports = function (socket, io, master, helper, history) {
         Object.keys(master[data.username].socketID)
             .filter((id) => master[data.username].socketID[id] === data.room)
             .forEach((id) => {
-                socket.to(id).emit("tlreceiveReplyMessage", {
+                io.to(id).emit("tlreceiveReplyMessage", {
                     "num_message": helper.num_message,
                     "messageid":"reply" + helper.num_message,
                     "reply": to_reply,
@@ -99,7 +99,17 @@ module.exports = function (socket, io, master, helper, history) {
             "rm_button": ""
         });
 
-        // wait(wait_time, socket, io);　　　　//60秒間投稿禁止
+        history.writeHistory(
+            helper.num_message,
+            "grmessage",
+            data.date,
+            master[data.username].socketID[socket.id],
+            data.username,
+            data.msg,
+            to_reply
+            );
+
+        wait(wait_time, socket, io);　　　　//60秒間投稿禁止
 
     });
 

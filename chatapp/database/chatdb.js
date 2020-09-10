@@ -15,6 +15,8 @@ db.serialize(function () {
     db.run("insert into chat values('1', 'tlmessage', '2020/09', 'JavaScript', 'masato', 'やあ、javascript', '0')");
     db.run("insert into chat values('2', 'grmessage', '2020/09', 'Python', 'Yamada', 'こんにちは、Python', '0')");
     db.run("insert into chat values('3', 'grmessage', '2020/09', 'Python', 'masato', 'やあ、Python', '0')");
+    db.run("insert into chat values('4', 'reply', '2020/09', 'JavaScript', 'Yamada', 'いいえ、javaです', 'tlmessage1')");
+    db.run("insert into chat values('5', 'reply', '2020/09', 'JavaScript', 'masato', 'いや、javaです', 'tlmessage0')");
 });
 // DBを閉じる
 db.close();

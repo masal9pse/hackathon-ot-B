@@ -93,6 +93,16 @@ module.exports = function(socket, io, master, helper, history) {
             "rp_button": helper.generate_reply(helper.num_message, "gr"),
             "rm_button": ""
         });
+
+        history.writeHistory(
+            helper.num_message,
+            "grmessage",
+            data.date,
+            master[data.username].socketID[socket.id],
+            data.username,
+            data.msg,
+            to_reply
+            );
     });
 
     // メッセージ削除イベントを送信する
