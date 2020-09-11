@@ -25,9 +25,8 @@ module.exports = function(socket, io, master, history, helper) {
                     });
                     io.sockets.to(user.room).emit('receiveRoomEvent', {
                         name: user.name,
-                        //date: row.logintime
+                        date: row.logintime
                     });
-                    console.log(typeof name);
                     // データベースを閉じる
                     db.close();
                 }

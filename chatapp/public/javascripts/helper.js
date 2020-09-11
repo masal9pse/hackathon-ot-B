@@ -15,17 +15,17 @@ let reverse = false;    // false→新しいもの順　true→古いもの順
 let latest_msg_num = -1;
 
 
-function textarea(area){
+function textarea(area) {
     // ユーザ名を取得
-    const userName = $("#"+area+"userName").val();
+    const userName = $("#" + area + "userName").val();
     console.log(userName);
 
     // 入力されたメッセージを取得
-    const message = $('#'+area+'message').val();
-    console.log("textarea input : "  + message);
+    const message = $('#' + area + 'message').val();
+    console.log("textarea input : " + message);
 
     // ルームを取得
-    const room = $('#'+area+'room').val();
+    const room = $('#' + area + 'room').val();
     console.log("room：" + room);
 
     //入力日時を取得
@@ -33,19 +33,19 @@ function textarea(area){
     console.log(now);
 
     //textareaを空にする
-    $('#'+area+'message').val(" ");
+    $('#' + area + 'message').val(" ");
 
     return {userName, message, room, now};
 }
 
 //並び順の変更
 function OnReverse(area) {
-    const thread = document.getElementById(area+"thread");
+    const thread = document.getElementById(area + "thread");
     const children = thread.children;             //threadの子ノードを取得
     const fragment = document.createDocumentFragment();   // 空のDocumentFragmentノードを作成
-    const sort = $("#"+area+"sort").val();
+    const sort = $("#" + area + "sort").val();
 
-    for (let i=children.length-1; i >= 0; i--) {
+    for (let i = children.length - 1;i >= 0;i--) {
         fragment.insertBefore(children[i], fragment[0]);
     }
 
@@ -53,15 +53,15 @@ function OnReverse(area) {
 
     switch (sort) {
         case "新しいもの順":
-            $("#"+area+"sort").val("古いもの順");
+            $("#" + area + "sort").val("古いもの順");
             reverse = true;
             break;
 
         default:
-            $("#"+area+"sort").val("新しいもの順");
+            $("#" + area + "sort").val("新しいもの順");
             reverse = false;
             break;
-        }
+    }
 }
 
 //DM機能
@@ -69,15 +69,15 @@ function OnUsernameClick(element) {
     const userName = $("#tluserName").val();
     const to_name = $("#" + element.id).text();
     console.log(to_name);
-    $("#dmname").text(dm+to_name); 
-    socket.emit("initDM", {"my_name":userName, "to_name":to_name});
+    $("#dmname").text(dm + to_name);
+    socket.emit("initDM", {"my_name": userName, "to_name": to_name});
 }
 
 //reply機能
 function OnReplyClick(element, area) {
     const to_rp = document.getElementById(element.id).parentNode;
     console.log(to_rp.id);
-    $('#'+area+'message').val("@"+to_rp.id);
+    $('#' + area + 'message').val("@" + to_rp.id);
 }
 
 function remove_message(element) {
@@ -87,11 +87,11 @@ function remove_message(element) {
 }
 
 //同じ要素があるかをチェック
-function idChecker(children, id){
+function idChecker(children, id) {
     // console.log(id);
-    if(children.length != 0){
-        for(let i = 0; i < children.length; i++){
-            if(children[i].id == id){
+    if (children.length != 0) {
+        for (let i = 0;i < children.length;i++) {
+            if (children[i].id == id) {
                 console.log(children[i].id);
                 console.log(id);
                 console.log("表示しない");
@@ -103,10 +103,10 @@ function idChecker(children, id){
 }
 
 //同じ名前があるかをチェック
-function nameChecker(children, name){
-    if(children.length != 0){
-        for(let i = 0; i < children.length; i++){
-            if(children[i].textContent == name){
+function nameChecker(children, name) {
+    if (children.length != 0) {
+        for (let i = 0;i < children.length;i++) {
+            if (children[i].textContent == name) {
                 console.log(children[i].textContent);
                 console.log(name);
                 console.log("表示しない");
@@ -118,7 +118,7 @@ function nameChecker(children, name){
 }
 
 //削除イベント
-socket.on("removeElementEvent", function (id) {
+socket.on("removeElementEvent", function(id) {
     $("#" + id).remove();
 });
 

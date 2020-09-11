@@ -32,13 +32,10 @@ socket.on('receiveWelcomeEvent', function(data) {
 
 socket.on('receiveRoomEvent', function(data) {
     console.log(data);
-    //$('#room-smember-list').empty();
-    //userList.forEach(data => {
     let member = document.getElementById("room-member-list").children;
-    if(nameChecker(member, data.name)){
+    if (nameChecker(member, data.name)) {
         $('#room-member-list').prepend(`<li class="room-member ml-3">${data.name}</li>`);
     }
-    //});
 });
 
 //socket.on('receiveRoomEvent', function(userList) {
