@@ -24,6 +24,10 @@ function exit() {
 // サーバから受信した退室メッセージを画面上に表示する
 socket.on('receiveExitEvent', function (data) {
     if (data !== userName) { // 退室したのが自分のアカウントだった場合は表示しない
-        $('#grthread').prepend(`<p>${data}さんが退室しました</p>`);
+        $('#server-thread').prepend(
+            '<div id="chat">' +
+            `<p>${data}さんが退室しました</p>` +
+            '</div>'
+        );
     }
 });

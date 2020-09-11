@@ -17,16 +17,20 @@ socket.emit('entryMyselfEvent', {
 // サーバから受信した入室メッセージを画面上に表示する
 socket.on('receiveEntryEvent', function(data) {
     if (data !== userName) { // 入室したのが自分のアカウントだった場合は表示しない
-        $('#tlthread').prepend(`<p>${data}さんが入室しました</p>`);
+        $('#server-thread').prepend(
+            '<div id="chat">' +
+            `<p>${data}さんが入室しました</p>` +
+            '</div>'
+        );
     }
 });
 
 // 入室した時に前回退室した日時を表示する
 socket.on('receiveWelcomeEvent', function(data) {
-    $('#tlthread').prepend(
+    $('#server-thread').prepend(
         '<div id="chat">' +
         `<p>ようこそ${data.name}さん！` +
-        `あなたが最後にログインしていたのは${data.date}です。</p>` +
+        `あなたが最後にログインしていたのは${data.date}です</p>` +
         '</div>'
     );
 });
@@ -35,7 +39,9 @@ socket.on('receiveWelcomeEvent', function(data) {
 socket.on('RoomEntryUserList', function(userList) {
     $('#room-member-list').empty();
     userList.forEach(member => {
-        $('#room-member-list').prepend(`<li class="room-member ml-3">${member}</li>`);
+        $('#room-member-list').prepend(
+            `<li class="room-member ml-3">${member}</li>`
+        );
     });
 });
 
@@ -43,6 +49,9 @@ socket.on('RoomEntryUserList', function(userList) {
 socket.on('AllEntryUserList', function(userList) {
     $('#member-list').empty();
     userList.forEach(member => {
-        $('#member-list').prepend(`<li><a href='#' onclick='OnUsernameClick(this);' id=${member}>${member}</a></li>`);
+        $('#member-list').prepend(
+            "<li><a href='#' onclick='OnUsernameClick(this);' " +
+            `id=${member}>${member}</a></li>`
+        );
     });
 });

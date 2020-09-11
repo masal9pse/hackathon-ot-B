@@ -11,8 +11,8 @@ module.exports = function(socket, io, master, history, helper) {
 
         // 他クライアントが受信する入室表示イベントを送信する
         // 入室したルームに自分のアカウントが既にいた場合は送信しない
-        const isnt_in_the_site = master[user.name] === undefined;
-        if (isnt_in_the_site || !Object.values(master[user.name].socketID).includes(user.room)) {
+        const isnt_in = master[user.name] === undefined;
+        if (isnt_in || !Object.values(master[user.name].socketID).includes(user.room)) {
             socket.to(user.room).emit('receiveEntryEvent', user.name);
         }
 
@@ -53,6 +53,7 @@ module.exports = function(socket, io, master, history, helper) {
         socket.to(user.room).emit('RoomEntryUserList', room_users);
         socket.emit('RoomEntryUserList', room_users);
 
+        // 各スレッドを初期化
         history.initializeThred(user.name, user.room, io, socket.id, helper);
 
         console.log(master);

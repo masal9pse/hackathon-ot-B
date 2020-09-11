@@ -38,7 +38,7 @@ module.exports = function(socket, io, master, helper, history) {
         socket.to(data.next_room).emit('RoomEntryUserList', next_room_users);
         socket.emit('RoomEntryUserList', next_room_users);
 
-        // 遷移先ルームのスレッドを取得し送信
+        // 各スレッドを初期化
         history.initializeThred(data.user_name, data.next_room, io, socket.id, helper);
 
         console.log(master);

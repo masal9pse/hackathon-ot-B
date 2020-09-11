@@ -18,8 +18,8 @@ module.exports = function(socket, io, master) {
 
         // 他クライアントが受信する退室表示イベントを送信する
         // 退室したルームにまだ自分のアカウントがいる場合は送信しない
-        const isnt_in_the_site = master[user.name] === undefined;
-        if (isnt_in_the_site || !Object.values(master[user.name].socketID).includes(user.room)) {
+        const isnt_in = master[user.name] === undefined;
+        if (isnt_in || !Object.values(master[user.name].socketID).includes(user.room)) {
             socket.to(user.room).emit('receiveExitEvent', user.name);
         }
 
