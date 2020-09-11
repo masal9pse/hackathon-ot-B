@@ -36,9 +36,11 @@ class Manager {
     }
 
     roomEntrants(_room) {
-        return Object.keys(this).filter(user => {
+        const room_users = Object.keys(this).filter(user => {
             this[user].is_in_the_room(_room)
         });
+        console.log(room_users);
+        return room_users;
     }
 }
 
@@ -76,7 +78,9 @@ class User {
 
     // ルーム名を引数に取り，そのルームに入室しているかどうかを返す
     is_in_the_room(_room) {
-        return Object.values(this[socketid]).includes(_room);
+        const x = Object.values(this[socketid]).includes(_room);
+        console.log(this[name] + _room + x);
+        return x;
     }
 }
 

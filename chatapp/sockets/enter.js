@@ -37,6 +37,7 @@ module.exports = function(socket, io, master, history, helper) {
         if (master[user.name] === undefined) { // まだ登録されていないか
             master.user = user.name;
         }
+
         // Manager にSocketIDとルーム名を登録
         master[user.name].socketID = {
             id: socket.id,
@@ -44,10 +45,10 @@ module.exports = function(socket, io, master, history, helper) {
         };
 
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        io.sockets.emit('receiveEntryUserList', {
-            all_users: Object.keys(master),
-            room_users: master.roomEntrants(user.room),
-        });
+        io.sockets.emit('receiveEntryUserList', Object.keys(master));
+
+        // ルームに入室中のユーザーを送信する
+        socket.to(user.room).emit('receiveRoomEvent', master.roomEntrants(user.room));
 
         console.log(master);
 

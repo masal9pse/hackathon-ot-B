@@ -29,11 +29,10 @@ module.exports = function(socket, io, master) {
         socket.to(user.room).emit('receiveExitEvent', user.name);
 
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        io.sockets.emit('receiveEntryUserList', {
-            all_users: Object.keys(master),
-            room_users: master.roomEntrants(user.room),
-        });
+        io.sockets.emit('receiveEntryUserList', Object.keys(master));
+
+        // ルームに入室中のユーザーを送信する
+        socket.to(user.room).emit('receiveRoomEvent', master.roomEntrants(user.room));
 
         console.log(master);
     });

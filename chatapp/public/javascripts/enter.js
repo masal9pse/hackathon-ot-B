@@ -30,24 +30,17 @@ socket.on('receiveWelcomeEvent', function(data) {
         '</div>');
 });
 
-socket.on('receiveRoomEvent', function(data) {
-    console.log(data);
-    let member = document.getElementById("room-member-list").children;
-    if (nameChecker(member, data.name)) {
-        $('#room-member-list').prepend(`<li class="room-member ml-3">${data.name}</li>`);
-    }
+socket.on('receiveRoomEvent', function(userList) {
+    $('#room-member-list').empty();
+    userList.forEach(member => {
+        $('#room-member-list').prepend(`<li class="room-member ml-3">${member}</li>`);
+    });
 });
 
 // 現在入室している全ユーザー名を表示する
 socket.on('receiveEntryUserList', function(userList) {
     $('#member-list').empty();
-    userList.all_users.forEach(member => {
+    userList.forEach(member => {
         $('#member-list').prepend(`<li><a href='#' onclick='OnUsernameClick(this);' id=${member}>${member}</a></li>`);
     });
-
-    $('#room-member-list').empty();
-    userList.room_users.forEach(member => {
-        $('room-member-list').prepend(`<li class="room-member ml-3">${member}</li>`);
-    });
 });
-
