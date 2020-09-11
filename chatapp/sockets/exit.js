@@ -32,7 +32,16 @@ module.exports = function(socket, io, master) {
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
 
         // ルームに入室中のユーザーを送信する
-        socket.to(user.room).emit('receiveRoomEvent', master.roomEntrants(user.room));
+        socket.to(user.room).emit('receiveRoomEvent', 
+            Object.keys(master).filter(function (element) {
+                return Object.values(master[element].socketID).includes(user.room);
+            })
+        );
+        socket.to(user.room).emit('receiveRoomEvent', 
+            Object.keys(master).filter(function (element) {
+                return Object.values(master[element].socketID).includes(user.room);
+            })
+        );
 
         console.log(master);
     });

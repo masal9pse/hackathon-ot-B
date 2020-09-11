@@ -34,14 +34,6 @@ class Manager {
         console.log("Register : " + _userName);
         this[_userName] = new User(_userName);
     }
-
-    roomEntrants(_room) {
-        const room_users = Object.keys(this).filter(user => {
-            this[user].is_in_the_room(_room)
-        });
-        console.log(room_users);
-        return room_users;
-    }
 }
 
 class User {
@@ -74,13 +66,6 @@ class User {
     set socketID(_data) {
         console.log(`Register socket id + room: ${_data.id} + ${_data.room}`);
         this[socketid][_data.id] = _data.room;
-    }
-
-    // ルーム名を引数に取り，そのルームに入室しているかどうかを返す
-    is_in_the_room(_room) {
-        const x = Object.values(this[socketid]).includes(_room);
-        console.log(this[name] + _room + x);
-        return x;
     }
 }
 
