@@ -7,6 +7,11 @@ function changeRoom(next_room) { // 遷移先のルーム名を引数に取る
     // 遷移前のルーム名を取得
     const pre_room = $('#tlroom').val();
 
+    // 遷移前と先のルームが同じなら遷移しない
+    if (next_room === pre_room) {
+        return false;
+    }
+
     // スレッドを空にする
     $('#tlthread').empty();
     $('#grthread').empty();
