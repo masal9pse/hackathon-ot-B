@@ -1,3 +1,5 @@
 参考サイト ssh
-https://qiita.com/kou_pg_0131/items/45cdde3d27bd75f1bfd5
-ssh接続まで
+# EC2でnode+sqliteの環境構築
+https://qiita.com/oishihiroaki/items/bc663eb1282d87c46e97
+# foreverのインストール
+https://qiita.com/daikon_buu/items/c05d75262be8de413812
