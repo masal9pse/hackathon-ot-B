@@ -27,10 +27,12 @@ socket.on('receiveWelcomeEvent', function(data) {
         '<div id="chat">' +
         `<p>ようこそ${data.name}さん！` +
         `あなたが最後にログインしていたのは${data.date}です。</p>` +
-        '</div>');
+        '</div>'
+    );
 });
 
 socket.on('receiveRoomEvent', function(userList) {
+    console.log(userList);
     $('#room-member-list').empty();
     userList.forEach(member => {
         $('#room-member-list').prepend(`<li class="room-member ml-3">${member}</li>`);

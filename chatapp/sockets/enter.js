@@ -23,10 +23,6 @@ module.exports = function(socket, io, master, history, helper) {
                         name: user.name,
                         date: row.logintime
                     });
-                    io.sockets.to(user.room).emit('receiveRoomEvent', {
-                        name: user.name,
-                        date: row.logintime
-                    });
                     // データベースを閉じる
                     db.close();
                 }
@@ -48,7 +44,11 @@ module.exports = function(socket, io, master, history, helper) {
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
 
         // ルームに入室中のユーザーを送信する
-        socket.to(user.room).emit('receiveRoomEvent', master.roomEntrants(user.room));
+        io.sockets.emit('receiveRoomEvent', 
+            Object.keys(master).filter(function (element) {
+                return Object.values(master[element].socketID).includes(user.room);
+            })
+        );
 
         console.log(master);
 
