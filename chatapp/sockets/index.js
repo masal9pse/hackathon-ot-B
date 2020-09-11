@@ -40,5 +40,7 @@ module.exports = function (server) {
         //changeRoomモジュール
         require('./changeRoom')(socket, io, master, helper, history);
 
+        //liveUserCheckモジュール
+        require('./liveUserCheck')(socket, master);
     });
 };

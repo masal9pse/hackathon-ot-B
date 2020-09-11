@@ -17,6 +17,8 @@ function exit() {
         'date': now,
     });
 
+    socket.disconnect();
+
     // 退室
     location.href = '/';
 }
