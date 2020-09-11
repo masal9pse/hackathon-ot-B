@@ -29,9 +29,9 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
+# terraform
+terraform/.terraform
+terraform/terraform.tfstate.backup
 terraform/example
 terraform/example.pub
 terraform/terraform.tfstate
-terraform.tfs
-terraform/.terraform
-terraform/terraform.tfstate.backup
