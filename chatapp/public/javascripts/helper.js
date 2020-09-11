@@ -102,6 +102,21 @@ function idChecker(children, id){
     return true;
 }
 
+//同じ名前があるかをチェック
+function nameChecker(children, name){
+    if(children.length != 0){
+        for(let i = 0; i < children.length; i++){
+            if(children[i].textContent == name){
+                console.log(children[i].textContent);
+                console.log(name);
+                console.log("表示しない");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 //削除イベント
 socket.on("removeElementEvent", function (id) {
     $("#" + id).remove();

@@ -18,6 +18,16 @@ router.post('/room', function(request, response, next) {
     });
 });
 
+// チャット画面の表示
+// router.post('/room2', function(request, response, next) {
+//     console.log('ユーザ名：' + request.body.userName);
+//     console.log('ルーム名：' + request.body.room);
+//     response.render('room2', {
+//         userName: request.body.userName,
+//         room: request.body.room,
+//     });
+// });
+
 
 // sign_upの表示
 router.post('/sign_up', function(request, response, next) {

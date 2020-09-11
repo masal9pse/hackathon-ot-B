@@ -32,35 +32,6 @@
             </div>
         </div>
 
-        <div class="calender">
-            <div class="preweek">
-                <input class="simple-button-last" type="button" value="⇐ Last week" onclick="MoveWeek(this);">
-            </div>
-            <table class="kakoi">
-                <tr class="days">
-                    <td class="youbi">mon</td>
-                    <td class="youbi">tue</td>
-                    <td class="youbi">wed</td>
-                    <td class="youbi">thu</td>
-                    <td class="youbi">fri</td>
-                    <td class="youbi">sat</td>
-                    <td class="youbi">sun</td>
-                </tr>
-                <tr>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                </tr>
-            </table>
-            <div class="nexweek">
-                <input class="simple-button-next" type="button" value="Next week ⇒" onclick="MoveWeek(this);">
-            </div>
-        </div>
-
         <div class="chat">
             <div class="timeline">
                 <div class="chat-title">
@@ -116,7 +87,7 @@
                                 <input id="grroom" type="hidden" value={{ room }}>
                             </div>
                         </div>
-                         <div class="room-message">
+                        <div class="room-message">
                             <textarea id="grmessage" rows="4" class="room-message_textarea"
                                 placeholder="投稿文を入力してください"></textarea>
                             <!--onkeypress="publish(event.keyCode);" -->
@@ -129,12 +100,13 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 
     <div class="rightbar">
-        <h4 class="dmroom" id="dmname">Who do you want to talk with?</h4>
+        <h4 class="dmroom" id = "dmname">Who do you want to talk with?</h4>
         <div class="dm-message">
             <div id="dmthread"></div>
         </div>
@@ -147,7 +119,6 @@
                         <input id="dmroom" type="hidden" value={{ room }}>
                     </div>
                 </div>
-                {{!--<div class="test mt-3">--}}
                 <div class="room-message">
                     <textarea id="dmmessage" rows="4" class="room-message_textarea"
                         placeholder="投稿文を入力してください"></textarea>
@@ -157,7 +128,6 @@
                     <input id="dmpost" type="button" value="投稿" class="common-button room-publish_button room-btn"
                         onclick="directMassagePublish();">
                 </div>
-                {{!--</div>--}}
             </form>
         </div>
     </div>
@@ -170,9 +140,9 @@
 <script src="/javascripts/enter.js"></script>
 <script src="/javascripts/exit.js"></script>
 <script src="/javascripts/changeRoom.js"></script>
+{{!-- <script src="/javascripts/publish.js"></script> --}}
 <script src="/javascripts/memo.js"></script>
 <script src="/javascripts/timeline.js"></script>
 <script src="/javascripts/groupchat.js"></script>
 <script src="/javascripts/directMessage.js"></script>
 <script src="/javascripts/helper.js"></script>
-<script src="/javascripts/zeller.js"></script>
