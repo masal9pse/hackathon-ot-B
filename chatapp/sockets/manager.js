@@ -35,13 +35,10 @@ class Manager {
         this[_userName] = new User(_userName);
     }
 
-    deleteUser(_userName) { //ユーザの削除
-        try {
-            delete this[_userName];
-            console.log("Delete : " + _userName);
-        } catch (err) {
-            console.log("This user doesn't exist");
-        }
+    roomEntrants(_room) {
+        return Object.keys(this).filter(user => {
+            this[user].is_in_the_room(_room)
+        });
     }
 }
 
@@ -75,6 +72,11 @@ class User {
     set socketID(_data) {
         console.log(`Register socket id + room: ${_data.id} + ${_data.room}`);
         this[socketid][_data.id] = _data.room;
+    }
+
+    // ルーム名を引数に取り，そのルームに入室しているかどうかを返す
+    is_in_the_room(_room) {
+        return Object.values(this[socketid]).includes(_room);
     }
 }
 

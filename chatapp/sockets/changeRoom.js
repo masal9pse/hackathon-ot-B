@@ -20,6 +20,12 @@ module.exports = function(socket, io, master, helper, history) {
         // Managerで管理しているユーザのSocketIdに対応するルーム名を更新
         master[data.user_name].socketID[socket.id] = data.next_room;
 
+        // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
+        io.sockets.emit('receiveEntryUserList', {
+            all_users: Object.keys(master),
+            room_users: master.roomEntrants(user.room),
+        });
+
         // 遷移先ルームのスレッドを取得し送信
         history.initializeThred(data.user_name, data.next_room, io, socket.id, helper);
 
