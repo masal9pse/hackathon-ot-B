@@ -31,7 +31,8 @@ socket.on('receiveWelcomeEvent', function(data) {
     );
 });
 
-socket.on('receiveRoomEvent', function(userList) {
+// 現在そのルームに入室しているユーザー名を表示する
+socket.on('RoomEntryUserList', function(userList) {
     $('#room-member-list').empty();
     userList.forEach(member => {
         $('#room-member-list').prepend(`<li class="room-member ml-3">${member}</li>`);
@@ -39,7 +40,7 @@ socket.on('receiveRoomEvent', function(userList) {
 });
 
 // 現在入室している全ユーザー名を表示する
-socket.on('receiveEntryUserList', function(userList) {
+socket.on('AllEntryUserList', function(userList) {
     $('#member-list').empty();
     userList.forEach(member => {
         $('#member-list').prepend(`<li><a href='#' onclick='OnUsernameClick(this);' id=${member}>${member}</a></li>`);

@@ -41,19 +41,14 @@ module.exports = function(socket, io, master, history, helper) {
         };
 
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        io.sockets.emit('receiveEntryUserList', Object.keys(master));
+        io.sockets.emit('AllEntryUserList', Object.keys(master));
 
         // ルームに入室中のユーザーを送信する
-        socket.to(user.room).emit('receiveRoomEvent', 
-            Object.keys(master).filter(function (element) {
-                return Object.values(master[element].socketID).includes(user.room);
-            })
-        );
-        socket.emit('receiveRoomEvent', 
-            Object.keys(master).filter(function (element) {
-                return Object.values(master[element].socketID).includes(user.room);
-            })
-        );
+        const room_users = Object.keys(master).filter(function (element) {
+            return Object.values(master[element].socketID).includes(user.room);
+        });
+        socket.to(user.room).emit('RoomEntryUserList', room_users);
+        socket.emit('RoomEntryUserList', room_users);
 
         console.log(master);
 

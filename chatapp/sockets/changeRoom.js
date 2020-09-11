@@ -24,21 +24,16 @@ module.exports = function(socket, io, master, helper, history) {
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
 
         // ルームに入室中のユーザーを送信する
-        socket.to(data.pre_room).emit('receiveRoomEvent',
+        socket.to(data.pre_room).emit('RoomEntryUserList',
             Object.keys(master).filter(function (element) {
                 return Object.values(master[element].socketID).includes(data.pre_room);
             })
         );
-        socket.to(data.next_room).emit('receiveRoomEvent',
-            Object.keys(master).filter(function (element) {
-                return Object.values(master[element].socketID).includes(data.next_room);
-            })
-        );
-        socket.emit('receiveRoomEvent',
-            Object.keys(master).filter(function (element) {
-                return Object.values(master[element].socketID).includes(data.next_room);
-            })
-        );
+        const next_room_users = Object.keys(master).filter(function (element) {
+            return Object.values(master[element].socketID).includes(data.next_room);
+        });
+        socket.to(data.next_room).emit('RoomEntryUserList', next_room_users);
+        socket.emit('RoomEntryUserList', next_room_users);
 
         // 遷移先ルームのスレッドを取得し送信
         history.initializeThred(data.user_name, data.next_room, io, socket.id, helper);
