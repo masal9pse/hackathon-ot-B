@@ -44,7 +44,12 @@ module.exports = function(socket, io, master, history, helper) {
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
 
         // ルームに入室中のユーザーを送信する
-        io.sockets.emit('receiveRoomEvent', 
+        socket.to(user.room).emit('receiveRoomEvent', 
+            Object.keys(master).filter(function (element) {
+                return Object.values(master[element].socketID).includes(user.room);
+            })
+        );
+        socket.emit('receiveRoomEvent', 
             Object.keys(master).filter(function (element) {
                 return Object.values(master[element].socketID).includes(user.room);
             })

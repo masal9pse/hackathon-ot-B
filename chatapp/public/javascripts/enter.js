@@ -32,7 +32,6 @@ socket.on('receiveWelcomeEvent', function(data) {
 });
 
 socket.on('receiveRoomEvent', function(userList) {
-    console.log(userList);
     $('#room-member-list').empty();
     userList.forEach(member => {
         $('#room-member-list').prepend(`<li class="room-member ml-3">${member}</li>`);

@@ -37,6 +37,11 @@ module.exports = function(socket, io, master) {
                 return Object.values(master[element].socketID).includes(user.room);
             })
         );
+        socket.to(user.room).emit('receiveRoomEvent', 
+            Object.keys(master).filter(function (element) {
+                return Object.values(master[element].socketID).includes(user.room);
+            })
+        );
 
         console.log(master);
     });
