@@ -40,7 +40,6 @@ module.exports = function(socket, io, master) {
             return Object.values(master[element].socketID).includes(user.room);
         });
         socket.to(user.room).emit('RoomEntryUserList', room_users);
-        socket.emit('RoomEntryUserList', room_users);
 
         console.log(master);
     });

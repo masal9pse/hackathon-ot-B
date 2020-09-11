@@ -30,7 +30,7 @@ socket.on('receiveWelcomeEvent', function(data) {
     $('#server-thread').prepend(
         '<div id="chat">' +
         `<p>ようこそ${data.name}さん！` +
-        `あなたが最後にログインしていたのは${data.date}です</p>` +
+        `${data.date}</p>` +
         '</div>'
     );
 });

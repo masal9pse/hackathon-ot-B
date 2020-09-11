@@ -50,7 +50,7 @@ module.exports = function (socket) {
                     if (row === undefined) { // データベースにユーザ名が登録されていないか
                         // データベースにユーザー名，パスワード，サインアップ日時を登録
                         const stmt = db.prepare("insert into users values (?, ?, ?)");
-                        stmt.run(data.user, data.pass, data.date);
+                        stmt.run(data.user, data.pass, "new_user");
                         stmt.finalize();
 
                         socket.emit("signUpApproval", {

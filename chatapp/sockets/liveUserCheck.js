@@ -23,8 +23,13 @@ module.exports = function(socket, io, master) {
                         }
 
                         // データベースを新規に開く
-                        // データベースに退室時間を記録
-                        // ...
+                        const db = new sqlite3.Database('./database/usersdb.sqlite');
+                        db.serialize(function() {
+                            // データベースに退室時間を記録
+                            const stmt = db.prepare("update users set logintime=? where username=?");
+                            stmt.run("illegal_exit", element);
+                            stmt.finalize();
+                        });
 
                         // ユーザ一覧を全ユーザに送信する
                         io.sockets.emit('AllEntryUserList', master.user);

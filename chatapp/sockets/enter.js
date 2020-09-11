@@ -32,10 +32,18 @@ module.exports = function(socket, io, master, history, helper) {
             // データベースからユーザーのログインタイムを取得
             db.get(`select logintime from users where username='${user.name}'`,
                 function(err, row) {
+                    let date_message = "";
+                    if (row.logintime === "illegal_exit") {
+                        date_message = "あなたは前回，退出ボタンを押さずに退出しました";
+                    } else if (row.logintime === "new_user") {
+                        date_message = "何かメッセージを送ってみましょう！";
+                    } else {
+                        date_message = `あなたが最後にログインしていたのは${row.logintime}です`;
+                    }
                     // 自クライアントが受信する入室表示イベントを送信する
                     socket.emit('receiveWelcomeEvent', {
                         name: user.name,
-                        date: row.logintime
+                        date: date_message,
                     });
                     // データベースを閉じる
                     db.close();
