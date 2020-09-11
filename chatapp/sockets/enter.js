@@ -10,7 +10,21 @@ module.exports = function(socket, io, master, history, helper) {
         socket.join(user.room);
 
         // 他クライアントが受信する入室表示イベントを送信する
-        socket.to(user.room).emit('receiveEntryEvent', user.name);
+        // 入室したルームに自分のアカウントが既にいた場合は送信しない
+        const isnt_in_the_site = master[user.name] === undefined;
+        if (isnt_in_the_site || !Object.values(master[user.name].socketID).includes(user.room)) {
+            socket.to(user.room).emit('receiveEntryEvent', user.name);
+        }
+
+        // ユーザーを Manager に登録
+        if (master[user.name] === undefined) { // まだ登録されていないか
+            master.user = user.name;
+        }
+        // Manager にSocketIDとルーム名を登録
+        master[user.name].socketID = {
+            id: socket.id,
+            room: user.room,
+        };
 
         // データベースを新規に開く
         const db = new sqlite3.Database('./database/usersdb.sqlite');
@@ -29,19 +43,8 @@ module.exports = function(socket, io, master, history, helper) {
             );
         });
 
-        // ユーザーを Manager に登録
-        if (master[user.name] === undefined) { // まだ登録されていないか
-            master.user = user.name;
-        }
-
-        // Manager にSocketIDとルーム名を登録
-        master[user.name].socketID = {
-            id: socket.id,
-            room: user.room,
-        };
-
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        io.sockets.emit('AllEntryUserList', Object.keys(master));
+        io.sockets.emit('AllEntryUserList', master.user);
 
         // ルームに入室中のユーザーを送信する
         const room_users = Object.keys(master).filter(function (element) {
@@ -50,8 +53,8 @@ module.exports = function(socket, io, master, history, helper) {
         socket.to(user.room).emit('RoomEntryUserList', room_users);
         socket.emit('RoomEntryUserList', room_users);
 
-        console.log(master);
-
         history.initializeThred(user.name, user.room, io, socket.id, helper);
+
+        console.log(master);
     });
 };

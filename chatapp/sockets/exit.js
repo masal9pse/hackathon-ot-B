@@ -8,12 +8,19 @@ module.exports = function(socket, io, master) {
 
         // roomから退室する
         socket.leave(user.room);
-        console.log(socket.id);
+
         // Managerで管理しているユーザーのSocketIDを削除
         delete master[user.name].socketID[socket.id];
         // もしSocketIDが一つも登録されていなければ，ユーザー自体を削除
         if (Object.keys(master[user.name].socketID).length === 0) {
             delete master[user.name];
+        }
+
+        // 他クライアントが受信する退室表示イベントを送信する
+        // 退室したルームにまだ自分のアカウントがいる場合は送信しない
+        const isnt_in_the_site = master[user.name] === undefined;
+        if (isnt_in_the_site || !Object.values(master[user.name].socketID).includes(user.room)) {
+            socket.to(user.room).emit('receiveExitEvent', user.name);
         }
 
         // データベースを新規に開く
@@ -25,11 +32,8 @@ module.exports = function(socket, io, master) {
             stmt.finalize();
         });
 
-        // 他クライアントが受信する退室表示イベント（receiveExitEvent）を送信する
-        socket.to(user.room).emit('receiveExitEvent', user.name);
-
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
-        io.sockets.emit('AllEntryUserList', Object.keys(master));
+        io.sockets.emit('AllEntryUserList', master.user);
 
         // ルームに入室中のユーザーを送信する
         const room_users = Object.keys(master).filter(function (element) {
