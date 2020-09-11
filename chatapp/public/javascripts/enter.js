@@ -6,6 +6,8 @@ const userName = $('#tluserName').val();
 // 選択されたルーム名を取得する
 const room = $('#tlroom').val();
 
+// start();
+
 // 入室メッセージイベントを送信する
 socket.emit('entryMyselfEvent', {
     'name': userName,
@@ -49,4 +51,7 @@ socket.on('receiveEntryUserList', function(userList) {
     userList.forEach(member => {
         $('#member-list').prepend(`<li><a href='#' onclick='OnUsernameClick(this);' id=${member}>${member}</a></li>`);
     });
+
+    start();
 });
+
