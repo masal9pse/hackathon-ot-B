@@ -35,3 +35,4 @@ terraform/terraform.tfstate.backup
 terraform/example
 terraform/example.pub
 terraform/terraform.tfstate
+terraform/.terraform.tfstate.lock.info
