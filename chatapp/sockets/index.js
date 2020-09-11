@@ -41,6 +41,6 @@ module.exports = function (server) {
         require('./changeRoom')(socket, io, master, helper, history);
 
         //liveUserCheckモジュール
-        require('./liveUserCheck')(socket, master);
+        require('./liveUserCheck')(socket, io, master);
     });
 };
