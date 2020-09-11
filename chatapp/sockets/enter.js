@@ -23,10 +23,11 @@ module.exports = function(socket, io, master, history, helper) {
                         name: user.name,
                         date: row.logintime
                     });
-                    //io.sockets.to(user.room).emit('receiveRoomEvent', {
-                    //    name: user.name,
-                    //    date: row.logintime
-                    //});
+                    io.sockets.to(user.room).emit('receiveRoomEvent', {
+                        name: user.name,
+                        //date: row.logintime
+                    });
+                    console.log(typeof name);
                     // データベースを閉じる
                     db.close();
                 }
@@ -45,11 +46,11 @@ module.exports = function(socket, io, master, history, helper) {
 
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
         io.sockets.emit('receiveEntryUserList', Object.keys(master));
-        io.sockets.to(user.room).emit('receiveRoomEvent', Object.keys(master));
+        //io.sockets.to(user.room).emit('receiveRoomEvent', Object.keys(master));
         //io.sockets.to(Object.keys(master[user.name].socketID)).emit('receiveRoomEvent', Object.keys(master));
 
         console.log(master);
-
+        //console.log(io.sockets.to(user.room).emit('receiveRoomEvent', Object.keys(master)));
         history.initializeThred(user.name, user.room, io, socket.id, helper);
     });
 };

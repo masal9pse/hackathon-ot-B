@@ -286,3 +286,7 @@ form#room{
     font-weight: bold;
     margin: 0px;
 }
+
+.test{
+    display: flex;
+}

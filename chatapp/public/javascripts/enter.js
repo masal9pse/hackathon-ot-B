@@ -28,19 +28,20 @@ socket.on('receiveWelcomeEvent', function(data) {
         '</div>');
 });
 
-//socket.on('receiveRoomEvent', function(data) {
-//    //$('#room-smember-list').empty();
-//    //userList.forEach(data => {
-//    $('#room-member-list').prepend(`<li class="room-member ml-3">${data.name}</li>`);
-//    //});
-//});
-
-socket.on('receiveRoomEvent', function(userList) {
+socket.on('receiveRoomEvent', function(data) {
+    console.log(data);
     //$('#room-smember-list').empty();
-    userList.forEach(data => {
-        $('#room-member-list').prepend(`<li class="room-member ml-3">${data}</li>`);
-    });
+    //userList.forEach(data => {
+    $('#room-member-list').prepend(`<li class="room-member ml-3">${data.name}</li>`);
+    //});
 });
+
+//socket.on('receiveRoomEvent', function(userList) {
+//    //$('#room-smember-list').empty();
+//    userList.forEach(data => {
+//        $('#room-member-list').prepend(`<li class="room-member ml-3">${data}</li>`);
+//    });
+//});
 
 // 現在入室している全ユーザー名を表示する
 socket.on('receiveEntryUserList', function(userList) {

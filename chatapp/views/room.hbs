@@ -87,7 +87,7 @@
                                 <input id="grroom" type="hidden" value={{ room }}>
                             </div>
                         </div>
-                        <div class="room-message">
+                         <div class="room-message">
                             <textarea id="grmessage" rows="4" class="room-message_textarea"
                                 placeholder="投稿文を入力してください"></textarea>
                             <!--onkeypress="publish(event.keyCode);" -->
@@ -119,6 +119,7 @@
                         <input id="dmroom" type="hidden" value={{ room }}>
                     </div>
                 </div>
+                {{!--<div class="test mt-3">--}}
                 <div class="room-message">
                     <textarea id="dmmessage" rows="4" class="room-message_textarea"
                         placeholder="投稿文を入力してください"></textarea>
@@ -128,6 +129,7 @@
                     <input id="dmpost" type="button" value="投稿" class="common-button room-publish_button room-btn"
                         onclick="directMassagePublish();">
                 </div>
+                {{!--</div>--}}
             </form>
         </div>
     </div>

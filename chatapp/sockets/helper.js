@@ -12,15 +12,15 @@ exports.wait_time = wait_time;
 exports.generate_reply = function(num, area) {
     if (area == "tl") {
         return "<input id=tlrp" + num
-            + " type='button' value='Reply' class='btn btn-success common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' + ")';>";
+            + " type='button' value='Reply' class='btn btn-sm btn-success common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' + ")';>";
 
     } else if (area == "gr") {
         return "<input id=grrp" + num
-            + " type='button' value='Reply' class='btn btn-info' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
+            + " type='button' value='Reply' class='btn btn-sm btn-info' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
 
     } else if (area == "dm") {
         return "<input id=dmrp" + num
-            + " type='button' value='Reply' class='btn btn-danger common-button room-publish_button' onclick='OnReplyClick(this, " + '"dm"' + ")';>";
+            + " type='button' value='Reply' class='btn btn-sm btn-danger common-button room-publish_button' onclick='OnReplyClick(this, " + '"dm"' + ")';>";
     }
 }
 
@@ -28,7 +28,7 @@ exports.generate_reply = function(num, area) {
 exports.generate_remove = function(num) {
     exports.generate_remove = function(num) {
         return "<input id=remove" + num
-            + " type='button' value='&#xf2ed; 取り消し' class='fas btn btn-danger' onclick='remove_message(this)';>";
+            + " type='button' value='&#xf2ed; 取り消し' class='fas btn btn-danger ml-3' onclick='remove_message(this)';>";
     }
 }
 

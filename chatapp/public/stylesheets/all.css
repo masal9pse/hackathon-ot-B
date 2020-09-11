@@ -2,6 +2,9 @@
  * 画面全体に関する設定
  */
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+li {
+  list-style: none;
+}
 
 :root {
     --dark-color-a: #667aff;
