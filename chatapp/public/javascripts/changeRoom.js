@@ -15,7 +15,6 @@ function changeRoom(next_room) { // 遷移先のルーム名を引数に取る
     // スレッドを空にする
     $('#tlthread').empty();
     $('#grthread').empty();
-    $('#dmthread').empty();
     $('#server-thread').empty();
 
     // ルーム名の表示を更新する
