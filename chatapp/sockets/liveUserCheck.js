@@ -29,6 +29,8 @@ module.exports = function(socket, io, master) {
                             const stmt = db.prepare("update users set logintime=? where username=?");
                             stmt.run("illegal_exit", element);
                             stmt.finalize();
+
+                            db.close();
                         });
 
                         // ユーザ一覧を全ユーザに送信する

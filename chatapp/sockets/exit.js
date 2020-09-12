@@ -30,6 +30,8 @@ module.exports = function(socket, io, master) {
             const stmt = db.prepare("update users set logintime=? where username=?");
             stmt.run(user.date, user.name);
             stmt.finalize();
+
+            db.close();
         });
 
         // ユーザー一覧表示機能を実装するため、全ユーザーに送信する。
