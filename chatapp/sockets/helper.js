@@ -12,15 +12,15 @@ exports.wait_time = wait_time;
 exports.generate_reply = function(num, area) {
     if (area == "tl") {
         return "<input id=tlrp" + num
-            + " type='button' value='Reply' class='btn btn-sm btn-success common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' + ")';>";
+            + " type='button' value='&#xf086;　返信' class='fas btn btn-success common-button room-publish_button' onclick='OnReplyClick(this, " + '"tl"' + ")';>";
 
     } else if (area == "gr") {
         return "<input id=grrp" + num
-            + " type='button' value='Reply' class='btn btn-sm btn-info' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
+            + " type='button' value='&#xf086; 返信' class='fas btn  btn-info' onclick='OnReplyClick(this, " + '"gr"' + ")';>";
 
     } else if (area == "dm") {
         return "<input id=dmrp" + num
-            + " type='button' value='Reply' class='btn btn-sm btn-danger common-button room-publish_button' onclick='OnReplyClick(this, " + '"dm"' + ")';>";
+            + " type='button' value='&#xf086; 返信' class='fas btn  btn-danger common-button room-publish_button' onclick='OnReplyClick(this, " + '"dm"' + ")';>";
     }
 }
 

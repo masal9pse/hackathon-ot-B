@@ -40,7 +40,7 @@ socket.on('RoomEntryUserList', function(userList) {
     $('#room-member-list').empty();
     userList.forEach(member => {
         $('#room-member-list').prepend(
-            `<li class="room-member ml-3">${member}</li>`
+            `<li class="room-member h3 ml-3">${member}</li>`
         );
     });
 });
