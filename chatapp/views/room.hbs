@@ -50,13 +50,35 @@
                     <td class="youbi">sun</td>
                 </tr>
                 <tr>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
-                    <td class="date"></td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div id="schedule0" class="schedule"></div>
+                    </td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div  id="schedule1" class="schedule">
+                        </div>
+                    </td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div id="schedule2" class="schedule"></div>
+                    </td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div id="schedule3" class="schedule"></div>
+                    </td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div id="schedule4" class="schedule"></div>
+                    </td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div id="schedule5" class="schedule"></div>
+                    </td>
+                    <td onclick="popSchedule();">
+                        <p class="date"></p>
+                        <div id="schedule6" class="schedule"></div>
+                    </td>
                 </tr>
             </table>
             <div class="nexweek">
@@ -119,7 +141,7 @@
                                 <input id="grroom" type="hidden" value={{ room }}>
                             </div>
                         </div>
-                         <div class="room-message">
+                        <div class="room-message">
                             <textarea id="grmessage" rows="4" class="room-message_textarea"
                                 placeholder="投稿文を入力してください"></textarea>
                             <!--onkeypress="publish(event.keyCode);" -->
@@ -164,6 +186,21 @@
             </form>
         </div>
     </div>
+
+
+    <div id="popSchedule">
+        <div class="index-user_name">
+            <div>
+                <label>日時</label>
+                <input type="text" id="scheduleDate" name="scheduleDate" placeholder="YYYY-MM-DD" class="form-control" required>
+                <label>内容</label>
+                <input type="text" id="userSchedule" name="userSchedule" placeholder="例）：　インターンシップ" class="form-control" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" onclick="registerSchedule()">予定を登録</button>
+        <input type="button" id="close" value="close popup" onclick="popClose();">
+    </div>
+
 
 </div>
 

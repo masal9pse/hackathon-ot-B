@@ -42,5 +42,8 @@ module.exports = function (server) {
 
         //liveUserCheckモジュール
         require('./liveUserCheck')(socket, io, master);
+
+        //zeller(カレンダー機能)モジュール
+        require('./zeller.js')(socket, io, master, helper, history);
     });
 };
