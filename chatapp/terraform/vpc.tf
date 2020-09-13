@@ -130,7 +130,7 @@ resource "aws_security_group_rule" "mongo-sg" {
     description       = "mongo"
 }
 
-resource "aws_security_group_rule" "mongo-sg" {
+resource "aws_security_group_rule" "production-sg" {
     security_group_id = aws_security_group.node-app.id
     type              = "ingress"
     from_port         = 80
