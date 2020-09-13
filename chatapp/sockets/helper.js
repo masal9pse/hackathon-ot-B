@@ -26,10 +26,8 @@ exports.generate_reply = function(num, area) {
 
 //取り消しボタンの生成
 exports.generate_remove = function(num) {
-    exports.generate_remove = function(num) {
-        return "<input id=remove" + num
-            + " type='button' value='&#xf2ed; 取り消し' class='fas btn btn-danger ml-3' onclick='remove_message(this)';>";
-    }
+    return "<input id=remove" + num
+        + " type='button' value='&#xf2ed; 取り消し' class='fas btn btn-danger ml-3' onclick='remove_message(this)';>";
 }
 
 //ユーザー名の整形
