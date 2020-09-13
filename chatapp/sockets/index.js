@@ -1,9 +1,5 @@
 'use strict';
 
-const Manager = require('./manager');
-const helper = require('./helper');
-const History = require('./chatdb');
-
 module.exports = function (server) {
 
     const socketIo = require('socket.io')(server, {
@@ -11,22 +7,31 @@ module.exports = function (server) {
     });
     const io = socketIo.listen(server);
 
+    const Manager = require('./manager');
+    const helper = require('./helper');
+    const History = require('./chatdb');
+
     const master = new Manager();
+    const history = new History(helper);
 
     io.sockets.on('connection', function (socket) {
+
+
+
         // ログインモジュールの呼び出し
         require('./log_in')(socket);
 
         // 投稿モジュールの呼出
         // require('./publish')(socket, io, master, healper);
 
-        const history = new History(helper);
-
         // 入室モジュールの呼出
         require('./enter')(socket, io, master, history, helper);
 
         // 退室モジュールの呼出
         require('./exit')(socket, io, master);
+
+        //削除イベントの準備
+        history.removeReady(socket, io);
 
         //timelineモジュール
         require('./timeline')(socket, io, master, helper, history);

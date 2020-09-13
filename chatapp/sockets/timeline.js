@@ -123,12 +123,6 @@ module.exports = function (socket, io, master, helper, history) {
             });
         });
     });
-
-    // メッセージ削除イベントを送信する
-    socket.on("removeMessageEvent", function (id) {
-        console.log("remove" + id);
-        io.sockets.emit("removeElementEvent", id);
-    });
 };
 
 //待機する関数
