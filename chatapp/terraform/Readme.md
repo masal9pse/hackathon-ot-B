@@ -7,3 +7,21 @@ https://qiita.com/daikon_buu/items/c05d75262be8de413812
 https://github.com/self-tuts/Nodejs-application-with-docker
 
 https://cloudpack.media/31772
+
+```bash
+このリポジトリをクローンして、ローカルで起動させる。
+
+cd terraform && terraform apply 
+
+ssh -i ./example ec2-user@elasticIP
+
+sudo yum update -y && sudo yum install docker git -y && sudo service docker start && git clone https://github.com/rkclhack/hackathon-ot-B.git hackathon
+
+sudo docker build -f Dockerfile --tag  docker-chatapp .
+
+sudo  docker run -it -d -p 8000:3000 docker-chatapp
+
+exit
+
+terraform destroy
+```

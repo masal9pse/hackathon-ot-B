@@ -130,6 +130,16 @@ resource "aws_security_group_rule" "mongo-sg" {
     description       = "mongo"
 }
 
+resource "aws_security_group_rule" "mongo-sg" {
+    security_group_id = aws_security_group.node-app.id
+    type              = "ingress"
+    from_port         = 80
+    to_port           = 80
+    protocol          = "tcp"
+    cidr_blocks       = ["0.0.0.0/0"]
+    description       = "production"
+}
+
 # アウトバウンドルール(全開放)
 resource "aws_security_group_rule" "out_all" {
   security_group_id = aws_security_group.node-app.id
