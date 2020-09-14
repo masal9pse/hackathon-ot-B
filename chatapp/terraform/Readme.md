@@ -15,8 +15,8 @@ cd terraform && terraform apply
 
 ssh -i ./example ec2-user@elasticIP
 
-sudo yum update -y && sudo yum install docker git -y && sudo service docker start && git clone https://github.com/rkclhack/hackathon-ot-B.git hackathon \
-cd hackathon/chatapp
+sudo yum update -y && sudo yum install docker git -y && sudo service docker start && git clone https://github.com/rkclhack/hackathon-ot-B.git hackathon && cd hackathon/chatapp
+
 
 sudo docker build -f Dockerfile --tag  docker-chatapp .
 
