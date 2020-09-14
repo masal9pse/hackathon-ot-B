@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "db-create": "node database/usersdb.js && node database/chatdb.js",
+    "db-create": "node database/usersdb.js && node database/chatdb.js && node database/scheduleDB.js",
     "db-delete": "rm database/usersdb.sqlite"
   },
   "dependencies": {
