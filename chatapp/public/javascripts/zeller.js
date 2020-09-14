@@ -54,6 +54,7 @@ function getWeekday(year, month, firstday) {
 }
 
 function setDays(ds) {
+    resetSchedule();
     var d = document.getElementsByClassName("date");
     let splitted_ds;
     for (var i = 0; i < 7; i++) {
@@ -63,6 +64,7 @@ function setDays(ds) {
         }
         d[i].innerHTML = ds[i];
     }
+    socket.emit("setSchedule", {"username": $('#tluserName').val(), "start_date": ds[0].replace("/", "-").replace("/", "-"), "end_date": ds[6].replace("/", "-").replace("/", "-")})
 }
 
 function checkuru(y) {
@@ -70,6 +72,16 @@ function checkuru(y) {
         return true;
     }
     return false;
+}
+
+function resetSchedule(){
+    $("#schedule0").empty();
+    $("#schedule1").empty();
+    $("#schedule2").empty();
+    $("#schedule3").empty();
+    $("#schedule4").empty();
+    $("#schedule5").empty();
+    $("#schedule6").empty();
 }
 
 function MoveWeek(button) {
