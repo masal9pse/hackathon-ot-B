@@ -14,6 +14,12 @@ hackathon-chatapp
     npm install
     # 起動コマンドを実行
     npm start
+
+    # docker-composeを用いてローカルでどうしても環境構築したい場合
+    // Dockerfileをもとにイメージ作成
+    docker-compose build
+    // コンテナ作成
+    docker-compose up
     ```
 
 2. `http://サーバのIPアドレス:ポート番号/` にブラウザでアクセスします

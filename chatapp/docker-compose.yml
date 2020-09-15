@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    node-chat:
+        build: .
+        ports:
+            - 3000:3000
+        volumes:
+            - ./database/usersdb.sqlite:/app/database/usersdb.sqlite
