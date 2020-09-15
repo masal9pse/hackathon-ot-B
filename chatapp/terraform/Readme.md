@@ -32,6 +32,6 @@ terraform destroy
 # その他
 ```
 // コンテナに入る
-sudo docker exec container_ID sh
+sudo docker exec -it container_ID sh
 ```
 
