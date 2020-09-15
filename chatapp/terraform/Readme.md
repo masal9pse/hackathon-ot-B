@@ -21,6 +21,7 @@ sudo yum update -y && sudo yum install docker git -y && sudo service docker star
 sudo docker build -f Dockerfile --tag  docker-chatapp .
 
 sudo  docker run -it -d -p 8000:3000 docker-chatapp
+sudo  docker run -it -d -p 80:3000 docker-chatapp
 // dbをホスト側にマウントする場合ならこっち
 sudo docker run -dp 80:3000  --volume $(pwd)/database/usersdb.sqlite:/app/database/usersdb.sqlite docker-chatapp
 
