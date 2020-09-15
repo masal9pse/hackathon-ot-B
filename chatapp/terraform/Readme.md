@@ -29,3 +29,9 @@ exit
 terraform destroy
 ```
 
+# その他
+```
+// コンテナに入る
+sudo docker exec container_ID sh
+```
+
