@@ -1,14 +1,10 @@
-参考サイト ssh
-# EC2でnode+sqliteの環境構築
-https://qiita.com/oishihiroaki/items/bc663eb1282d87c46e97
-# foreverのインストール
-https://qiita.com/daikon_buu/items/c05d75262be8de413812
-# そのリポジトリのイメージとコンテナ作成の参考
-https://github.com/self-tuts/Nodejs-application-with-docker
-
-https://cloudpack.media/31772
-
 ```bash
+terraform -v
+Terraform v0.12.6
+
+aws --version
+aws-cli/2.0.35
+
 このリポジトリをクローンする。
 
 cd terraform && terraform apply 
@@ -21,8 +17,11 @@ sudo yum update -y && sudo yum install docker git -y && sudo service docker star
 sudo docker build -f Dockerfile --tag  docker-chatapp .
 
 sudo  docker run -it -d -p 8000:3000 docker-chatapp
+　　　　　　　　　　　　　or
 sudo  docker run -it -d -p 80:3000 docker-chatapp
-// dbをホスト側にマウントする場合ならこっち
+
+// dbをホスト側にマウントする場合ならこっち => 基本的に発表で障害が起きたら基本的にマウントせずにコンテナを作り直す。
+// docker-composeは本番環境でインストールするのに手間取ったので、本番では使わない。
 sudo docker run -dp 80:3000  --volume $(pwd)/database/usersdb.sqlite:/app/database/usersdb.sqlite docker-chatapp
 
 exit
@@ -30,7 +29,7 @@ exit
 terraform destroy
 ```
 
-# その他
+## その他
 ```
 // コンテナに入る
 sudo docker exec -it container_ID sh
