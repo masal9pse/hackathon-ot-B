@@ -106,7 +106,7 @@ resource "aws_security_group_rule" "custom_tcp" {
     security_group_id = aws_security_group.node-app.id
     type              = "ingress"
     from_port         = 3000
-    to_port           = 3000
+    to_port           = 3001
     protocol          = "tcp"
     cidr_blocks       = ["0.0.0.0/0"]
 }
@@ -116,6 +116,15 @@ resource "aws_security_group_rule" "node-custom" {
     type              = "ingress"
     from_port         = 8000
     to_port           = 8000
+    protocol          = "tcp"
+    cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "node-dev" {
+    security_group_id = aws_security_group.node-app.id
+    type              = "ingress"
+    from_port         = 8080
+    to_port           = 8080
     protocol          = "tcp"
     cidr_blocks       = ["0.0.0.0/0"]
 }
