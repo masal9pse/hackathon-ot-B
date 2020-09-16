@@ -31,7 +31,7 @@ terraform destroy
 
 ## その他
 ```
-// コンテナに入る
+// コンテナに入る => dbの作成、削除はコンテナに入って手動でやったほうがいいのかも
 sudo docker exec -it container_ID sh
 ```
 

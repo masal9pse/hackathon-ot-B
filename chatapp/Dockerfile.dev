@@ -1,6 +1,6 @@
-# 本番用
+# ローカル環境用
 FROM alpine:latest
-RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache nodejs npm bash
 
 WORKDIR /app
 

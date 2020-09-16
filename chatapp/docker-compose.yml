@@ -1,9 +1,13 @@
 version: '3'
 
 services:
-    node-chat:
-        build: .
+    container_name: node-chatapp
+    node-chatapp:
+        build:
+            context: ./
+            dockerfile: Dockerfile.dev
         ports:
             - 3000:3000
         volumes:
-            - ./database/usersdb.sqlite:/app/database/usersdb.sqlite
+            - "./:/app"
+            - "/app/node_modules"
