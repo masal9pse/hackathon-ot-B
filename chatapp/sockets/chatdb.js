@@ -22,15 +22,20 @@ class History {
 
         socket.on("removeMessageEvent", function (id) {
             const delete_id = String(id).match(/\d/);
-            console.log(String(id));
-            console.log(delete_id[0]);
-            db.run(`DELETE FROM chat WHERE id=?`, delete_id[0], function(err) {
-                if (err) {
-                  return false;
-                }
+            if (delete_id) {
+                console.log(String(id));
+                console.log(delete_id[0]);
+                db.run(`DELETE FROM chat WHERE id=?`, delete_id[0], function (err) {
+                    if (err) {
+                        return false;
+                    }
+                    console.log("remove" + id);
+                    io.sockets.emit("removeElementEvent", id);
+                });
+            }else{
                 console.log("remove" + id);
                 io.sockets.emit("removeElementEvent", id);
-              });
+            }
         });
     }
 

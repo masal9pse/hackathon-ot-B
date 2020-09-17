@@ -35,7 +35,7 @@ function textarea(area) {
     //textareaを空にする
     $('#' + area + 'message').val(" ");
 
-    return {userName, message, room, now};
+    return { userName, message, room, now };
 }
 
 //並び順の変更
@@ -45,7 +45,7 @@ function OnReverse(area) {
     const fragment = document.createDocumentFragment();   // 空のDocumentFragmentノードを作成
     const sort = $("#" + area + "sort").val();
 
-    for (let i = children.length - 1;i >= 0;i--) {
+    for (let i = children.length - 1; i >= 0; i--) {
         fragment.insertBefore(children[i], fragment[0]);
     }
 
@@ -70,7 +70,7 @@ function OnUsernameClick(element) {
     const to_name = $("#" + element.id).text();
     console.log(to_name);
     $("#dmname").text(dm + to_name);
-    socket.emit("initDM", {"my_name": userName, "to_name": to_name});
+    socket.emit("initDM", { "my_name": userName, "to_name": to_name });
 }
 
 //reply機能
@@ -90,7 +90,7 @@ function remove_message(element) {
 function idChecker(children, id) {
     // console.log(id);
     if (children.length != 0) {
-        for (let i = 0;i < children.length;i++) {
+        for (let i = 0; i < children.length; i++) {
             if (children[i].id == id) {
                 console.log(children[i].id);
                 console.log(id);
@@ -105,7 +105,7 @@ function idChecker(children, id) {
 //同じ名前があるかをチェック
 function nameChecker(children, name) {
     if (children.length != 0) {
-        for (let i = 0;i < children.length;i++) {
+        for (let i = 0; i < children.length; i++) {
             if (children[i].textContent == name) {
                 console.log(children[i].textContent);
                 console.log(name);
@@ -117,9 +117,35 @@ function nameChecker(children, name) {
     return true;
 }
 
+function remove_bot(ele) {
+    const apply = ele.value;
+    if (/予定追加/.test(apply)) {
+        console.log("予定追加");
+        const plan = String($("#bot").text()).split(":");
+        console.log(plan[1]);
+        console.log(plan[3]);
+        if (reg_date.test(plan[3])) {
+            socket.json.emit("registerSchedule", {
+                "date": plan[3],
+                "schedule": plan[1],
+                "name": $('#tluserName').val()
+            });
+        }else{
+            console.log("だめ")
+        }
+    }
+    $("#bot").remove();
+}
+
 //削除イベント
-socket.on("removeElementEvent", function(id) {
+socket.on("removeElementEvent", function (id) {
     $("#" + id).remove();
+});
+
+//秘密兵器イベント
+socket.on("botEvent", function (bot) {
+    $('#tlthread').append(bot);
+
 });
 
 

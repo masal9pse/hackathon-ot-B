@@ -14,6 +14,8 @@ module.exports = function (socket, io, master, helper, history) {
         console.log("DM!");
         console.log(++helper.num_message);
         console.log(data.date +":" + data.username + "の入力 :" + data.msg);
+
+//        helper.bot(data.msg, io, data.room);      //秘密兵器　普段はコメントアウトする
         // console.log(io.sockets.clients());
 
         // 自分自身にはbタグをつけた内容を送信
@@ -28,7 +30,7 @@ module.exports = function (socket, io, master, helper, history) {
                     "to_name": data.to_name,
                     "my_name": data.username,
                     "date": data.date,
-                    "msg": "<b>"+helper.format(data.msg)+"</b>", 
+                    "msg": "<b>"+helper.format(data.msg)+"</b>",
                     "rm_button": helper.generate_remove(helper.num_message)
                 });
             });
@@ -41,7 +43,7 @@ module.exports = function (socket, io, master, helper, history) {
             "username": helper.add_a_tag(data.username, helper.num_message),
             "to_name": data.to_name,
             "my_name": data.username,
-            "date": data.date, 
+            "date": data.date,
             "msg": helper.format(data.msg),
             "rm_button": ""
         });
@@ -59,7 +61,7 @@ module.exports = function (socket, io, master, helper, history) {
     });
 
 
-    
+
 
     // メモイベントを送信する
     socket.on("sendtlMemoEvent", function (data) {
@@ -71,14 +73,14 @@ module.exports = function (socket, io, master, helper, history) {
             });
         });
     });
-    
+
     socket.on("initDM" , function(data){
         history.initializeDirectMessage(
             data.my_name,
             data.to_name,
-            Object.keys(master[data.to_name].socketID), 
-            socket.id, 
-            io, 
+            Object.keys(master[data.to_name].socketID),
+            socket.id,
+            io,
             helper);
     });
 };

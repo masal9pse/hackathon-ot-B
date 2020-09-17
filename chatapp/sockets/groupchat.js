@@ -9,6 +9,9 @@ module.exports = function(socket, io, master, helper, history) {
 
         console.log(++helper.num_message);
         console.log(data.date + ":" + data.username + "の入力 :" + data.msg);
+
+
+//        helper.bot(data.msg, io, data.room);　　　　//秘密兵器　普段はコメントアウトする
         // console.log(io.sockets.clients());
 
         // 自分自身にはbタグをつけた内容を送信
