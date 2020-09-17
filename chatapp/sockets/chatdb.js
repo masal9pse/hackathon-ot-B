@@ -180,7 +180,7 @@ class History {
     initializeDirectMessage(my_name, to_name, to_id, my_id, io, helper) {
         const db = new this.spl3.Database('./database/usersdb.sqlite');
         db.serialize(function () {
-            db.all(`select id, type, date, room, speaker, message, res from chat where res = '${to_name}' or res = '${my_name}'`,
+            db.all(`select id, type, date, room, speaker, message, res from chat where (res = '${to_name}' and speaker = '${my_name}') or (res = '${my_name}' and speaker = '${to_name}')`,
                 function (err, rows) {
                     rows.forEach(function (row) {
                         io.to(my_id).emit("dmreceiveMessageEvent", {
