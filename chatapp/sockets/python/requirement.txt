@@ -1,0 +1,52 @@
+astroid @ file:///opt/concourse/worker/volumes/live/b22b518b-f584-4586-5ee9-55bfa4fca96e/volume/astroid_1592495912194/work
+certifi==2020.6.20
+cffi==1.14.0
+chardet==3.0.4
+click==7.1.2
+cryptography==2.9.2
+decorator==4.4.2
+dill @ file:///tmp/build/80754af9/dill_1593202311028/work
+emoji==0.5.4
+filelock==3.0.12
+Flask==1.1.2
+idna==2.10
+isort @ file:///opt/concourse/worker/volumes/live/e7eb0d6d-5d58-493b-6745-1e58f38b59d3/volume/isort_1598376196187/work
+itsdangerous==1.1.0
+Jinja2==2.11.2
+joblib==0.15.1
+lazy-object-proxy==1.4.3
+MarkupSafe==1.1.1
+mccabe==0.6.1
+mecab-python3==1.0.1
+mkl-fft==1.1.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+neologdn==0.4
+numpy==1.19.0
+packaging==20.4
+pycparser==2.20
+pylint @ file:///opt/concourse/worker/volumes/live/9eebf2dc-3c74-4778-701c-c55b13929def/volume/pylint_1598624018844/work
+pyparsing==2.4.7
+python-crfsuite==0.9.7
+python-dateutil==2.8.1
+python-telegram-bot==12.8
+regex==2020.6.8
+requests==2.24.0
+sacremoses==0.0.43
+scikit-learn @ file:///opt/concourse/worker/volumes/live/eab838ab-55a5-40d0-5cbd-f1854d35aa9d/volume/scikit-learn_1592503039331/work
+scipy @ file:///opt/concourse/worker/volumes/live/14622691-c324-4e90-5a99-87aced91207b/volume/scipy_1592930535761/work
+sentencepiece==0.1.91
+six==1.15.0
+sklearn-crfsuite==0.3.6
+tabulate==0.8.7
+threadpoolctl @ file:///tmp/tmp9twdgx9k/threadpoolctl-2.1.0-py3-none-any.whl
+tokenizers==0.7.0
+toml @ file:///tmp/build/80754af9/toml_1592853716807/work
+torch==1.4.0
+tornado==6.0.4
+tqdm==4.47.0
+transformers==2.11.0
+typed-ast==1.4.1
+urllib3==1.25.9
+Werkzeug==1.0.1
+wrapt==1.11.2
