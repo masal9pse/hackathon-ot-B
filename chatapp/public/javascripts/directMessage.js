@@ -15,6 +15,9 @@ $("#direct-message-form").keypress(function(e) {
 socket.on('dmreceiveMessageEvent', function(data) {
     console.log(data.username);
     const thread = document.getElementById("dmthread").children;
+    console.log(data.my_name);
+    console.log($("#tluserName").val());
+    console.log(String($("#dmname").text()).replace(dm, ""));
     if( (data.my_name == $("#tluserName").val()) || (data.my_name == String($("#dmname").text()).replace(dm, ""))){
         if (idChecker(thread, data.messageid)) { // 同じメッセージ番号のものを表示しない
             if (reverse) {

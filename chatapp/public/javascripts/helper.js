@@ -70,6 +70,7 @@ function OnUsernameClick(element) {
     const to_name = $("#" + element.id).text();
     console.log(to_name);
     $("#dmname").text(dm + to_name);
+    $("#dmthread").empty();
     socket.emit("initDM", {"my_name": userName, "to_name": to_name});
 }
 

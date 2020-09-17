@@ -115,5 +115,14 @@ module.exports = function(socket, io, master, helper, history) {
                 date: data.date,
             });
         });
+        history.writeHistory(
+            -1,
+            "memo",
+            data.date,
+            "",
+            data.user,
+            data.msg,
+            0,
+        )
     });
 };
