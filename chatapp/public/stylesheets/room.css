@@ -40,6 +40,12 @@ form#room {
     justify-content: start;
 }
 
+form#direct-message-form {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
 #group-chat-form {
     /* width: 100vw; */
     width: 100%;
@@ -139,10 +145,10 @@ form#room {
 .dm-text{
     height: 10%;
     position: absolute;
-    bottom: 0;
+    bottom: 50px;
     display: flex;
     justify-content: start;
-    width: 100%;
+    /* width: 100%; */
 }
 
 /*
