@@ -1,13 +1,12 @@
 version: '3'
 
 services:
-    container_name: node-chatapp
     node-chatapp:
         build:
             context: ./
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile.pro
         ports:
-            - 3000:3000
+            - 80:3000
         volumes:
             - "./:/app"
             - "/app/node_modules"
