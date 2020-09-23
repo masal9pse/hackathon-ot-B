@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+    node-chatapp:
+        build:
+            context: ./
+            dockerfile: Dockerfile.prd
+        ports:
+            - 80:3000
+        volumes:
+            - "./:/app"
+            - "/app/node_modules"

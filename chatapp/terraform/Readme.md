@@ -15,7 +15,7 @@ sudo yum update -y && sudo yum install docker git -y && sudo service docker star
 
 // docker-composeは本番環境でインストールするのに手間取ったので、本番では使わない。
 
-sudo docker build -f Dockerfile --tag  docker-chatapp .
+sudo docker build --file Dockerfile.prd --tag  docker-chatapp .
 
 // アプリが落ちた場合は、同じポートでrun
 sudo  docker run -it -d -p 80:3000 docker-chatapp
@@ -34,7 +34,7 @@ terraform destroy
 2. sudo yum update -y && sudo yum install docker git -y && sudo service docker start && git clone https://github.com/rkclhack/hackathon-ot-B.git hackathon && sudo chkconfig docker on && sudo usermod -a -G docker ec2-user && sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o  && /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose
 3. 権限を変更したので、一度exitで抜けて再度ssh
 4. cd hackathon/chatapp
-5. docker-compose up -d
+5. docker-compose --file docker-compose.prd.yml up -d
 ```
 
 ## その他
